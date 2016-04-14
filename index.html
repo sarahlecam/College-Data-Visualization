@@ -6,6 +6,7 @@
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="locations.js"></script>
 	<script src="us.js"></script>
 </head>
 <body>
@@ -63,34 +64,24 @@
 			// not sure why I need to do this
 
 			function addCoords() {
-				var cities = 
-				[
-					{
-						city: "Ithaca, NY",
-						coord: projection([-76.5,42.4433])
-					},
-					{
-						city: "New York City, NY",
-						coord: projection([-74.0059, 40.7128])
-					}
-				];
-
 				circles = svg.selectAll(".point").data(cities);
 
 				circles.enter().append("circle")
 				.attr("class", "point")
-				.attr("cx", function(d) { return d.coord[0]; })
-				.attr("cy", function(d) { return d.coord[1]; })
-				.attr("r", 5)
+				.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
+				.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
+				.attr("r", 3)
+				.style("stroke", "black")
+				.style("stroke-width", 1)
 				.style("fill", "#ff6378")
 				.on("mouseover", function (d) {
-					d3.select("#location").text(d.city);
+					d3.select("#location").text(d.City);
 				})
 				.on("mouseout", function (d) {
 					d3.select("#location").text("Click on a college to learn more about it");
 				})
 				.on("click", function (d) {
-					d3.select("#college").text(d.city)
+					d3.select("#college").text(d.Name)
 					.style("opacity", 0)
 					.transition()
 					.duration(1000)
