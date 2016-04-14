@@ -6,8 +6,7 @@
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<script src="locations.js"></script>
-	<script src="us.js"></script>
+	<script src="locations.js"></script> <!-- www.findlatitudeandlongitude.com -->
 </head>
 <body>
 	<nav id="nav">
@@ -20,32 +19,39 @@
 
 	<div id="map">
 		<script>
+			// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
 			// set up map
-			var mapWidth = 900, mapHeight = 500;
+			var mapWidth = 900, mapHeight = 500, centered;
 
 			var projection = d3.geo.albersUsa()
-			    .scale(1000)
+			    .scale(900)
 			    .translate([mapWidth / 2, mapHeight / 2]);
 
 			var path = d3.geo.path()
 			    .projection(projection);
 
-			var svg = d3.select("body").append("svg")
+			var svg = d3.select("#map").append("svg")
 			    .attr("width", mapWidth)
 			    .attr("height", mapHeight)
 			    .style("background-color", "#d3d3d3")
 
-			d3.json("us.json", function(error, us) {
+			var g = svg.append("g");
+
+			//bl.ocks.org/mbostock/raw/4090846/us.json
+			d3.json("us.json", function(error, us) { 
 			  if (error) throw error;
 
-			  svg.insert("path", ".graticule")
-			      .datum(topojson.feature(us, us.objects.land))
-			      .attr("class", "land")
-			      .attr("d", path);
+			  g.append("g")
+			      .attr("id", "states")
+			    .selectAll("path")
+			      .data(topojson.feature(us, us.objects.states).features)
+			    .enter().append("path")
+			      .attr("d", path)
+			      .on("click", clicked);
 
-			  svg.insert("path", ".graticule")
+			  g.append("path")
 			      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-			      .attr("class", "state-boundary")
+			      .attr("id", "state-borders")
 			      .attr("d", path);
 			});
 
@@ -57,15 +63,54 @@
 				.attr("alignment-baseline", "central")
 				.attr("text-anchor", "middle");
 
-			d3.select(self.frameElement).style("height", mapHeight + "px");
+			circles = svg.selectAll(".point").data(cities);
 
+			function clicked(d) {
+			  var x, y, k;
+			  var largeRadius;
+			  if (d && centered !== d) {
+			    var centroid = path.centroid(d);
+			    x = centroid[0];
+			    y = centroid[1];
+			    k = 3;
+			    centered = d;
+			    largeRadius = true;
+			  } else {
+			    x = mapWidth / 2;
+			    y = mapHeight / 2;
+			    k = 1;
+			    centered = null;
+			    largeRadius = false;
+			  }
+
+			  g.selectAll("path")
+			      .classed("active", centered && function(d) { return d === centered; });
+
+			  g.transition()
+			      .duration(750)
+			      .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			      .style("stroke-width", 1.5 / k + "px");
+
+			  if (largeRadius) {
+			  	circles.transition()
+			  	  .duration(750)
+			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			      .style("stroke-width", 1.5 / k + "px")
+			      .attr("r", 0.8);
+			  }
+
+			  else {
+			  	circles.transition()
+			  	  .duration(750)
+			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			      .style("stroke-width", 1.5 / k + "px")
+			      .attr("r", 3);
+			  }
+			}
 			// testing some random points
 			// needed to set timeout so that the points don't load behind the map...
 			// not sure why I need to do this
-
 			function addCoords() {
-				circles = svg.selectAll(".point").data(cities);
-
 				circles.enter().append("circle")
 				.attr("class", "point")
 				.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
@@ -87,7 +132,6 @@
 					.duration(1000)
 					.style("opacity", 1);
 				});
-
 			};
 			setTimeout(addCoords, 1000);
 		</script>
