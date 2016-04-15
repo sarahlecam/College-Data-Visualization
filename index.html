@@ -10,18 +10,65 @@
 </head>
 <body>
 	<nav id="nav">
-		Project 2
+		<span id="projectTitle">INFO/CS3300 - Project 2</span>
+		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
+	    <div class="dropdown-content" id="myDropdown">
+	    </div>
 	</nav>
+
+	<script>
+	// first set up links in dropdown
+	var dropdownDiv = document.getElementById("myDropdown");
+	cities.forEach(function (obj) {
+		dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+	});
+
+	function displayCollege(d) {
+		d3.select("#college").text(d.Name)
+		.style("opacity", 0)
+		.transition()
+		.duration(1000)
+		.style("opacity", 1);
+
+		d3.select("#collegeLoc").text(d.City)
+		.style("opacity", 0)
+		.transition()
+		.duration(1000)
+		.style("opacity", 1);
+	}
+
+	/* When the user clicks on the button, 
+	toggle between hiding and showing the dropdown content */
+	function dropdownFunc() {
+	    document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(e) {
+	  if (!e.target.matches('.dropbtn')) {
+
+	    var dropdowns = document.getElementsByClassName("dropdown-content");
+	    for (var d = 0; d < dropdowns.length; d++) {
+	      var openDropdown = dropdowns[d];
+	      if (openDropdown.classList.contains('show')) {
+	        openDropdown.classList.remove('show');
+	      }
+	    }
+	  }
+	}
+	</script>
 
 	<div id="info">
 		<h3 id="college"></h3>
+		<p id="collegeLoc"></p>
 	</div>
 
 	<div id="map">
+		<p id = "location">Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!</p>
 		<script>
 			// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
 			// set up map
-			var mapWidth = 900, mapHeight = 500, centered;
+			var mapWidth = 850, mapHeight = 460, centered;
 
 			var projection = d3.geo.albersUsa()
 			    .scale(900)
@@ -55,13 +102,13 @@
 			      .attr("d", path);
 			});
 
-			svg.append("text")
-				.text("Click on a college to learn more about it")
-				.attr("id", "location")
-				.attr("x", mapWidth/2)
-				.attr("y", 15)
-				.attr("alignment-baseline", "central")
-				.attr("text-anchor", "middle");
+			// svg.append("text")
+			// 	.text("Click on a college to learn more about it")
+			// 	.attr("id", "location")
+			// 	.attr("x", mapWidth/2)
+			// 	.attr("y", 15)
+			// 	.attr("alignment-baseline", "central")
+			// 	.attr("text-anchor", "middle");
 
 			circles = svg.selectAll(".point").data(cities);
 
@@ -123,14 +170,10 @@
 					d3.select("#location").text(d.City);
 				})
 				.on("mouseout", function (d) {
-					d3.select("#location").text("Click on a college to learn more about it");
+					d3.select("#location").text("Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!");
 				})
 				.on("click", function (d) {
-					d3.select("#college").text(d.Name)
-					.style("opacity", 0)
-					.transition()
-					.duration(1000)
-					.style("opacity", 1);
+					displayCollege(d);
 				});
 			};
 			setTimeout(addCoords, 1000);
