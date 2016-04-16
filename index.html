@@ -6,7 +6,7 @@
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<script src="locations.js"></script> <!-- www.findlatitudeandlongitude.com -->
+	<script src="data.js"></script> <!-- www.findlatitudeandlongitude.com -->
 </head>
 <body>
 	<nav id="nav">
@@ -19,7 +19,7 @@
 	<script>
 	// first set up links in dropdown
 	var dropdownDiv = document.getElementById("myDropdown");
-	cities.forEach(function (obj) {
+	data.forEach(function (obj) {
 		dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
 	});
 
@@ -97,15 +97,7 @@
 			      .attr("d", path);
 			});
 
-			// svg.append("text")
-			// 	.text("Click on a college to learn more about it")
-			// 	.attr("id", "location")
-			// 	.attr("x", mapWidth/2)
-			// 	.attr("y", 15)
-			// 	.attr("alignment-baseline", "central")
-			// 	.attr("text-anchor", "middle");
-
-			circles = svg.selectAll(".point").data(cities);
+			circles = svg.selectAll(".point").data(data);
 
 			function clicked(d) {
 			  var x, y, k;
