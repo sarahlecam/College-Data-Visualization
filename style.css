@@ -38,16 +38,16 @@ body {
 }
 
 #states {
-  fill: #aaa;
+  fill: rgb(197,195,198);
 }
 
 #states .active {
-  fill: #f1736b;
+  fill: rgb(176,220,79);
 }
 
 #state-borders {
   fill: none;
-  stroke: #fff;
+  stroke: rgb(220,220,221);
   stroke-width: 0.5px;
   stroke-linejoin: round;
   stroke-linecap: round;
