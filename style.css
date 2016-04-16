@@ -1,7 +1,29 @@
+@media screen and (min-width: 1280px) {
+    body {
+      min-width: 1280px;
+    }
+    #map {
+      float: left;
+    }
+    #info {
+      float: right;
+      min-width: 350px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #info {
+      text-align: center;
+      float: none;
+    }
+    #map {
+      float: none;
+    }
+}
+
 body {
 	margin: 0;
 	font-family: 'Raleway', sans-serif;
-	min-width: 1280px;
 }
 
 #nav {
@@ -26,24 +48,19 @@ body {
 #state-borders {
   fill: none;
   stroke: #fff;
-  stroke-width: 1.5px;
+  stroke-width: 0.5px;
   stroke-linejoin: round;
   stroke-linecap: round;
   pointer-events: none;
 }
 
 #info {
-	float: left;
-	padding-left: 20px;
-	width: 340px;
-}
-
-#map {
-	float: right;
+	padding-left: 10px;
 }
 
 #location {
 	font-size: 0.8em;
+  text-align: center;
 }
 
 #projectTitle {
