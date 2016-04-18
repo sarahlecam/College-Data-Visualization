@@ -1,5 +1,4 @@
-var data =
-
+var data = 
 [
   {
     "Name": "Princeton University",
@@ -901,4 +900,4 @@ var data =
     "Latitude": 29.6409939,
     "Longitude": -82.3445109
   }
-]
+];
