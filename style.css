@@ -1,19 +1,19 @@
 @media screen and (min-width: 1200px) {
-    #map {
+    #map, #aggregate {
       float: left;
     }
-    #info {
+    #info, #aggInfo {
       float: right;
       width: 350px;
     }
 }
 
 @media screen and (max-width: 1199px) {
-    #info {
+    #info, #aggInfo {
       text-align: center;
       float: none;
     }
-    #map {
+    #map, #aggregate {
       float: none;
     }
 }
@@ -97,4 +97,8 @@ body {
 #myDropdown {
 	max-height: 200px;
 	overflow: auto;
+}
+
+path {
+  stroke: #fff;
 }

@@ -1,0 +1,48 @@
+{
+  "name": "College Averages",
+  "last": false,
+  "children": [
+    {
+      "name": "Expenses",
+      "last": false,
+      "children": [
+        {
+          "name": "Average Total Tuition",
+          "last": false,
+          "children": [
+            {"name": "Out of State Tuition", "last": true, "size": 44285},
+            {"name": "In State Tuition", "last": true, "size": 3981},
+            {"name": "Average Weighted Tution", "last": true, "size": 48010}
+          ]
+        },
+        {"name": "Average Cost of Living", "last": true, "size": 13390},
+        {
+          "name": "Financial Aid",
+          "last": false,
+          "children": [
+            {"name": "Total Student Population", "last": true, "size": 12994},
+            {"name": "Number on Financial Aid", "last": true, "size": 6071}
+          ]
+        },
+        {"name": "Grant Money Average", "last": true, "size": 29810}
+      ]
+    },
+    {
+      "name": "Total Student Body",
+      "last": false,
+      "children": [
+        {"name": "Out of State", "last": true, "size": 7231},
+        {"name": "In State", "last": true, "size": 20409},
+        {"name": "Total Student Body", "last": true, "size": 12994}
+      ]
+    },
+    {
+      "name": "Salaries",
+      "last": false,
+      "children": [
+        {"name": "Starting Salary", "last": true, "size": 55620},
+        {"name": "Mid-Career Salary", "last": true, "size": 102382}
+      ]
+    }
+  ]
+}

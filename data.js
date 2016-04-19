@@ -917,7 +917,7 @@ var data =
     "Rank": 47,
     "OutOfStateTuition": 31346,
     "InStateTuition": 17514,
-    "AvgTuition": 21,663.50,
+    "AvgTuition": 21663.50,
     "StudentBodyOutOfState": 12162,
     "StudentBodyInState": 28379,
     "TotalStudentBody": 40541,

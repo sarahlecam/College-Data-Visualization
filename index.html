@@ -17,291 +17,376 @@
 	    </div>
 	</nav>
 
-	<script>
-	// first set up links in dropdown
-	var dropdownDiv = document.getElementById("myDropdown");
-	data.forEach(function (obj) {
-		dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
-	});
+	<section>
 
-	function displayCollege(d) {
-		d3.select("#college").text(d.Name)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#collegeLoc").text("Location: " + d.City)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#rank").text("US News Ranking: " + d.Rank)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		if (d.InStateTuition == 0) {
-			d3.select("#outofstatetuition").text("Tuition: " + d.OutOfStateTuition)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-			d3.select("#instatetuition").text("")
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-		}
-
-		else if (d.InStateTuition != 0) {
-			d3.select("#instatetuition").text("In state tuition: " + d.InStateTuition)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-			d3.select("#outofstatetuition").text("Out of state tuition: " + d.OutOfStateTuition)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-		}
-
-		if (d.StudentBodyInState == 0) {
-			d3.select("#instatestudentbody").text("")
-			.style("opacity", 1)
-			.transition()
-			.duration(1000)
-			.style("opacity", 0);
-
-			d3.select("#outofstatestudentbody").text("Total student body: " + d.TotalStudentBody)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-			d3.select("#totalstudentbody").text("")
-			.style("opacity", 1)
-			.transition()
-			.duration(1000)
-			.style("opacity", 0);
-		}
-
-		else if (d.StudentBodyInState != 0) {
-			d3.select("#instatestudentbody").text("In state student body: " + d.StudentBodyInState)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-			d3.select("#outofstatestudentbody").text("Out of state student body: " + d.StudentBodyOutOfState)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-			d3.select("#totalstudentbody").text("Total student body: " + d.TotalStudentBody)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-
-		}
-
-		d3.select("#finaid").text("Average percentage on financial aid: " + d.AvgOnFinAid)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#avggrant").text("Average grant amount given: " + d.AvgGrantAmount)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#costliving").text("Average cost of living: " + d.AvgCostLiving)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#startingsalary").text("Average starting salary: " + d.StartingSalary)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-
-		d3.select("#midsalary").text("Average mid-career salary: " + d.MidSalary)
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-	}
-
-	/* When the user clicks on the button, 
-	toggle between hiding and showing the dropdown content */
-	function dropdownFunc() {
-	    document.getElementById("myDropdown").classList.toggle("show");
-	}
-
-	// Close the dropdown if the user clicks outside of it
-	window.onclick = function(e) {
-	  if (!e.target.matches('.dropbtn')) {
-
-	    var dropdowns = document.getElementsByClassName("dropdown-content");
-	    for (var d = 0; d < dropdowns.length; d++) {
-	      var openDropdown = dropdowns[d];
-	      if (openDropdown.classList.contains('show')) {
-	        openDropdown.classList.remove('show');
-	      }
-	    }
-	  }
-	}
-	</script>
-
-	<div id="map">
-		<p id = "location">Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!</p>
 		<script>
-			// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
-			// set up map
-			var mapWidth = 850, mapHeight = 460, centered;
+		// first set up links in dropdown
+		var dropdownDiv = document.getElementById("myDropdown");
+		data.forEach(function (obj) {
+			dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+		});
 
-			var projection = d3.geo.albersUsa()
-			    .scale(900)
-			    .translate([mapWidth / 2, mapHeight / 2]);
+		function displayCollege(d) {
+			d3.select("#college").text(d.Name)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
 
-			var path = d3.geo.path()
-			    .projection(projection);
+			d3.select("#collegeLoc").text("Location: " + d.City)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
 
-			var svg = d3.select("#map").append("svg")
-			    .attr("width", mapWidth)
-			    .attr("height", mapHeight)
-			    // .style("background-color", "#d3d3d3")
+			d3.select("#rank").text("US News Ranking: " + d.Rank)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
 
-			var g = svg.append("g");
+			if (d.InStateTuition == 0) {
+				d3.select("#outofstatetuition").text("Tuition: $" + d.OutOfStateTuition.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 
-			//bl.ocks.org/mbostock/raw/4090846/us.json
-			d3.json("us.json", function(error, us) { 
-			  if (error) throw error;
-
-			  g.append("g")
-			      .attr("id", "states")
-			    .selectAll("path")
-			      .data(topojson.feature(us, us.objects.states).features)
-			    .enter().append("path")
-			      .attr("d", path)
-			      .on("click", clicked);
-
-			  g.append("path")
-			      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-			      .attr("id", "state-borders")
-			      .attr("d", path);
-			});
-
-			// svg.append("text")
-			// 	.text("Click on a college to learn more about it")
-			// 	.attr("id", "location")
-			// 	.attr("x", mapWidth/2)
-			// 	.attr("y", 15)
-			// 	.attr("alignment-baseline", "central")
-			// 	.attr("text-anchor", "middle");
-
-			circles = svg.selectAll(".point").data(data);
-
-			var loading = true;
-
-			function clicked(d) {
-				if (!loading) {
-				  var x, y, k;
-				  var largeRadius;
-				  if (d && centered !== d) {
-				    var centroid = path.centroid(d);
-				    x = centroid[0];
-				    y = centroid[1];
-				    k = 3;
-				    centered = d;
-				    largeRadius = true;
-				  } else {
-				    x = mapWidth / 2;
-				    y = mapHeight / 2;
-				    k = 1;
-				    centered = null;
-				    largeRadius = false;
-				  }
-
-				  g.selectAll("path")
-				      .classed("active", centered && function(d) { return d === centered; });
-
-				  g.transition()
-				      .duration(750)
-				      .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-				      .style("stroke-width", 1.5 / k + "px");
-
-				  if (largeRadius) {
-				  	circles.transition()
-				  	  .duration(750)
-				  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-				      .style("stroke-width", 1.5 / k + "px")
-				      .attr("r", 1.3);
-				  }
-
-				  else {
-				  	circles.transition()
-				  	  .duration(750)
-				  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-				      .style("stroke-width", 1.5 / k + "px")
-				      .attr("r", 4);
-				  }
-				}
+				d3.select("#instatetuition").text("")
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 			}
-			// testing some random points
-			// needed to set timeout so that the points don't load behind the map...
-			// not sure why I need to do this
-			function addCoords() {
-				circles.enter().append("circle")
-				.attr("class", "point")
-				.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
-				.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
-				.attr("r", 3)
-				.style("stroke", "rgb(220,220,221)")
-				.style("stroke-width", 0.5)
-				.style("fill", "rgb(45,58,71)")
-				.on("mouseover", function (d) {
-					d3.select("#location").text(d.City);
-				})
-				.on("mouseout", function (d) {
-					d3.select("#location").text("Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!");
-				})
-				.on("click", function (d) {
-					displayCollege(d);
-				});
-				loading = false;
-			};
-			setTimeout(addCoords, 1000);
+
+			else if (d.InStateTuition != 0) {
+				d3.select("#instatetuition").text("In state tuition: $" + d.InStateTuition.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
+				d3.select("#outofstatetuition").text("Out of state tuition: $" + d.OutOfStateTuition.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+			}
+
+			if (d.StudentBodyInState == 0) {
+				d3.select("#instatestudentbody").text("")
+				.style("opacity", 1)
+				.transition()
+				.duration(1000)
+				.style("opacity", 0);
+
+				d3.select("#outofstatestudentbody").text("Total student body: " + d.TotalStudentBody.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
+				d3.select("#totalstudentbody").text("")
+				.style("opacity", 1)
+				.transition()
+				.duration(1000)
+				.style("opacity", 0);
+			}
+
+			else if (d.StudentBodyInState != 0) {
+				d3.select("#instatestudentbody").text("In state student body: " + d.StudentBodyInState.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
+				d3.select("#outofstatestudentbody").text("Out of state student body: " + d.StudentBodyOutOfState.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
+				d3.select("#totalstudentbody").text("Total student body: " + d.TotalStudentBody.toLocaleString())
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
+			}
+
+			d3.select("#finaid").text("Average percentage on financial aid: " + d.AvgOnFinAid)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			d3.select("#avggrant").text("Average grant amount given: $" + d.AvgGrantAmount.toLocaleString())
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			d3.select("#costliving").text("Average cost of living: $" + d.AvgCostLiving.toLocaleString())
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			d3.select("#startingsalary").text("Average starting salary: $" + d.StartingSalary.toLocaleString())
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			d3.select("#midsalary").text("Average mid-career salary: $" + d.MidSalary.toLocaleString())
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+		}
+
+		/* When the user clicks on the button, 
+		toggle between hiding and showing the dropdown content */
+		function dropdownFunc() {
+		    document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(e) {
+		  if (!e.target.matches('.dropbtn')) {
+
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    for (var d = 0; d < dropdowns.length; d++) {
+		      var openDropdown = dropdowns[d];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
 		</script>
-	</div>
 
-	<div id="info">
-		<h3 id="college"></h3>
-		<p id="collegeLoc"></p>
-		<p id = "rank"></p>
-		<p id = "outofstatetuition"></p>
-		<p id = "instatetuition"></p>
-		<p id = "outofstatestudentbody"></p>
-		<p id = "instatestudentbody"></p> 
-		<p id = "totalstudentbody"></p>
-		<p id = "finaid"></p>
-		<p id = "avggrant"></p>
-		<p id = "costliving"></p>
-		<p id = "startingsalary"></p>
-		<p id = "midsalary"></p>
+		<div id="map">
+			<p id = "location">Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!</p>
+			<script>
+				// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
+				// set up map
+				var mapWidth = 850, mapHeight = 460, centered;
 
-	</div>
+				var projection = d3.geo.albersUsa()
+				    .scale(900)
+				    .translate([mapWidth / 2, mapHeight / 2]);
+
+				var path = d3.geo.path()
+				    .projection(projection);
+
+				var svg = d3.select("#map").append("svg")
+				    .attr("width", mapWidth)
+				    .attr("height", mapHeight)
+				    // .style("background-color", "#d3d3d3")
+
+				var g = svg.append("g");
+
+				//bl.ocks.org/mbostock/raw/4090846/us.json
+				d3.json("us.json", function(error, us) { 
+				  if (error) throw error;
+
+				  g.append("g")
+				      .attr("id", "states")
+				    .selectAll("path")
+				      .data(topojson.feature(us, us.objects.states).features)
+				    .enter().append("path")
+				      .attr("d", path)
+				      .on("click", clicked);
+
+				  g.append("path")
+				      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+				      .attr("id", "state-borders")
+				      .attr("d", path);
+				});
+
+				// svg.append("text")
+				// 	.text("Click on a college to learn more about it")
+				// 	.attr("id", "location")
+				// 	.attr("x", mapWidth/2)
+				// 	.attr("y", 15)
+				// 	.attr("alignment-baseline", "central")
+				// 	.attr("text-anchor", "middle");
+
+				circles = svg.selectAll(".point").data(data);
+
+				var loading = true;
+
+				function clicked(d) {
+					if (!loading) {
+					  var x, y, k;
+					  var largeRadius;
+					  if (d && centered !== d) {
+					    var centroid = path.centroid(d);
+					    x = centroid[0];
+					    y = centroid[1];
+					    k = 3;
+					    centered = d;
+					    largeRadius = true;
+					  } else {
+					    x = mapWidth / 2;
+					    y = mapHeight / 2;
+					    k = 1;
+					    centered = null;
+					    largeRadius = false;
+					  }
+
+					  g.selectAll("path")
+					      .classed("active", centered && function(d) { return d === centered; });
+
+					  g.transition()
+					      .duration(750)
+					      .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+					      .style("stroke-width", 1.5 / k + "px");
+
+					  if (largeRadius) {
+					  	circles.transition()
+					  	  .duration(750)
+					  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+					      .style("stroke-width", 1.5 / k + "px")
+					      .attr("r", 1.3);
+					  }
+
+					  else {
+					  	circles.transition()
+					  	  .duration(750)
+					  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+					      .style("stroke-width", 1.5 / k + "px")
+					      .attr("r", 4);
+					  }
+					}
+				}
+				// testing some random points
+				// needed to set timeout so that the points don't load behind the map...
+				// not sure why I need to do this
+				function addCoords() {
+					circles.enter().append("circle")
+					.attr("class", "point")
+					.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
+					.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
+					.attr("r", 3)
+					.style("stroke", "rgb(220,220,221)")
+					.style("stroke-width", 0.5)
+					.style("fill", "rgb(45,58,71)")
+					.on("mouseover", function (d) {
+						d3.select("#location").text(d.City);
+					})
+					.on("mouseout", function (d) {
+						d3.select("#location").text("Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!");
+					})
+					.on("click", function (d) {
+						displayCollege(d);
+					});
+					loading = false;
+				};
+				setTimeout(addCoords, 1000);
+			</script>
+		</div>
+
+		<div id="info">
+			<h3 id="college"></h3>
+			<p id="collegeLoc"></p>
+			<p id = "rank"></p>
+			<p id = "outofstatetuition"></p>
+			<p id = "instatetuition"></p>
+			<p id = "outofstatestudentbody"></p>
+			<p id = "instatestudentbody"></p> 
+			<p id = "totalstudentbody"></p>
+			<p id = "finaid"></p>
+			<p id = "avggrant"></p>
+			<p id = "costliving"></p>
+			<p id = "startingsalary"></p>
+			<p id = "midsalary"></p>
+
+		</div>
+	</section>
+
+	<section>
+		<div id="aggregate"></div>
+		<div id="aggInfo">
+			<p id="aggTitle"></p>
+			<p id="aggValue"></p>
+		</div>
+		<script>
+		// source: http://bl.ocks.org/mbostock/4348373
+
+		var width = 850,
+		    height = 460,
+		    radius = (Math.min(width, height) / 2) - 10;
+
+		var formatNumber = d3.format(",d");
+
+		var x = d3.scale.linear()
+		    .range([0, 2 * Math.PI]);
+
+		var y = d3.scale.sqrt()
+		    .range([0, radius]);
+
+		var color = d3.scale.category20c();
+
+		var partition = d3.layout.partition()
+		    .value(function(d) { return d.size; });
+
+		var arc = d3.svg.arc()
+		    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+		    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+		    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+		    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+		var svg = d3.select("#aggregate").append("svg")
+		    .attr("width", width)
+		    .attr("height", height)
+		  .append("g")
+		    .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+		// var avg = 0, catCount = 0;
+		// data.forEach(function (d) {
+		// 	if (d.category != 0) {
+		// 		avg += d.category;
+		// 		catCount +=1;
+		// 	}
+		// })
+		// avg/catCount;
+		d3.json("test.json", function(error, root) {
+		  if (error) throw error;
+
+		  svg.selectAll("path")
+		      .data(partition.nodes(root))
+		    .enter().append("path")
+		      .attr("d", arc)
+		      .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+		      .on("click", click)
+		      .on("mouseover", function(d) {
+		     	d3.select("#aggTitle").text(d.name);
+		     	if (d.last) d3.select("#aggValue").text(formatNumber(d.value));
+		     	else d3.select("#aggValue").text("");
+		     })
+		    // .append("title")
+		    //   .text(function(d) { return d.name + "\n" + formatNumber(d.value); });
+		});
+
+		function click(d) {
+		  svg.transition()
+		      .duration(750)
+		      .tween("scale", function() {
+		        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+		            yd = d3.interpolate(y.domain(), [d.y, 1]),
+		            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+		        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+		      })
+		    .selectAll("path")
+		      .attrTween("d", function(d) { return function() { return arc(d); }; });
+		}
+
+		d3.select(self.frameElement).style("height", height + "px");
+
+		</script>
+	</section>
 
 </body>
 </html>
