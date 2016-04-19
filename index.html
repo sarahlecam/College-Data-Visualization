@@ -363,7 +363,7 @@
 		      .on("click", click)
 		      .on("mouseover", function(d) {
 		     	d3.select("#aggTitle").text(d.name);
-		     	if (d.last) d3.select("#aggValue").text(formatNumber(d.value));
+		     	if (d.displayNumber) d3.select("#aggValue").text(formatNumber(d.value));
 		     	else d3.select("#aggValue").text("");
 		     })
 		    // .append("title")
