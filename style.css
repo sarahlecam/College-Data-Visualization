@@ -4,7 +4,7 @@
     }
     #info, #aggInfo {
       float: right;
-      width: 350px;
+      width: 400px;
     }
 }
 
@@ -15,6 +15,7 @@
     }
     #map, #aggregate {
       float: none;
+      width: 400px;
     }
 }
 
