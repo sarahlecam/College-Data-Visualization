@@ -213,3 +213,19 @@ path {
   color: rgb(45,58,71);
   text-align: center;
 }
+
+#comparison {
+  margin: 5%;
+  padding-top: 20px;
+  float: left;
+  display: block;
+  clear: both;
+}
+
+.bar {
+  fill: #465a6d;
+}
+
+.bar:hover {
+  fill: #e2f2bf;
+}

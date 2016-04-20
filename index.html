@@ -20,7 +20,6 @@
 			In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment.
 		</p>
 	</div>
-
 	<nav id="nav">
 		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
 		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
@@ -62,7 +61,19 @@
 			</div>
 
 		</div>
+
+		<div id="comparison">
+			<h3>Compare Colleges</h3>
+			<div id="comparisonCharts"></div>
+		</div>
 	</section>
+
+	<div id="footer">
+		<h2>INFO/CS 3300</h2>
+		<h3>Project 2</h3>
+		<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
+	</div>
+	</div>
 
 	<script>
 
@@ -441,13 +452,52 @@
 		};
 		setTimeout(addCoords, 1000);
 		displayCollege(currentCollege);
-	</script>
 
-	<div id="footer">
-		<h2>INFO/CS 3300</h2>
-		<h3>Project 2</h3>
-		<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
-	</div>
-	</div>
+		//Start adding comparison charts
+		//Code source from HW4
+		function plotCompare(element_id, data) {
+			var height = 300;
+			var width = 300;
+			var padding = 50;
+			var svg = d3.select(element_id).append("svg")
+			.attr("height", height).attr("width", width);
+
+			var xScale = d3.scale.linear()
+			.domain(d3.extent(data.rank))
+			.range([padding, width-padding]);
+
+			var numBins = Math.sqrt(data.attr);
+			var histogram = d3.layout.histogram().bins(numBins);
+			var bins = histogram(data);
+
+			var yScale = d3.scale.linear()
+			.domain([0, d3.max(bins, function (bin) {
+				return bin.y;
+			}) ])
+			.range([height-padding, padding]);
+
+			var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+			var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
+			.call(xAxis);
+			svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
+			.call(yAxis);
+
+			bins.forEach(function (bin){
+				svg.append("rect").attr("class", "bar")
+				.attr("x", xScale(bin.x))
+				.attr("y", yScale(bin.y))
+				.attr("width", xScale(bin.dx) - xScale(0) - 2)
+				.attr("height", yScale(0) - yScale(bin.y));
+			});
+		}
+
+		var d = [{"rank": currentCollege.Rank, "attr": currentCollege.TotalStudentBody}];
+		plotCompare("#comparisonCharts", d);
+
+
+		
+	</script>
 </body>
 </html>
