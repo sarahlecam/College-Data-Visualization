@@ -259,8 +259,8 @@
 
 			// ring chart code: https://bl.ocks.org/mbostock/4348373
 
-			var chartWidth = 350,
-			    chartHeight = 350,
+			var chartWidth = 25/100*window.innerWidth,
+			    chartHeight = chartWidth,
 			    radius = (Math.min(chartWidth, chartHeight) / 2) - 10;
 
 			var svgRing = d3.select("#chart").append("svg")
@@ -346,7 +346,7 @@
 
 		// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
 		// set up map
-		var mapWidth = 850, mapHeight = 460, centered;
+		var mapWidth = 55/100*window.innerWidth, mapHeight = 0.62 * mapWidth, centered;
 
 		var projection = d3.geo.albersUsa()
 		    .scale(900)
