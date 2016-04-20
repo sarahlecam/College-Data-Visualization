@@ -38,8 +38,10 @@
 		</div>
 
 		<div id="info">
-			<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
-			<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+			<div id="radiobuttons">
+				<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
+				<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+			</div>
 
 			<div id = "infotext">
 				<h3 id="college"></h3>
@@ -252,7 +254,7 @@
 			    chartHeight = 350,
 			    radius = (Math.min(chartWidth, chartHeight) / 2) - 10;
 
-			var svgRing = d3.select("#info").append("svg")
+			var svgRing = d3.select("#chart").append("svg")
 				.attr("id", "ringchart")
 			    .attr("width", chartWidth)
 			    .attr("height", chartHeight)

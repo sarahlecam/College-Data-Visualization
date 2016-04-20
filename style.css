@@ -179,3 +179,7 @@ path {
 #chartTitle, #chartValue {
   font-size: 0.8em;
 }
+
+#radiobuttons {
+  padding-bottom: 5px;
+}
