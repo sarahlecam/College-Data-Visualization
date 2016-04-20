@@ -1,7 +1,7 @@
 function createArr(obj) {
 	root = 
 	{
-	  "name": obj.Name + ", rank " + obj.Rank,
+	  "name": "Rank: " + obj.Rank,
 	  "displayNumber": false,
 	  "children": [
 	    {

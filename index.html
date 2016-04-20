@@ -37,11 +37,9 @@
 		</div>
 
 		<div id="info">
-			<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()" checked>View Text Data
-			<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()">View Circle Data
-			<p id="chartTitle"></p>
-			<p id="chartValue"></p>
-			<div id="chart"></div>
+			<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
+			<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+
 			<h3 id="college"></h3>
 			<p id="collegeLoc"></p>
 			<p id = "rank"></p>
@@ -55,6 +53,10 @@
 			<p id = "costliving"></p>
 			<p id = "startingsalary"></p>
 			<p id = "midsalary"></p>
+
+			<p id="chartTitle"></p>
+			<p id="chartValue"></p>
+			<div id="chart"></div>
 
 		</div>
 	</section>
@@ -232,9 +234,21 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
+			d3.select("#chartValue").text(".");
 
-			d3.select("#chartTitle").text(currentCollege.Name);
-			d3.select("#chartValue").text(currentCollege.City);
+			d3.select("#college").text(currentCollege.Name)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			d3.select("#collegeLoc").text("Location: " + currentCollege.City)
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+			// https://bl.ocks.org/mbostock/4348373
 
 			var chartWidth = 350,
 			    chartHeight = 350,
@@ -260,6 +274,13 @@
 			    .range([0, radius]);
 
 			var color = d3.scale.category20c();
+			// change the color scheme
+			color.range()[0] = "#465a6d";
+			color.range()[1] = "#63809c";
+			color.range()[2] = "#a2b3c3";
+			color.range()[3] = "#e0e6eb";
+			color.range()[4] = "#c5e67f";
+			color.range()[5] = "#e2f2bf";
 
 			 partition = d3.layout.partition()
 			    .value(function(d) { return d.size; });
@@ -288,9 +309,8 @@
 				      .attrTween("d", function(d) { return function() { return arc(d); }; });
 			      })
 			      .on("mouseover", function(d) {
-			     	d3.select("#chartTitle").text(d.name);
-			     	if (d.displayNumber) d3.select("#chartValue").text(formatNumber(d.value));
-			     	else d3.select("#chartValue").text(".");
+			     	if (d.displayNumber) d3.select("#chartValue").text(d.name + ": " +formatNumber(d.value));
+			     	else d3.select("#chartValue").text(d.name);
 			     });
 			d3.select(self.frameElement).style("height", chartHeight + "px");
 
@@ -432,6 +452,7 @@
 			loading = false;
 		};
 		setTimeout(addCoords, 1000);
+		displayCollege(currentCollege);
 	</script>
 
 </body>
