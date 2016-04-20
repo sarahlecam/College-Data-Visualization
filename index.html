@@ -237,17 +237,9 @@
 
 			d3.select("#chartValue").text(".");
 
-			d3.select("#college").text(currentCollege.Name)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
+			d3.select("#college").text(currentCollege.Name);
 
-			d3.select("#collegeLoc").text("Location: " + currentCollege.City)
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
+			d3.select("#collegeLoc").text("Location: " + currentCollege.City);
 
 			// https://bl.ocks.org/mbostock/4348373
 
