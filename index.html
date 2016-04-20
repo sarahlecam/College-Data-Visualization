@@ -5,11 +5,25 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,700italic" rel="stylesheet" type="text/css">
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat+Subrayada' rel='stylesheet' type='text/css'>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="data.js"></script> <!-- www.findlatitudeandlongitude.com -->
 	<script src="createJSONArray.js"></script>
 </head>
 <body>
+	<div id="header">
+		<h1>The Real Cost<br>of College<br></h1>
+	</div>
+	<div id="text">
+		<p>
+			In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment.
+		</p>
+	</div>
+	<div id="aggregate"></div>
+	<div id="aggInfo">
+		<p id="aggTitle"></p>
+		<p id="aggValue"></p>
+	</div>
 	<nav id="nav">
 		<span id="projectTitle">INFO/CS3300 - Project 2</span>
 		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
