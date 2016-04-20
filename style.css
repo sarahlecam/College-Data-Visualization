@@ -18,9 +18,19 @@
     }
 }
 
-body {
+body, html {
 	margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 	font-family: 'Raleway', sans-serif;
+}
+
+/* inspiration from http://stackoverflow.com/questions/12046315/prevent-overscrolling-of-web-page */
+#content {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 /*colummn inspiration from http://www.w3schools.com/css/css3_multiple_columns.asp*/
@@ -137,6 +147,8 @@ h1 {
 path {
   stroke: #fff;
 }
+
+
 
 #chartTitle, #chartValue {
   font-size: 0.8em;
