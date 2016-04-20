@@ -41,23 +41,25 @@
 			<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
 			<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
 
-			<h3 id="college"></h3>
-			<p id="collegeLoc"></p>
-			<p id = "rank"></p>
-			<p id = "outofstatetuition"></p>
-			<p id = "instatetuition"></p>
-			<p id = "outofstatestudentbody"></p>
-			<p id = "instatestudentbody"></p> 
-			<p id = "totalstudentbody"></p>
-			<p id = "finaid"></p>
-			<p id = "avggrant"></p>
-			<p id = "costliving"></p>
-			<p id = "startingsalary"></p>
-			<p id = "midsalary"></p>
+			<div id = "infotext">
+				<h3 id="college"></h3>
+				<p id="collegeLoc"></p>
+				<p id = "rank"></p>
+				<p id = "outofstatetuition"></p>
+				<p id = "instatetuition"></p>
+				<p id = "outofstatestudentbody"></p>
+				<p id = "instatestudentbody"></p> 
+				<p id = "totalstudentbody"></p>
+				<p id = "finaid"></p>
+				<p id = "avggrant"></p>
+				<p id = "costliving"></p>
+				<p id = "startingsalary"></p>
+				<p id = "midsalary"></p>
 
-			<p id="chartTitle"></p>
-			<p id="chartValue"></p>
-			<div id="chart"></div>
+				<p id="chartTitle"></p>
+				<p id="chartValue"></p>
+				<div id="chart"></div>
+			</div>
 
 		</div>
 	</section>
@@ -447,6 +449,12 @@
 		setTimeout(addCoords, 1000);
 		displayCollege(currentCollege);
 	</script>
+
+	<div id="footer">
+		<h2>INFO/CS 3300</h2>
+		<h3>Project 2</h3>
+		<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
+	</div>
 	</div>
 </body>
 </html>
