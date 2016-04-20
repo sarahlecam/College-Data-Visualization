@@ -453,6 +453,50 @@
 		setTimeout(addCoords, 1000);
 		displayCollege(currentCollege);
 
+		//Start adding comparison charts
+		//Code source from HW4
+		function plotCompare(element_id, data) {
+			var height = 300;
+			var width = 300;
+			var padding = 50;
+			var svg = d3.select(element_id).append("svg")
+			.attr("height", height).attr("width", width);
+
+			var xScale = d3.scale.linear()
+			.domain(d3.extent(data.rank))
+			.range([padding, width-padding]);
+
+			var numBins = Math.sqrt(data.attr);
+			var histogram = d3.layout.histogram().bins(numBins);
+			var bins = histogram(data);
+
+			var yScale = d3.scale.linear()
+			.domain([0, d3.max(bins, function (bin) {
+				return bin.y;
+			}) ])
+			.range([height-padding, padding]);
+
+			var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+			var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
+			.call(xAxis);
+			svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
+			.call(yAxis);
+
+			bins.forEach(function (bin){
+				svg.append("rect").attr("class", "bar")
+				.attr("x", xScale(bin.x))
+				.attr("y", yScale(bin.y))
+				.attr("width", xScale(bin.dx) - xScale(0) - 2)
+				.attr("height", yScale(0) - yScale(bin.y));
+			});
+		}
+
+		var d = [{"rank": currentCollege.Rank, "attr": currentCollege.TotalStudentBody}];
+		plotCompare("#comparisonCharts", d);
+
+
 		
 	</script>
 </body>
