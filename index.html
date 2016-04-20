@@ -20,11 +20,7 @@
 			In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment.
 		</p>
 	</div>
-	<div id="aggregate"></div>
-	<div id="aggInfo">
-		<p id="aggTitle"></p>
-		<p id="aggValue"></p>
-	</div>
+
 	<nav id="nav">
 		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
 		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
@@ -252,8 +248,8 @@
 
 			// ring chart code: https://bl.ocks.org/mbostock/4348373
 
-			var chartWidth = 25/100*window.innerWidth,
-			    chartHeight = chartWidth,
+			var chartWidth = 350,
+			    chartHeight = 350,
 			    radius = (Math.min(chartWidth, chartHeight) / 2) - 10;
 
 			var svgRing = d3.select("#chart").append("svg")
@@ -339,7 +335,7 @@
 
 		// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
 		// set up map
-		var mapWidth = 55/100*window.innerWidth, mapHeight = 0.62 * mapWidth, centered;
+		var mapWidth = 700, mapHeight = 460, centered;
 
 		var projection = d3.geo.albersUsa()
 		    .scale(900)
