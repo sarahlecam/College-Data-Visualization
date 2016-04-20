@@ -26,7 +26,7 @@
 		<p id="aggValue"></p>
 	</div>
 	<nav id="nav">
-		<span id="projectTitle">INFO/CS3300 - Project 2</span>
+		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
 		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
 	    <div class="dropdown-content" id="myDropdown">
 	    </div>
@@ -242,7 +242,7 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
-			d3.select("#chartValue").text(".");
+			d3.select("#chartValue").text("Rank: " + currentCollege.Rank);
 
 			d3.select("#college").text(currentCollege.Name);
 
