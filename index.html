@@ -79,6 +79,7 @@
 			dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
 		});
 
+		// function to show cornell text data
 		function textCollegeData() {
 			// first clear everything
 			d3.select("#chartTitle").text("");
@@ -98,6 +99,7 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
+			// figured out how to do transitions from lecture notes
 			d3.select("#college").text(currentCollege.Name)
 			.style("opacity", 0)
 			.transition()
@@ -216,6 +218,7 @@
 			.style("opacity", 1);
 		}
 
+		// function to show chart data
 		function chartCollegeData() {
 			// first clear everything
 			d3.select("#chartTitle").text("");
@@ -241,7 +244,7 @@
 
 			d3.select("#collegeLoc").text("Location: " + currentCollege.City);
 
-			// https://bl.ocks.org/mbostock/4348373
+			// ring chart code: https://bl.ocks.org/mbostock/4348373
 
 			var chartWidth = 350,
 			    chartHeight = 350,
@@ -252,9 +255,7 @@
 			    .attr("width", chartWidth)
 			    .attr("height", chartHeight)
 			    .append("g")
-			    .attr("transform", "translate(" + chartWidth / 2 + "," + (chartHeight / 2) + ")")
-
-			//d3.select("#ringchart").style("display", "block");
+			    .attr("transform", "translate(" + chartWidth / 2 + "," + (chartHeight / 2) + ")");
 
 			var root = createArr(currentCollege);
 
@@ -309,6 +310,7 @@
 
 		}
 
+		// drop down menu code: http://www.w3schools.com/howto/howto_js_dropdown.asp
 		/* When the user clicks on the button, 
 		toggle between hiding and showing the dropdown content */
 		function dropdownFunc() {
@@ -347,7 +349,7 @@
 
 		var g = svg.append("g");
 
-		//bl.ocks.org/mbostock/raw/4090846/us.json
+		//map from bl.ocks.org/mbostock/raw/4090846/us.json
 		d3.json("us.json", function(error, us) { 
 		  if (error) throw error;
 
@@ -364,14 +366,6 @@
 		      .attr("id", "state-borders")
 		      .attr("d", path);
 		});
-
-		// svg.append("text")
-		// 	.text("Click on a college to learn more about it")
-		// 	.attr("id", "location")
-		// 	.attr("x", mapWidth/2)
-		// 	.attr("y", 15)
-		// 	.attr("alignment-baseline", "central")
-		// 	.attr("text-anchor", "middle");
 
 		circles = svg.selectAll(".point").data(data);
 
@@ -421,9 +415,8 @@
 			  }
 			}
 		}
-		// testing some random points
+
 		// needed to set timeout so that the points don't load behind the map...
-		// not sure why I need to do this
 		function addCoords() {
 			circles.enter().append("circle")
 			.attr("class", "point")
