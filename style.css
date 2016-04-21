@@ -208,6 +208,11 @@ path {
   font-size: 0.8em;
 }
 
+#chart {
+  padding-left: 4%;
+  padding-right: 1%;
+}
+
 #radiobuttons {
   padding-bottom: 5px;
   color: rgb(45,58,71);
