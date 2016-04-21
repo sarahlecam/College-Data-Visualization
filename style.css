@@ -209,8 +209,8 @@ path {
 }
 
 #chart {
-  padding-left: 4%;
-  padding-right: 1%;
+  /*text-align: center;*/
+  float: center;
 }
 
 #radiobuttons {
