@@ -22,14 +22,14 @@
 	</div>
 	<nav id="nav">
 		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
-		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc()">Click to display a list of all colleges</a>
+		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
 	    <div class="dropdown-content" id="myDropdown">
 	    </div>
 	</nav>
 
 	<section>
 		<div id="map">
-			<p id = "location">Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the top 50 college in that city!</p>
+			<p id = "location">Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.</p>
 		</div>
 
 		<div id="info">
@@ -65,6 +65,9 @@
 		<div id="comparison">
 			<h3>Compare Colleges</h3>
 			<p>Compare selected college to the average of the top 50 schools in the nation</p>
+			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
+		    <div class="dropdown-content" id="compareDropdown">
+		    </div>
 			<div id="comparisonCharts"></div>
 		</div>
 	</section>
@@ -347,8 +350,8 @@
 		// drop down menu code: http://www.w3schools.com/howto/howto_js_dropdown.asp
 		/* When the user clicks on the button, 
 		toggle between hiding and showing the dropdown content */
-		function dropdownFunc() {
-		    document.getElementById("myDropdown").classList.toggle("show");
+		function dropdownFunc(element_id) {
+		    document.getElementById(element_id).classList.toggle("show");
 		}
 
 		// Close the dropdown if the user clicks outside of it
@@ -468,10 +471,6 @@
 			.style("stroke", "rgb(220,220,221)")
 			.style("stroke-width", 0.5)
 			.style("fill", "rgb(45,58,71)")
-			// .style("opacity", 0)
-			// .transition()
-			// .duration(500)
-			// .style("opacity", 1)
 			.on("mouseover", function (d) {
 				d3.select("#location").text(d.City);
 			})
@@ -488,7 +487,16 @@
 			loading = false;
 		};
 		setTimeout(addCoords, 1000);
-		displayCollege(currentCollege);
+		displayCollege(currentCollege)
+
+		var comparedropdownDiv = document.getElementById("compareDropdown");
+		data.forEach(function (obj) {
+			comparedropdownDiv.innerHTML += "<a href='#' onClick='compareSelector("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+		});
+
+		// function compareSelector(obj) {
+		// 	allComparisonPlots(obj);
+		// }
 
 		//Start adding comparison charts
 		function plotCompare(element_id, title, chartData) {
@@ -557,6 +565,8 @@
 					{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
 					"StyleClass": "bar"}
+					// {"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgTuition, "HoverTitle": "Average Tuition",
+					// "StyleClass": "bar"}
 				]);
 			// Cost of Living
 			plotCompare("#comparisonCharts", "Avg. Cost of Living", [
