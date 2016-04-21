@@ -82,8 +82,9 @@
 		function displayCollege(obj) {
 			currentCollege = obj;
 			console.log(currentCollege);
-			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") chartCollegeData();
-			else textCollegeData();
+			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
+				chartCollegeData();
+			} else textCollegeData();
 		}
 
 		// first set up links in dropdown
@@ -251,11 +252,23 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
-			d3.select("#chartValue").text("Rank: " + currentCollege.Rank);
+			d3.select("#chartValue").text("Rank: " + currentCollege.Rank)
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 
-			d3.select("#college").text(currentCollege.Name);
+			d3.select("#college").text(currentCollege.Name)
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 
-			d3.select("#collegeLoc").text("Location: " + currentCollege.City);
+			d3.select("#collegeLoc").text("Location: " + currentCollege.City)
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 
 			// ring chart code: https://bl.ocks.org/mbostock/4348373
 
@@ -268,7 +281,8 @@
 			    .attr("width", chartWidth)
 			    .attr("height", chartHeight)
 			    .append("g")
-			    .attr("transform", "translate(" + chartWidth / 2 + "," + (chartHeight / 2) + ")");
+			    .attr("transform", "translate(" + chartWidth / 2 + "," + (chartHeight / 2) + ")")
+			    ;
 
 			var root = createArr(currentCollege);
 
@@ -318,7 +332,12 @@
 			      .on("mouseover", function(d) {
 			     	if (d.displayNumber) d3.select("#chartValue").text(d.name + ": " +formatNumber(d.value));
 			     	else d3.select("#chartValue").text(d.name);
-			     });
+			     })
+			    .style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
+
 			d3.select(self.frameElement).style("height", chartHeight + "px");
 
 		}
@@ -357,7 +376,7 @@
 
 		var svg = d3.select("#map").append("svg")
 		    .attr("width", mapWidth)
-		    .attr("height", mapHeight)
+		    .attr("height", mapHeight);
 		    // .style("background-color", "#d3d3d3")
 
 		var g = svg.append("g");
@@ -372,12 +391,20 @@
 		      .data(topojson.feature(us, us.objects.states).features)
 		    .enter().append("path")
 		      .attr("d", path)
-		      .on("click", clicked);
+		      .on("click", clicked)
+		      .style("opacity", 0)
+			  .transition()
+			  .duration(1000)
+			  .style("opacity", 1);;
 
 		  g.append("path")
 		      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
 		      .attr("id", "state-borders")
-		      .attr("d", path);
+		      .attr("d", path)
+		      .style("opacity", 0)
+			  .transition()
+			  .duration(2000)
+			  .style("opacity", 1);
 		});
 
 		circles = svg.selectAll(".point").data(data);
@@ -439,6 +466,10 @@
 			.style("stroke", "rgb(220,220,221)")
 			.style("stroke-width", 0.5)
 			.style("fill", "rgb(45,58,71)")
+			// .style("opacity", 0)
+			// .transition()
+			// .duration(500)
+			// .style("opacity", 1)
 			.on("mouseover", function (d) {
 				d3.select("#location").text(d.City);
 			})
@@ -447,7 +478,11 @@
 			})
 			.on("click", function (d) {
 				displayCollege(d);
-			});
+			})
+			.style("opacity", 0)
+			.transition()
+			.duration(500)
+			.style("opacity", 1);
 			loading = false;
 		};
 		setTimeout(addCoords, 1000);
