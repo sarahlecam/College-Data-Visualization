@@ -64,6 +64,7 @@
 
 		<div id="comparison">
 			<h3>Compare Colleges</h3>
+			<p>Compare selected college to the average of the top 50 schools in the nation</p>
 			<div id="comparisonCharts"></div>
 		</div>
 	</section>
@@ -81,7 +82,8 @@
 
 		function displayCollege(obj) {
 			currentCollege = obj;
-			console.log(currentCollege);
+			d3.selectAll("#comparisonCharts svg").remove()
+			allComparisonPlots();
 			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
 				chartCollegeData();
 			} else textCollegeData();
@@ -489,50 +491,101 @@
 		displayCollege(currentCollege);
 
 		//Start adding comparison charts
-		//Code source from HW4
-		function plotCompare(element_id, data) {
-			var height = 300;
+		function plotCompare(element_id, title, chartData) {
+			var height = 500;
 			var width = 300;
-			var padding = 50;
+			var padding = 100;
 			var svg = d3.select(element_id).append("svg")
 			.attr("height", height).attr("width", width);
 
-			var xScale = d3.scale.linear()
-			.domain(d3.extent(data.rank))
-			.range([padding, width-padding]);
+			// tooltip code from http://bl.ocks.org/biovisualize/1016860
+			var tooltip = d3.select("body")
+							.append("div")
+							.attr("class", "tooltip")
+							.style("position", "absolute")
+							.style("z-index", "10")
+							.style("visibility", "hidden");
 
-			var numBins = Math.sqrt(data.attr);
-			var histogram = d3.layout.histogram().bins(numBins);
-			var bins = histogram(data);
+			var formatNumber = d3.format(",d");
+
+			svg.append("text").text(title).attr("x", padding).attr("y", padding/2);
+
+			var xDomain = [];
+			chartData.forEach(function(d){xDomain.push(d.Name)});
+
+			var yDomain = [];
+			chartData.forEach(function(d){yDomain.push(d.Attr)});
+
+			var xScale = d3.scale.ordinal()
+			.domain(xDomain)
+			.rangeRoundBands([padding, width-padding]);
 
 			var yScale = d3.scale.linear()
-			.domain([0, d3.max(bins, function (bin) {
-				return bin.y;
-			}) ])
+			.domain([0, 1.5*Math.max.apply(Math, yDomain)])
 			.range([height-padding, padding]);
 
-			var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-			var yAxis = d3.svg.axis().scale(yScale).orient("left");
+			var xAxis = d3.svg.axis().scale(xScale).orient("bottom"),
+				yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
-			.call(xAxis);
+			.call(xAxis)
+			.selectAll("text")
+						.style("text-anchor","end")
+						.style("font-size","11")
+						.attr("dx","-.8em")
+						.attr("dy",".15em")
+						.attr("transform","rotate(-60)");
 			svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
 			.call(yAxis);
 
-			bins.forEach(function (bin){
+			chartData.forEach(function(d) {
 				svg.append("rect").attr("class", "bar")
-				.attr("x", xScale(bin.x))
-				.attr("y", yScale(bin.y))
-				.attr("width", xScale(bin.dx) - xScale(0) - 2)
-				.attr("height", yScale(0) - yScale(bin.y));
+				.attr("x", xScale(d.Name))
+				.attr("y", yScale(d.Attr))
+				.attr("width", (width-2*padding)/2)
+				.attr("height", height - padding - yScale(d.Attr))
+				.on("mouseover", function(){return tooltip.style("visibility", "visible").text(d.HoverTitle +":\n "+formatNumber(d.Attr));})
+				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+				.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 			});
+
 		}
 
-		var d = [{"rank": currentCollege.Rank, "attr": currentCollege.TotalStudentBody}];
-		plotCompare("#comparisonCharts", d);
+		function allComparisonPlots() {
+			// Tuition
+			plotCompare("#comparisonCharts", "Avg. Tuition", [
+					{"Name": "Average", "Attr": 39254, "HoverTitle": "Avgerage Tuition"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.AvgTuition, "HoverTitle": "Avgerage Tuition"}
+				]);
+			// Cost of Living
+			plotCompare("#comparisonCharts", "Avg. Cost of Living", [
+					{"Name": "Average", "Attr": 13389, "HoverTitle": "Avgerage Cost of Living"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Avgerage Cost of Living"}
+				]);
+			// Grant Amount
+			plotCompare("#comparisonCharts", "Avg. Grant Amount", [
+					{"Name": "Average", "Attr": 29810, "HoverTitle": "Avgerage Grant Amount"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Avgerage Grant Amount"}
+				]);
+			// % Financial Aid
+			plotCompare("#comparisonCharts", "Avg. % on Financial Aid", [
+					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid"},
+					{"Name": currentCollege.Name, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid"}
+				]);
+			// Student Body
+			plotCompare("#comparisonCharts", "Avg. Student Body", [
+					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body"}
+				]);
+			// Salary
+			plotCompare("#comparisonCharts",  "Avg. Salaries", [
+					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary"},
+					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary"},
+					{"Name": currentCollege.Name, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary"}
+				]);
+		}
 
-
-		
 	</script>
 </body>
 </html>
