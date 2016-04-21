@@ -227,19 +227,37 @@ path {
   clear: both;
 }
 
+.average {
+  fill: rgb(99, 128, 156);
+  stroke: rgb(70, 90, 109);
+  opacity: 0.7;
+}
+
+.average:hover {
+  fill: rgb(162, 179, 195);
+  stroke: rgb(70, 90, 109);
+}
+
 .bar {
-  fill: #63809c;
-  stroke: #465a6d;
+  fill: rgb(197, 230, 127);
+  stroke: rgb(176,220,79);
   opacity: 0.7;
 }
 
 .bar:hover {
-  fill: #e2f2bf;
-  stroke: #c5e67f;
+  fill: rgb(226, 242, 191);
+  stroke: rgb(176,220,79);
 }
 
-.axis {
+.axis path{
   shape-rendering: crispEdges;
+  fill: none;
+  stroke: black;
+  stroke-width: 1.4px;
+}
+
+.axis line {
+  stroke: black;
 }
 
 .tooltip {

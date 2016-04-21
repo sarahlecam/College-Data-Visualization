@@ -531,7 +531,7 @@
 			.call(xAxis)
 			.selectAll("text")
 						.style("text-anchor","end")
-						.style("font-size","11")
+						.style("font-size","10")
 						.attr("dx","-.8em")
 						.attr("dy",".15em")
 						.attr("transform","rotate(-60)");
@@ -539,7 +539,7 @@
 			.call(yAxis);
 
 			chartData.forEach(function(d) {
-				svg.append("rect").attr("class", "bar")
+				svg.append("rect").attr("class", d.StyleClass)
 				.attr("x", xScale(d.Name))
 				.attr("y", yScale(d.Attr))
 				.attr("width", (width-2*padding)/2)
@@ -554,35 +554,36 @@
 		function allComparisonPlots() {
 			// Tuition
 			plotCompare("#comparisonCharts", "Avg. Tuition", [
-					{"Name": "Average", "Attr": 39254, "HoverTitle": "Avgerage Tuition"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.AvgTuition, "HoverTitle": "Avgerage Tuition"}
+					{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
+					"StyleClass": "bar"}
 				]);
 			// Cost of Living
 			plotCompare("#comparisonCharts", "Avg. Cost of Living", [
-					{"Name": "Average", "Attr": 13389, "HoverTitle": "Avgerage Cost of Living"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Avgerage Cost of Living"}
+					{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"}
 				]);
 			// Grant Amount
 			plotCompare("#comparisonCharts", "Avg. Grant Amount", [
-					{"Name": "Average", "Attr": 29810, "HoverTitle": "Avgerage Grant Amount"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Avgerage Grant Amount"}
+					{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"}
 				]);
 			// % Financial Aid
 			plotCompare("#comparisonCharts", "Avg. % on Financial Aid", [
-					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid"},
-					{"Name": currentCollege.Name, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid"}
+					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"}
 				]);
 			// Student Body
 			plotCompare("#comparisonCharts", "Avg. Student Body", [
-					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body"}
+					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"}
 				]);
 			// Salary
 			plotCompare("#comparisonCharts",  "Avg. Salaries", [
-					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary"},
-					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary"},
-					{"Name": currentCollege.Name, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary"}
+					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
+					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass":"bar"}
 				]);
 		}
 

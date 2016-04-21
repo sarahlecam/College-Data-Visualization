@@ -40,6 +40,7 @@ var data =
   },
   {
     "Name": "Yale University",
+    "DisplayName": "Yale",
     "Rank": 3,
     "OutOfStateTuition": 47600,
     "InStateTuition": 0,
@@ -59,6 +60,7 @@ var data =
   },
   {
     "Name": "Columbia University",
+    "DisplayName": "Columbia",
     "Rank": 4,
     "OutOfStateTuition": 51008,
     "InStateTuition": 0,
@@ -78,6 +80,7 @@ var data =
   },
   {
     "Name": "Stanford University",
+    "DisplayName": "Stanford",
     "Rank": 4,
     "OutOfStateTuition": 46320,
     "InStateTuition": 0,
@@ -97,6 +100,7 @@ var data =
   },
   {
     "Name": "University of Chicago",
+    "DisplayName": "University of Chicago",
     "Rank": 4,
     "OutOfStateTuition": 50193,
     "InStateTuition": 0,
@@ -116,6 +120,7 @@ var data =
   },
   {
     "Name": "Massachusetts Institute of Technology",
+    "DisplayName": "MIT",
     "Rank": 7,
     "OutOfStateTuition": 46704,
     "InStateTuition": 0,
@@ -135,6 +140,7 @@ var data =
   },
   {
     "Name": "Duke University",
+    "DisplayName": "Duke",
     "Rank": 8,
     "OutOfStateTuition": 49341,
     "InStateTuition": 0,
@@ -154,6 +160,7 @@ var data =
   },
   {
     "Name": "University of Pennsylvania",
+    "DisplayName": "UPenn",
     "Rank": 9,
     "OutOfStateTuition": 49536,
     "InStateTuition": 0,
@@ -173,6 +180,7 @@ var data =
   },
   {
     "Name": "California Institute of Technology",
+    "DisplayName": "Cal Tech",
     "Rank": 10,
     "OutOfStateTuition": 45390,
     "InStateTuition": 0,
@@ -192,6 +200,7 @@ var data =
   },
   {
     "Name": "Johns Hopkins University",
+    "DisplayName": "Johns Hopkins",
     "Rank": 10,
     "OutOfStateTuition": 48710,
     "InStateTuition": 0,
@@ -211,6 +220,7 @@ var data =
   },
   {
     "Name": "Dartmouth College",
+    "DisplayName": "Dartmouth",
     "Rank": 12,
     "OutOfStateTuition": 49506,
     "InStateTuition": 0,
@@ -230,6 +240,7 @@ var data =
   },
   {
     "Name": "Northwestern University",
+    "DisplayName": "Northwestern",
     "Rank": 12,
     "OutOfStateTuition": 49047,
     "InStateTuition": 0,
@@ -249,6 +260,7 @@ var data =
   },
   {
     "Name": "Brown University",
+    "DisplayName": "Brown",
     "Rank": 14,
     "OutOfStateTuition": 49346,
     "InStateTuition": 0,
@@ -268,6 +280,7 @@ var data =
   },
   {
     "Name": "Cornell University",
+    "DisplayName": "Cornell",
     "Rank": 15,
     "OutOfStateTuition": 49116,
     "InStateTuition": 0,
@@ -287,6 +300,7 @@ var data =
   },
   {
     "Name": "Vanderbilt University",
+    "DisplayName": "Vanderbilt",
     "Rank": 15,
     "OutOfStateTuition": 43838,
     "InStateTuition": 0,
@@ -306,6 +320,7 @@ var data =
   },
   {
     "Name": "Washington University in St. Louis",
+    "DisplayName": "Wash U. in St. Louis",
     "Rank": 15,
     "OutOfStateTuition": 48093,
     "InStateTuition": 0,
@@ -325,6 +340,7 @@ var data =
   },
   {
     "Name": "Rice University",
+    "DisplayName": "Rice",
     "Rank": 18,
     "OutOfStateTuition": 42253,
     "InStateTuition": 0,
@@ -344,6 +360,7 @@ var data =
   },
   {
     "Name": "University of Notre Dame",
+    "DisplayName": "Notre Dame",
     "Rank": 18,
     "OutOfStateTuition": 47926,
     "InStateTuition": 0,
@@ -363,10 +380,11 @@ var data =
   },
   {
     "Name": "University of California - Berkeley",
+    "DisplayName": "UC Berkeley",
     "Rank": 20,
     "OutOfStateTuition": 38140,
     "InStateTuition": 13432,
-    "AvgTuition": 21089.60,
+    "AvgTuition": 21090,
     "StudentBodyOutOfState": 8407,
     "StudentBodyInState": 18719,
     "TotalStudentBody": 27126,
@@ -382,6 +400,7 @@ var data =
   },
   {
     "Name": "Emory University",
+    "DisplayName": "Emory",
     "Rank": 21,
     "OutOfStateTuition": 46314,
     "InStateTuition": 0,
@@ -401,6 +420,7 @@ var data =
   },
   {
     "Name": "Georgetown University",
+    "DisplayName": "Georgetown",
     "Rank": 21,
     "OutOfStateTuition": 48611,
     "InStateTuition": 0,
@@ -420,6 +440,7 @@ var data =
   },
   {
     "Name": "Carnegie Mellon University",
+    "DisplayName": "Carnegie Mellon",
     "Rank": 23,
     "OutOfStateTuition": 50410,
     "InStateTuition": 0,
@@ -439,10 +460,11 @@ var data =
   },
   {
     "Name": "University of California - Los Angeles",
+    "DisplayName": "UCLA",
     "Rank": 23,
     "OutOfStateTuition": 35631,
     "InStateTuition": 12753,
-    "AvgTuition": 19638.87,
+    "AvgTuition": 19639,
     "StudentBodyOutOfState": 8919,
     "StudentBodyInState": 20714,
     "TotalStudentBody": 29633,
@@ -458,6 +480,7 @@ var data =
   },
   {
     "Name": "University of Southern California",
+    "DisplayName": "USC",
     "Rank": 23,
     "OutOfStateTuition": 50210,
     "InStateTuition": 0,
@@ -477,6 +500,7 @@ var data =
   },
   {
     "Name": "University of Virginia",
+    "DisplayName": "UVA",
     "Rank": 26,
     "OutOfStateTuition": 43822,
     "InStateTuition": 14526,
@@ -496,6 +520,7 @@ var data =
   },
   {
     "Name": "Tufts University",
+    "DisplayName": "Tufts",
     "Rank": 27,
     "OutOfStateTuition": 50604,
     "InStateTuition": 0,
@@ -515,6 +540,7 @@ var data =
   },
   {
     "Name": "Wake Forest University",
+    "DisplayName": "Wake Forest",
     "Rank": 27,
     "OutOfStateTuition": 47682,
     "InStateTuition": 0,
@@ -534,10 +560,11 @@ var data =
   },
   {
     "Name": "University of Michigan - Ann Arbor",
+    "DisplayName": "Michigan",
     "Rank": 29,
     "OutOfStateTuition": 43377,
     "InStateTuition": 14336,
-    "AvgTuition": 24209.63,
+    "AvgTuition": 24210,
     "StudentBodyOutOfState": 9654,
     "StudentBodyInState": 18741,
     "TotalStudentBody": 28395,
@@ -553,6 +580,7 @@ var data =
   },
   {
     "Name": "Boston College",
+    "DisplayName": "Boston College",
     "Rank": 30,
     "OutOfStateTuition": 49324,
     "InStateTuition": 0,
@@ -572,10 +600,11 @@ var data =
   },
   {
     "Name": "University of North Carolina at Chapel Hill",
+    "DisplayName": "UNC - Chapel Hill",
     "Rank": 30,
     "OutOfStateTuition": 33644,
     "InStateTuition": 8562,
-    "AvgTuition": 13076.76,
+    "AvgTuition": 13077,
     "StudentBodyOutOfState": 3303,
     "StudentBodyInState": 15047,
     "TotalStudentBody": 18350,
@@ -591,6 +620,7 @@ var data =
   },
   {
     "Name": "New York University",
+    "DisplayName": "NYU",
     "Rank": 32,
     "OutOfStateTuition": 46170,
     "InStateTuition": 0,
@@ -610,6 +640,7 @@ var data =
   },
   {
     "Name": "University of Rochester",
+    "DisplayName": "Rochester",
     "Rank": 33,
     "OutOfStateTuition": 48290,
     "InStateTuition": 0,
@@ -629,6 +660,7 @@ var data =
   },
   {
     "Name": "Brandeis University",
+    "DisplayName": "Brandeis",
     "Rank": 34,
     "OutOfStateTuition": 49598,
     "InStateTuition": 0,
@@ -648,10 +680,11 @@ var data =
   },
   {
     "Name": "College of William & Mary",
+    "DisplayName": "William & Mary",
     "Rank": 34,
     "OutOfStateTuition": 40516,
     "InStateTuition": 16919,
-    "AvgTuition": 27403.50,
+    "AvgTuition": 27404,
     "StudentBodyOutOfState": 2078,
     "StudentBodyInState": 4221,
     "TotalStudentBody": 6299,
@@ -667,10 +700,11 @@ var data =
   },
   {
     "Name": "Georgia Institute of Technology",
+    "DisplayName": "Georgia Tech",
     "Rank": 36,
     "OutOfStateTuition": 32396,
     "InStateTuition": 12204,
-    "AvgTuition": 18058.61,
+    "AvgTuition": 18059,
     "StudentBodyOutOfState": 4257,
     "StudentBodyInState": 10425,
     "TotalStudentBody": 14682,
@@ -686,6 +720,7 @@ var data =
   },
   {
     "Name": "Case Western Reserve University",
+    "DisplayName": "Case Western",
     "Rank": 37,
     "OutOfStateTuition": 44560,
     "InStateTuition": 0,
@@ -705,10 +740,11 @@ var data =
   },
   {
     "Name": "University of California - Santa Barbara",
+    "DisplayName": "UC Santa Barbara",
     "Rank": 37,
     "OutOfStateTuition": 38573,
     "InStateTuition": 13865,
-    "AvgTuition": 14606.07,
+    "AvgTuition": 14606,
     "StudentBodyOutOfState": 607,
     "StudentBodyInState": 19631,
     "TotalStudentBody": 20238,
@@ -724,10 +760,11 @@ var data =
   },
   {
     "Name": "University of California - Irvine",
+    "DisplayName": "UC Irvine",
     "Rank": 39,
     "OutOfStateTuition": 37455,
     "InStateTuition": 14577,
-    "AvgTuition": 14804.95,
+    "AvgTuition": 14805,
     "StudentBodyOutOfState": 244,
     "StudentBodyInState": 24245,
     "TotalStudentBody": 24489,
@@ -743,10 +780,11 @@ var data =
   },
   {
     "Name": "University of California - San Diego",
+    "DisplayName": "UC San Diego",
     "Rank": 39,
     "OutOfStateTuition": 38066,
     "InStateTuition": 14042,
-    "AvgTuition": 15723.00,
+    "AvgTuition": 15723,
     "StudentBodyOutOfState": 1736,
     "StudentBodyInState": 23074,
     "TotalStudentBody": 24810,
@@ -762,6 +800,7 @@ var data =
   },
   {
     "Name": "Boston University",
+    "DisplayName": "Boston University",
     "Rank": 41,
     "OutOfStateTuition": 48436,
     "InStateTuition": 0,
@@ -781,6 +820,7 @@ var data =
   },
   {
     "Name": "Rensselear Polytechnic Institute",
+    "DisplayName": "Rensselear Polytech",
     "Rank": 41,
     "OutOfStateTuition": 49341,
     "InStateTuition": 0,
@@ -800,6 +840,7 @@ var data =
   },
   {
     "Name": "Tulane University",
+    "DisplayName": "Tulane",
     "Rank": 41,
     "OutOfStateTuition": 49638,
     "InStateTuition": 0,
@@ -819,10 +860,11 @@ var data =
   },
   {
     "Name": "University of California - Davis",
+    "DisplayName": "UC Davis",
     "Rank": 41,
     "OutOfStateTuition": 38659,
     "InStateTuition": 13951,
-    "AvgTuition": 14736.77,
+    "AvgTuition": 14737,
     "StudentBodyOutOfState": 831,
     "StudentBodyInState": 26897,
     "TotalStudentBody": 27728,
@@ -838,10 +880,11 @@ var data =
   },
   {
     "Name": "University of Illinois - Urbana-Champaign",
+    "DisplayName": "Illinois",
     "Rank": 41,
     "OutOfStateTuition": 30786,
     "InStateTuition": 15626,
-    "AvgTuition": 16687.14,
+    "AvgTuition": 16687,
     "StudentBodyOutOfState": 2307,
     "StudentBodyInState": 30652,
     "TotalStudentBody": 32959,
@@ -857,10 +900,11 @@ var data =
   },
   {
     "Name": "University of Wisconsin - Madison",
+    "DisplayName": "Wisconsin",
     "Rank": 41,
     "OutOfStateTuition": 29665,
     "InStateTuition": 10415,
-    "AvgTuition": 16959.84,
+    "AvgTuition": 16960,
     "StudentBodyOutOfState": 10638,
     "StudentBodyInState": 20651,
     "TotalStudentBody": 31289,
@@ -876,6 +920,7 @@ var data =
   },
   {
     "Name": "Lehigh University",
+    "DisplayName": "Lehigh",
     "Rank": 47,
     "OutOfStateTuition": 46230,
     "InStateTuition": 0,
@@ -895,6 +940,7 @@ var data =
   },
   {
     "Name": "Northeastern University",
+    "DisplayName": "Northeastern",
     "Rank": 47,
     "OutOfStateTuition": 45530,
     "InStateTuition": 0,
@@ -914,10 +960,11 @@ var data =
   },
   {
     "Name": "Pennsylvania State University - University Park",
+    "DisplayName": "Penn State",
     "Rank": 47,
     "OutOfStateTuition": 31346,
     "InStateTuition": 17514,
-    "AvgTuition": 21663.50,
+    "AvgTuition": 21664,
     "StudentBodyOutOfState": 12162,
     "StudentBodyInState": 28379,
     "TotalStudentBody": 40541,
@@ -933,10 +980,11 @@ var data =
   },
   {
     "Name": "University of Florida",
+    "DisplayName": "Florida",
     "Rank": 47,
     "OutOfStateTuition": 28591,
     "InStateTuition": 6313,
-    "AvgTuition": 6980.84,
+    "AvgTuition": 6981,
     "StudentBodyOutOfState": 1011,
     "StudentBodyInState": 32709,
     "TotalStudentBody": 33720,
