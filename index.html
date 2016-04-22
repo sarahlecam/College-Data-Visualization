@@ -386,9 +386,13 @@
 
 		var g = svg.append("g");
 
+		var old_click = null;
+
 		//map from bl.ocks.org/mbostock/raw/4090846/us.json
 		d3.json("us.json", function(error, us) { 
 		  if (error) throw error;
+
+	
 
 		  g.append("g")
 		      .attr("id", "states")
@@ -396,20 +400,34 @@
 		      .data(topojson.feature(us, us.objects.states).features)
 		    .enter().append("path")
 		      .attr("d", path)
-		      .on("click", clicked)
-		      .on("mouseover", function() {
-					d3.select(this).style("fill", "#e2f2bf");
-				})
+		      .on("click", function (d) {
+		      	
+
+		      	clicked(d);
+		      	if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+				else d3.select(this).style("fill", "rgb(176,220,79)");	
+
+				old_click = this;
+		      })
 				.on("mouseout", function() {
-					d3.select(this).style("fill", "rgb(197,195,198)");
+					// d3.select(this).style("fill", "rgb(197,195,198)");
 					// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
-					// if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
-					// else d3.select(this).style("fill", "rgb(176,220,79)");	
+					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+					else d3.select(this).style("fill", "rgb(176,220,79)");	
+				})
+				.on("mouseover", function() {
+					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
+					else d3.select(this).style("fill", "rgb(176,220,79)");	
+
 				})
 		      .style("opacity", 0)
 			  .transition()
 			  .duration(1000)
-			  .style("opacity", 1);;
+			  .style("opacity", 1)
+			  .style('fill', function () {
+
+			  })
+			  // .call("mouseover");
 
 		  g.append("path")
 		      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
@@ -426,9 +444,16 @@
 		var loading = true;
 
 		function clicked(d) {
+			if (old_click != null) {
+				d3.select(old_click).style("fill", "rgb(197,195,198)");
+				// console.log("hey");
+			}
 			if (!loading) {
 			  var x, y, k;
 			  var largeRadius;
+
+			
+
 			  if (d && centered !== d) {
 			    var centroid = path.centroid(d);
 			    x = centroid[0];
