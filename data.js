@@ -2,6 +2,7 @@ var data =
 [
   {
     "Name": "Princeton University",
+    "DisplayName": "Princeton",
     "Rank": 1,
     "OutOfStateTuition": 43450,
     "InStateTuition": 0,
@@ -21,6 +22,7 @@ var data =
   },
   {
     "Name": "Harvard University",
+    "DisplayName": "Harvard",
     "Rank": 2,
     "OutOfStateTuition": 45278,
     "InStateTuition": 0,
