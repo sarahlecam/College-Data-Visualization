@@ -401,11 +401,10 @@
 					d3.select(this).style("fill", "#e2f2bf");
 				})
 				.on("mouseout", function() {
-					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
-					else d3.select(this).style("fill", "rgb(176,220,79)");
-
-					// if we don't want to have that dark green color anymore to indicate the state we're currently on (aka, only have the state color change if we are hovering over it), comment above and uncomment below
-					//d3.select(this).style("fill", "rgb(197,195,198)");
+					d3.select(this).style("fill", "rgb(197,195,198)");
+					// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
+					// if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+					// else d3.select(this).style("fill", "rgb(176,220,79)");	
 				})
 		      .style("opacity", 0)
 			  .transition()
