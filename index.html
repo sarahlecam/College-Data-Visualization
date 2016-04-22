@@ -500,6 +500,8 @@
 			}
 		}
 
+		var old_circ = null;
+
 		// needed to set timeout so that the points don't load behind the map...
 		function addCoords() {
 			circles.enter().append("circle")
@@ -518,7 +520,17 @@
 				d3.select("#location").text("Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!");
 			})
 			.on("click", function (d) {
+
+				d3.select(old_circ)
+					.style("fill", "rgb(45,58,71)");
+
+
+				d3.select(this)
+					.style("fill", "rgb(92, 168, 50)")
+					// .attr("r", 5);
 				displayCollege(d);
+
+				old_circ = this;
 				//d3.select(this).classed("clickedOn", true);
 			})
 			.style("opacity", 0)
