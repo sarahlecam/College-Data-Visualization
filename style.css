@@ -267,3 +267,11 @@ path {
   border-radius: 5px;
   font-size: 0.8em;
 }
+
+.smallRadius:hover {
+  r: 2.6px;
+}
+
+.largeRadius:hover {
+  r: 8px;
+}

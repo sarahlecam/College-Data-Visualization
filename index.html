@@ -397,6 +397,16 @@
 		    .enter().append("path")
 		      .attr("d", path)
 		      .on("click", clicked)
+		      .on("mouseover", function() {
+					d3.select(this).style("fill", "#e2f2bf");
+				})
+				.on("mouseout", function() {
+					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+					else d3.select(this).style("fill", "rgb(176,220,79)");
+
+					// if we don't want to have that dark green color anymore to indicate the state we're currently on (aka, only have the state color change if we are hovering over it), comment above and uncomment below
+					//d3.select(this).style("fill", "rgb(197,195,198)");
+				})
 		      .style("opacity", 0)
 			  .transition()
 			  .duration(1000)
@@ -449,6 +459,10 @@
 			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 			      .style("stroke-width", 1.5 / k + "px")
 			      .attr("r", 1.3);
+
+			     d3.selectAll(".point")
+			      .classed("largeRadius", false)
+			      .classed("smallRadius", true)
 			  }
 
 			  else {
@@ -457,6 +471,10 @@
 			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 			      .style("stroke-width", 1.5 / k + "px")
 			      .attr("r", 4);
+
+			     d3.selectAll(".point")
+			      .classed("largeRadius", true)
+			      .classed("smallRadius", false);
 			  }
 			}
 		}
@@ -471,6 +489,7 @@
 			.style("stroke", "rgb(220,220,221)")
 			.style("stroke-width", 0.5)
 			.style("fill", "rgb(45,58,71)")
+			.classed("largeRadius", true) // https://groups.google.com/forum/#!topic/d3-js/NcvfRGo_TMc
 			.on("mouseover", function (d) {
 				d3.select("#location").text(d.City);
 			})
