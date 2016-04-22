@@ -276,3 +276,7 @@ path {
 .largeRadius:hover {
   r: 8px;
 }
+
+#comparisonCharts {
+  text-align: center;
+}
