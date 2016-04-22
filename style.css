@@ -177,7 +177,8 @@ h1 {
 }
 
 
-#myDropdown {
+#myDropdown,
+#compareDropdown {
 	max-height: 200px;
 	overflow: scroll;
 }
@@ -274,4 +275,8 @@ path {
 
 .largeRadius:hover {
   r: 8px;
+}
+
+#comparisonCharts {
+  text-align: center;
 }
