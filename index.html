@@ -66,7 +66,8 @@
 				<p id="chartTitle"></p>
 				<p id="chartValue"></p>
 				<div id="chart">
-					<div id="explanation" style="visibility: hidden;">
+					<div id="explanation">
+					<!-- <div id="explanation" style="visibility: hidden;"> -->
 					  <span id="percentage"></span><br/>
 					  <!-- of visits begin with this sequence of pages -->
 					  <span id="percentageExplanation"></span>
@@ -271,11 +272,11 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
-			d3.select("#chartValue").text("Rank: " + currentCollege.Rank)
-				.style("opacity", 0)
-				.transition()
-				.duration(1000)
-				.style("opacity", 1);
+			// d3.select("#chartValue").text("Rank: " + currentCollege.Rank)
+			// 	.style("opacity", 0)
+			// 	.transition()
+			// 	.duration(1000)
+			// 	.style("opacity", 1);
 
 			d3.select("#college").text(currentCollege.Name)
 				.style("opacity", 0)
@@ -347,6 +348,9 @@
 			  // Main function to draw and set up the visualization, once we have the data.
 			  function createVisualization(json) {
 
+			  	d3.select("#percentage").text(currentCollege.DisplayName);
+			  	d3.select("#percentageExplanation").text("Rank: " + currentCollege.Rank);
+
 			    // Bounding circle underneath the sunburst, to make it easier to detect
 			    // when the mouse leaves the parent g.
 			    vis.append("svg:circle")
@@ -397,8 +401,8 @@
 			    d3.select("#percentageExplanation")
 			        .text(d.name);
 
-			    d3.select("#explanation")
-			        .style("visibility", "");
+			    // d3.select("#explanation")
+			    //     .style("visibility", "");
 
 			    // var percentageString = "", myString = "";
 
@@ -429,6 +433,9 @@
 			  // Restore everything to full opacity when moving off the visualization.
 			  function mouseleave(d) {
 
+			  	d3.select("#percentage").text(currentCollege.DisplayName);
+			  	d3.select("#percentageExplanation").text("Rank: " + currentCollege.Rank);
+
 			    // Hide the breadcrumb trail
 			    // d3.select("#trail")
 			    //     .style("visibility", "hidden");
@@ -445,8 +452,8 @@
 			                d3.select(this).on("mouseover", mouseover);
 			              });
 
-			    d3.select("#explanation")
-			        .style("visibility", "hidden");
+			    // d3.select("#explanation")
+			    //     .style("visibility", "hidden");
 			  }
 
 			  // Given a node in a partition layout, return an array of all of its ancestor
