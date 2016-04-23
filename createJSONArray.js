@@ -14,7 +14,7 @@ function createArr(obj) {
 	          "children": [
 	            {"name": "Out of State Tuition", "displayNumber": true, "size": parseInt(obj.OutOfStateTuition)},
 	            {"name": "In State Tuition", "displayNumber": true, "size": parseInt(obj.InStateTuition)},
-	            {"name": "Weighted Tution", "displayNumber": true, "size": parseInt(obj.AvgTuition)}
+	            {"name": "Weighted Tuition", "displayNumber": true, "size": parseInt(obj.AvgTuition)}
 	          ]
 	        },
 	        {"name": "Cost of Living", "displayNumber": true, "size": parseInt(obj.AvgCostLiving)},
@@ -22,9 +22,9 @@ function createArr(obj) {
 	          "name": "Avg Students that Receive Financial Aid Packages",
 	          "displayNumber": false,
 	          "children": [
-	            {"name": "Total Student Population", "displayNumber": true, "size": parseInt(obj.TotalStudentBody)},
+	            {"name": "Avg Number not on Financial Aid", "displayNumber": true, "size": parseInt(obj.TotalStudentBody) - parseInt(obj.TotalStudentBody * parseInt(obj.AvgOnFinAid.substr(0, obj.AvgOnFinAid.length - 1)) / 100)},
 	            {"name": "Avg Number on Financial Aid", "displayNumber": true, "size": parseInt(obj.TotalStudentBody * parseInt(obj.AvgOnFinAid.substr(0, obj.AvgOnFinAid.length - 1)) / 100)},
-	            {"name": "Avg Percentage on Financial Aid", "displayNumber":true, "size": (parseInt(obj.AvgOnFinAid.substr(0, obj.AvgOnFinAid.length - 1)))}
+	            //{"name": "Avg Percentage on Financial Aid", "displayNumber":true, "size": (parseInt(obj.AvgOnFinAid.substr(0, obj.AvgOnFinAid.length - 1)))}
 	          ]
 	        },
 	        {"name": "Avg Grant Money", "displayNumber": true, "size": parseInt(obj.AvgGrantAmount)}
@@ -32,15 +32,16 @@ function createArr(obj) {
 	    },
 	    {
 	      "name": "Total Student Body",
-	      "displayNumber": false,
+	      "displayNumber": true,
+	      "size": parseInt(obj.TotalStudentBody),
 	      "children": [
 	        {"name": "Out of State Students", "displayNumber": true, "size": parseInt(obj.StudentBodyOutOfState)},
 	        {"name": "In State Students", "displayNumber": true, "size": parseInt(obj.StudentBodyInState)},
-	        {"name": "Total Student Body", "displayNumber": true, "size": parseInt(obj.TotalStudentBody)}
+	        //{"name": "Total Student Body", "displayNumber": true, "size": parseInt(obj.TotalStudentBody)}
 	      ]
 	    },
 	    {
-	      "name": "Avg Career Salaries",
+	      "name": "Career Salaries",
 	      "displayNumber": false,
 	      "children": [
 	        {"name": "Avg Starting Salary", "displayNumber": true, "size": parseInt(obj.StartingSalary)},

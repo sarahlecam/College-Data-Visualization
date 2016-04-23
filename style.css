@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 1199px) {
     #info, #aggInfo {
-      text-align: center;
+      /*text-align: center;*/
       float: center;
       margin-left: 5%;
       margin-right: 5%;
@@ -112,7 +112,7 @@ h1 {
   color: rgb(70,73,76);
 }
 
-#location {
+#location, #collegeName {
 	font-size: 0.8em;
   text-align: center;
 }
@@ -284,4 +284,32 @@ path {
 
 #comparisonCharts {
   text-align: center;
+}
+
+#chart {
+  position: relative;
+}
+
+#chart path {
+  stroke: #fff;
+}
+
+#explanation {
+  /*
+  for width= 750 and height = 600,
+  top: 260, left: 305, width: 140
+  i want width = 350, height = 350
+  350 (desired width) - 150 (css width) - 100 (css left) = 100 (css left)
+  */
+  position: absolute;
+  top: 130px;
+  left: 100px;
+  width: 150px;
+  text-align: center;
+  color: #666;
+  z-index: 10;
+}
+
+#percentage {
+  font-size: 2.5em;
 }
