@@ -41,7 +41,7 @@ function createArr(obj) {
 	      ]
 	    },
 	    {
-	      "name": "Career Salaries",
+	      "name": "Avg Career Salaries",
 	      "displayNumber": false,
 	      "children": [
 	        {"name": "Avg Starting Salary", "displayNumber": true, "size": parseInt(obj.StartingSalary)},
