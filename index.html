@@ -114,6 +114,7 @@
 			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
 				chartCollegeData();
 			} else textCollegeData();
+			if (largeRadius) clicked(null);
 		}
 
 		// first set up links in dropdown
@@ -626,17 +627,14 @@
 		circles = svg.selectAll(".point").data(data);
 
 		var loading = true;
+		var largeRadius = true;
 
 		function clicked(d) {
 			if (old_click != null) {
 				d3.select(old_click).style("fill", "rgb(197,195,198)");
-				// console.log("hey");
 			}
 			if (!loading) {
 			  var x, y, k;
-			  var largeRadius;
-
-			
 
 			  if (d && centered !== d) {
 			    var centroid = path.centroid(d);
