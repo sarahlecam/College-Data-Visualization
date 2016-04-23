@@ -4,11 +4,13 @@
       margin-left: 5%;
       width: 55%;
       text-align: center;
+      display: block;
     }
     #info, #aggInfo {
       float: right;
       width: 30%;
       margin-right: 5%;
+      display: block;
     }
 }
 
@@ -19,12 +21,14 @@
       margin-left: 5%;
       margin-right: 5%;
       margin-top: 30px;
+      display: block;
     }
     #map, #aggregate {
       float: center;
       text-align: center;
       margin-left: 5%;
       margin-right: 5%;
+      display: block;
       /*width: 55%;*/
     }
 }
@@ -225,6 +229,7 @@ path {
   padding-bottom: 5px;
   color: rgb(45,58,71);
   text-align: center;
+  display:  inline-block;
 }
 
 #comparison {
@@ -290,10 +295,10 @@ path {
 }
 
 #correlationPlot {
+  display: inline-block;
   text-align: center;
-  display: inline block;
-  float: center;
-  margin: 5%;
+  /*float: center;*/
+  margin-left: 10%;
 }
 
 #comparisonCharts {
