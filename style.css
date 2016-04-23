@@ -231,27 +231,27 @@ path {
 .average {
   fill: rgb(70, 90, 109);
   stroke: black;
-  stroke-width: 0.8px;
+  stroke-width: 0.65px;
   opacity: 0.9;
 }
 
 .average:hover {
   fill: rgb(99, 128, 156);
   stroke: black;
-  stroke-width: 0.8px;
+  stroke-width: 0.65px;
 }
 
 .bar {
   fill: rgb(176, 220, 79);
   stroke: black;
-  stroke-width: 0.8px;
+  stroke-width: 0.65px;
   opacity: 0.6;
 }
 
 .bar:hover {
   fill: rgb(197, 230, 127);
   stroke: black;
-  stroke-width: 0.8px;
+  stroke-width: 0.65px;
 }
 
 
