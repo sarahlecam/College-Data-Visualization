@@ -238,27 +238,27 @@ path {
 .average {
   fill: rgb(70, 90, 109);
   stroke: black;
-  stroke-width: 0.65px;
-  opacity: 0.9;
+  stroke-width: 0.55px;
+  opacity: 0.9 !important;
 }
 
 .average:hover {
   fill: rgb(99, 128, 156);
   stroke: black;
-  stroke-width: 0.65px;
+  stroke-width: 0.55px;
 }
 
 .bar {
   fill: rgb(176, 220, 79);
   stroke: black;
-  stroke-width: 0.65px;
-  opacity: 0.6;
+  stroke-width: 0.55px;
+  opacity: 0.6 !important;
 }
 
 .bar:hover {
   fill: rgb(197, 230, 127);
   stroke: black;
-  stroke-width: 0.65px;
+  stroke-width: 0.55px;
 }
 
 
@@ -266,7 +266,7 @@ path {
   shape-rendering: crispEdges;
   fill: none;
   stroke: black;
-  stroke-width: 1.4px;
+  stroke-width: 1.5px;
 }
 
 .axis line {
