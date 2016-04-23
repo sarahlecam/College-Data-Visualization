@@ -17,9 +17,16 @@
 	</div>
 	<div id="text">
 		<p>
-			In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment.
+			<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> 
 		</p>
 	</div>
+
+	<section>
+		<div id="correlationPlot">
+			<h3>Mid-Career Salary vs. Average Cost</h3>
+		</div>
+	</section>
+
 	<nav id="nav">
 		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
 		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
@@ -823,13 +830,22 @@
 			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
 			.call(xAxis)
 			.selectAll("text")
+			.style("opacity", 0)
+						.transition()
+						.duration(1000)
+						.style("opacity", 1)
 						.style("text-anchor","end")
 						.style("font-size","10")
 						.attr("dx","-.8em")
 						.attr("dy",".15em")
 						.attr("transform","rotate(-60)");
 			svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
-			.call(yAxis);
+			.call(yAxis)
+			.selectAll("text")
+					.style("opacity", 0)
+					.transition()
+					.duration(1500)
+					.style("opacity", 1);
 
 			var barwidth = (width-2*padding);
 			if (chartData.length == 2 || chartData.length == 4) barwidth /= 2;
@@ -843,7 +859,11 @@
 				.attr("height", height - padding - yScale(d.Attr))
 				.on("mouseover", function(){return tooltip.style("visibility", "visible").text(d.HoverTitle +":\n "+formatNumber(d.Attr));})
 				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-				.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+				.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+					.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.style("opacity", 1);
 			});
 
 		}
