@@ -64,7 +64,7 @@
 
 		<div id="comparison">
 			<h3>Compare Colleges</h3>
-			<p>Compare selected college to the average of the top 50 schools in the nation</p>
+			<p>Compare selected college to the average of the top fifty colleges in the nation.</p>
 			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
 		    <div class="dropdown-content" id="compareDropdown">
 		    </div>
@@ -613,33 +613,33 @@
 		function twoComparisonPlots() {
 			d3.selectAll("#comparisonCharts svg").remove()
 			// Tuition
-			plotCompare("#comparisonCharts", "Avg. Tuition", [
+			plotCompare("#comparisonCharts", "Average Tuition", [
 					{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
 					"StyleClass": "bar"}
 				]);
 			// Cost of Living
-			plotCompare("#comparisonCharts", "Avg. Cost of Living", [
+			plotCompare("#comparisonCharts", "Average Cost of Living", [
 					{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"}
 				]);
 			// Grant Amount
-			plotCompare("#comparisonCharts", "Avg. Grant Amount", [
+			plotCompare("#comparisonCharts", "Average Grant Amount", [
 					{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"}
 				]);
 			// % Financial Aid
-			plotCompare("#comparisonCharts", "Avg. % on Financial Aid", [
+			plotCompare("#comparisonCharts", "Average % on Financial Aid", [
 					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"}
 				]);
 			// Student Body
-			plotCompare("#comparisonCharts", "Avg. Student Body", [
+			plotCompare("#comparisonCharts", "Average Student Body", [
 					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"}
 				]);
 			// Salary
-			plotCompare("#comparisonCharts",  "Avg. Salaries", [
+			plotCompare("#comparisonCharts",  "Average Salaries", [
 					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
 					{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
 					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
@@ -654,7 +654,7 @@
 				return twoComparisonPlots();
 			}
 			else {
-				plotCompare("#comparisonCharts", "Avg. Tuition", [
+				plotCompare("#comparisonCharts", "Average Tuition", [
 						{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
 						"StyleClass": "bar"},
@@ -662,34 +662,34 @@
 						"StyleClass": "bar"}
 					]);
 				// Cost of Living
-				plotCompare("#comparisonCharts", "Avg. Cost of Living", [
+				plotCompare("#comparisonCharts", "Average Cost of Living", [
 						{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"},
 						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living",
 						"StyleClass": "bar"}
 					]);
 				// Grant Amount
-				plotCompare("#comparisonCharts", "Avg. Grant Amount", [
+				plotCompare("#comparisonCharts", "Average Grant Amount", [
 						{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"},
 						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount",
 						"StyleClass": "bar"}
 					]);
 				// % Financial Aid
-				plotCompare("#comparisonCharts", "Avg. % on Financial Aid", [
+				plotCompare("#comparisonCharts", "Average % on Financial Aid", [
 						{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"},
 						{"Name": selectedCollege.DisplayName,"Attr": parseInt(selectedCollege.AvgOnFinAid.substr(0, selectedCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "bar"}
 					]);
 				// Student Body
-				plotCompare("#comparisonCharts", "Avg. Student Body", [
+				plotCompare("#comparisonCharts", "Average Student Body", [
 						{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"},
 						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body",
 						"StyleClass": "bar"}
 					]);
 				// Salary
-				plotCompare("#comparisonCharts",  "Avg. Salaries", [
+				plotCompare("#comparisonCharts",  "Average Salaries", [
 						{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
 						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},

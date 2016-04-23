@@ -229,26 +229,31 @@ path {
 }
 
 .average {
-  fill: rgb(99, 128, 156);
-  stroke: rgb(70, 90, 109);
-  opacity: 0.7;
+  fill: rgb(70, 90, 109);
+  stroke: black;
+  stroke-width: 0.8px;
+  opacity: 0.9;
 }
 
 .average:hover {
-  fill: rgb(162, 179, 195);
-  stroke: rgb(70, 90, 109);
+  fill: rgb(99, 128, 156);
+  stroke: black;
+  stroke-width: 0.8px;
 }
 
 .bar {
-  fill: rgb(197, 230, 127);
-  stroke: rgb(176,220,79);
-  opacity: 0.7;
+  fill: rgb(176, 220, 79);
+  stroke: black;
+  stroke-width: 0.8px;
+  opacity: 0.6;
 }
 
 .bar:hover {
-  fill: rgb(226, 242, 191);
-  stroke: rgb(176,220,79);
+  fill: rgb(197, 230, 127);
+  stroke: black;
+  stroke-width: 0.8px;
 }
+
 
 .axis path{
   shape-rendering: crispEdges;
