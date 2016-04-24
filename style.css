@@ -284,6 +284,7 @@ path {
   border: 1px solid rgb(220,220,221);
   border-radius: 5px;
   font-size: 0.8em;
+  white-space: pre-wrap;
 }
 
 .smallRadius:hover {

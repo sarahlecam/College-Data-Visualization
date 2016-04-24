@@ -963,6 +963,13 @@
 			.call(yAxis);
 
 		var circles2 = svg.append('g').selectAll("circles").data(data);
+
+		var tooltip = d3.select("body")
+							.append("div")
+							.attr("class", "tooltip")
+							.style("position", "absolute")
+							.style("z-index", "10")
+							.style("visibility", "hidden");
 		
 		circles2.enter().append("circle")
           		.attr("cx", function (d,i) { return x(d.AvgTuition); } )
@@ -973,6 +980,11 @@
 				.style("fill", function(d) {
 					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 				})
+				.on("mouseover", function(d){
+					return tooltip.style("visibility", "visible").html(d.Name+"\nAverage Tuition: $"+d3.format(",d")(d.AvgTuition)+"\nMid-Career Salary: $"+d3.format(",d")(d.MidSalary));
+				})
+				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+				.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 				.on("click", function (d) {
 
 					d3.select(old_circ)
