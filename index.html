@@ -17,7 +17,7 @@
 	</div>
 	<div id="text">
 		<p>
-			<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> 
+			<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses does not always guarantee higher salary and satisfaction post graduation.
 		</p>
 	</div>
 
@@ -705,7 +705,7 @@
 				d3.select("#location").text(d.City);
 			})
 			.on("mouseout", function (d) {
-				d3.select("#collegeName").text("Click on a state to zoom in/zoom out on it, and click on any coordinate to learn more about the college in that city!")
+				d3.select("#collegeName").text("Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.")
 				d3.select("#location").text(".");
 			})
 			.on("click", function (d) {
@@ -853,11 +853,11 @@
 
 		function threeComparisonPlots(selectedCollege) {
 			d3.selectAll("#comparisonCharts svg").remove()
-			//Tuition
 			if (JSON.stringify(selectedCollege) === JSON.stringify(currentCollege)) {
 				return twoComparisonPlots();
 			}
 			else {
+				//Tuition
 				plotCompare("#comparisonCharts", "Average Tuition", [
 						{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
 						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
