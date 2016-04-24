@@ -3,111 +3,112 @@
 <head>
 	<title>Project 2 - INFO/CS 3300</title>
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,700italic" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat+Subrayada' rel='stylesheet' type='text/css'>
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<link href='https://fonts.googleapis.com/css?family=Montserrat+Subrayada' rel='stylesheet' type='text/css'>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<script src="data.js"></script> <!-- www.findlatitudeandlongitude.com -->
+	<!-- www.findlatitudeandlongitude.com -->
+	<script src="data.js"></script> 
 	<script src="createJSONArray.js"></script>
 </head>
 <body>
 	<div id="content">
-	<div id="header">
-		<h1>The Real Cost<br>of College<br></h1>
-	</div>
-	<div id="text">
-		<p>
-			<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses does not always guarantee higher salary and satisfaction post graduation.
-		</p>
-	</div>
-
-	<nav id="nav">
-		<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
-		<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
-	    <div class="dropdown-content" id="myDropdown">
-	    </div>
-	</nav>
-
-	<section>
-		<div id="map">
-			<p id="collegeName">Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.</p>
-			<p id = "location">.</p>
+		<div id="header">
+			<h1>The Real Cost<br>of College<br></h1>
+		</div>
+		<div id="text">
+			<p>
+				<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses does not always guarantee higher salary and satisfaction post graduation.
+			</p>
 		</div>
 
-		<div id="info">
-			<div id="radiobuttons">
-				<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
-				<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+		<nav id="nav">
+			<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
+			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
+			<div class="dropdown-content" id="myDropdown">
+			</div>
+		</nav>
+
+		<section>
+			<div id="map">
+				<p id="collegeName">Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.</p>
+				<p id = "location">.</p>
 			</div>
 
-			<br>
+			<div id="info">
+				<div id="radiobuttons">
+					<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
+					<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+				</div>
 
-			<div id = "infotext">
-				<h3 id="college"></h3>
-				<p id="collegeLoc"></p>
-				<p id = "rank"></p>
-				<p id = "outofstatetuition"></p>
-				<p id = "instatetuition"></p>
-				<p id = "outofstatestudentbody"></p>
-				<p id = "instatestudentbody"></p> 
-				<p id = "totalstudentbody"></p>
-				<p id = "finaid"></p>
-				<p id = "avggrant"></p>
-				<p id = "costliving"></p>
-				<p id = "startingsalary"></p>
-				<p id = "midsalary"></p>
+				<br>
 
-				<p id="chartTitle"></p>
-				<p id="chartValue"></p>
-				<div id="chart">
-					<div id="explanation">
-					<!-- <div id="explanation" style="visibility: hidden;"> -->
-					  <span id="percentage"></span><br/>
-					  <!-- of visits begin with this sequence of pages -->
-					  <span id="percentageExplanation"></span>
+				<div id = "infotext">
+					<h3 id="college"></h3>
+					<p id="collegeLoc"></p>
+					<p id = "rank"></p>
+					<p id = "outofstatetuition"></p>
+					<p id = "instatetuition"></p>
+					<p id = "outofstatestudentbody"></p>
+					<p id = "instatestudentbody"></p> 
+					<p id = "totalstudentbody"></p>
+					<p id = "finaid"></p>
+					<p id = "avggrant"></p>
+					<p id = "costliving"></p>
+					<p id = "startingsalary"></p>
+					<p id = "midsalary"></p>
+
+					<p id="chartTitle"></p>
+					<p id="chartValue"></p>
+					<div id="chart">
+						<div id="explanation">
+							<!-- <div id="explanation" style="visibility: hidden;"> -->
+							<span id="percentage"></span><br/>
+							<!-- of visits begin with this sequence of pages -->
+							<span id="percentageExplanation"></span>
+						</div>
 					</div>
 				</div>
+
 			</div>
 
+			<div id="comparison">
+				<h3>Compare Colleges</h3>
+				<p>Compare selected college to the average of the top fifty colleges in the nation.</p>
+				<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
+				<div class="dropdown-content" id="compareDropdown">
+				</div>
+				<div id="comparisonCharts"></div>
+			</div>
+		</section>
+
+		<section>
+			<div id="correlationPlot">
+				<h3>Mid-Career Salary vs. Average Tuition</h3>
+			</div>
+		</section>
+
+
+		<div id="footer">
+			<h2>INFO/CS 3300</h2>
+			<h3>Project 2</h3>
+			<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
 		</div>
-
-		<div id="comparison">
-			<h3>Compare Colleges</h3>
-			<p>Compare selected college to the average of the top fifty colleges in the nation.</p>
-			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
-		    <div class="dropdown-content" id="compareDropdown">
-		    </div>
-			<div id="comparisonCharts"></div>
-		</div>
-	</section>
-
-	<section>
-	<div id="correlationPlot">
-		<h3>Mid-Career Salary vs. Average Tuition</h3>
-	</div>
-	</section>
-
-
-	<div id="footer">
-		<h2>INFO/CS 3300</h2>
-		<h3>Project 2</h3>
-		<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
-	</div>
 	</div>
 
 	<script>
 
-		for (var i = 0; i < 50; i++) {
-			data[i].MapID = "school" + i;
-		}
+	for (var i = 0; i < 50; i++) {
+		data[i].MapID = "school" + i;
+	}
 
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
 		function displayCollege(obj) {
 			d3.select(old_circ)
-				.style("fill", "rgb(45,58,71)");
+			.style("fill", "rgb(45,58,71)");
 			d3.select("#"+obj.MapID)
-				.style("fill", "rgb(92, 168, 50)");
+			.style("fill", "rgb(92, 168, 50)");
 			old_circ = "#"+obj.MapID;
 			currentCollege = obj;
 			d3.selectAll("#comparisonCharts svg").remove()
@@ -290,70 +291,70 @@
 			// 	.style("opacity", 1);
 
 			d3.select("#college").text(currentCollege.Name)
-				.style("opacity", 0)
-				.transition()
-				.duration(1000)
-				.style("opacity", 1);
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
 
 			d3.select("#collegeLoc").text("Location: " + currentCollege.City)
-				.style("opacity", 0)
-				.transition()
-				.duration(1000)
-				.style("opacity", 1);
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
 
 			// Sequences Sunburst: https://bl.ocks.org/kerryrodden/7090426
 
 			// Dimensions of sunburst.
-			  var chartWidth = 350;
-			  var chartHeight = 350;
-			  var radius = Math.min(chartWidth, chartHeight) / 2;
+			var chartWidth = 350;
+			var chartHeight = 350;
+			var radius = Math.min(chartWidth, chartHeight) / 2;
 
 			  // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 			  var b = {
-			    w: 75, h: 30, s: 3, t: 10
+			  	w: 75, h: 30, s: 3, t: 10
 			  };
 
 			  // Mapping of step names to colors.
 			  var colors = {
-			    "Expenses": "#465a6d",
-			    "Total Tuition": "#a2b3c3",
-			      "Out of State Tuition": "#a2b3c3",
-			      "In State Tuition": "#a2b3c3",
-			      "Weighted Tuition": "#a2b3c3",
-			    "Cost of Living": "#63809c",
-			    "Avg Grant Money": "#63809c",
-			    "Avg Students that Receive Financial Aid Packages": "#e0e6eb",
-			      "Total Student Population": "#e0e6eb",
-			      "Avg Number on Financial Aid": "#e0e6eb",
-			      "Avg Number not on Financial Aid": "#e0e6eb",
-			    "Total Student Body": "#c5e67f",
-			    "Out of State Students": "#c5e67f",
-			    "In State Students": "#c5e67f",
-			    "Avg Career Salaries": "#e2f2bf",
-			    "Avg Starting Salary": "#e2f2bf",
-			    "Avg Mid-Career Salary": "#e2f2bf"
+			  	"Expenses": "#465a6d",
+			  	"Total Tuition": "#a2b3c3",
+			  	"Out of State Tuition": "#a2b3c3",
+			  	"In State Tuition": "#a2b3c3",
+			  	"Weighted Tuition": "#a2b3c3",
+			  	"Cost of Living": "#63809c",
+			  	"Avg Grant Money": "#63809c",
+			  	"Avg Students that Receive Financial Aid Packages": "#e0e6eb",
+			  	"Total Student Population": "#e0e6eb",
+			  	"Avg Number on Financial Aid": "#e0e6eb",
+			  	"Avg Number not on Financial Aid": "#e0e6eb",
+			  	"Total Student Body": "#c5e67f",
+			  	"Out of State Students": "#c5e67f",
+			  	"In State Students": "#c5e67f",
+			  	"Avg Career Salaries": "#e2f2bf",
+			  	"Avg Starting Salary": "#e2f2bf",
+			  	"Avg Mid-Career Salary": "#e2f2bf"
 			  };
 
 			  // Total size of all segments; we set this later, after loading the data.
 			  var totalSize = 0; 
 
 			  var vis = d3.select("#chart").append("svg")
-			      .attr("width", chartWidth)
-			      .attr("height", chartHeight)
-			      .append("svg:g")
-			      .attr("id", "ringchart")
-			      .attr("id", "container")
-			      .attr("transform", "translate(" + chartWidth / 2 + "," + chartHeight / 2 + ")");
+			  .attr("width", chartWidth)
+			  .attr("height", chartHeight)
+			  .append("svg:g")
+			  .attr("id", "ringchart")
+			  .attr("id", "container")
+			  .attr("transform", "translate(" + chartWidth / 2 + "," + chartHeight / 2 + ")");
 
 			  var partition = d3.layout.partition()
-			      .size([2 * Math.PI, radius * radius])
-			      .value(function(d) { return d.size; });
+			  .size([2 * Math.PI, radius * radius])
+			  .value(function(d) { return d.size; });
 
 			  var arc = d3.svg.arc()
-			      .startAngle(function(d) { return d.x; })
-			      .endAngle(function(d) { return d.x + d.dx; })
-			      .innerRadius(function(d) { return Math.sqrt(d.y); })
-			      .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+			  .startAngle(function(d) { return d.x; })
+			  .endAngle(function(d) { return d.x + d.dx; })
+			  .innerRadius(function(d) { return Math.sqrt(d.y); })
+			  .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
 			  createVisualization(createArr(currentCollege));
 			  // Main function to draw and set up the visualization, once we have the data.
@@ -365,31 +366,31 @@
 			    // Bounding circle underneath the sunburst, to make it easier to detect
 			    // when the mouse leaves the parent g.
 			    vis.append("svg:circle")
-			        .attr("r", radius)
-			        .style("opacity", 0);
+			    .attr("r", radius)
+			    .style("opacity", 0);
 
 			    // For efficiency, filter nodes to keep only those large enough to see.
 			    var nodes = partition.nodes(json)
-			        .filter(function(d) {
+			    .filter(function(d) {
 			        return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
-			        });
+			    });
 
 			    var path = vis.data([json]).selectAll("#chart path")
-			        .data(nodes)
-			        .enter().append("svg:path")
-			        .attr("display", function(d) { return d.depth ? null : "none"; })
-			        .attr("d", arc)
-			        .attr("fill-rule", "evenodd")
-			        .style("fill", function(d) { return colors[d.name]; })
-			        .style("opacity", 1)
-			        .on("mouseover", mouseover);
+			    .data(nodes)
+			    .enter().append("svg:path")
+			    .attr("display", function(d) { return d.depth ? null : "none"; })
+			    .attr("d", arc)
+			    .attr("fill-rule", "evenodd")
+			    .style("fill", function(d) { return colors[d.name]; })
+			    .style("opacity", 1)
+			    .on("mouseover", mouseover);
 
 			    // Add the mouseleave handler to the bounding circle.
 			    d3.select("#container").on("mouseleave", mouseleave);
 
 			    // Get total size of the tree = value of root node from partition.
 			    totalSize = path.node().__data__.value;
-			   };
+			};
 
 			  // Fade all but the current sequence, and show it in the breadcrumb trail.
 			  function mouseover(d) {
@@ -401,8 +402,8 @@
 			    // }
 			    var percentageString = "";
 			    if (d.displayNumber) {
-			      percentageString = d3.format(",d")(d.size);
-			      d3.select("#percentage").text(percentageString);
+			    	percentageString = d3.format(",d")(d.size);
+			    	d3.select("#percentage").text(percentageString);
 			    }
 			    else d3.select("#percentage").text("");
 
@@ -410,7 +411,7 @@
 			    //     .text(percentageString);
 
 			    d3.select("#percentageExplanation")
-			        .text(d.name);
+			    .text(d.name);
 
 			    // d3.select("#explanation")
 			    //     .style("visibility", "");
@@ -431,15 +432,15 @@
 
 			    // Fade all the segments.
 			    d3.selectAll("#chart path")
-			        .style("opacity", 0.3);
+			    .style("opacity", 0.3);
 
 			    // Then highlight only those that are an ancestor of the current segment.
 			    vis.selectAll("#chart path")
-			        .filter(function(node) {
-			                  return (sequenceArray.indexOf(node) >= 0);
-			                })
-			        .style("opacity", 1);
-			  }
+			    .filter(function(node) {
+			    	return (sequenceArray.indexOf(node) >= 0);
+			    })
+			    .style("opacity", 1);
+			}
 
 			  // Restore everything to full opacity when moving off the visualization.
 			  function mouseleave(d) {
@@ -456,68 +457,68 @@
 
 			    // Transition each segment to full opacity and then reactivate it.
 			    d3.selectAll("#chart path")
-			        .transition()
-			        .duration(1000)
-			        .style("opacity", 1)
-			        .each("end", function() {
-			                d3.select(this).on("mouseover", mouseover);
-			              });
+			    .transition()
+			    .duration(1000)
+			    .style("opacity", 1)
+			    .each("end", function() {
+			    	d3.select(this).on("mouseover", mouseover);
+			    });
 
 			    // d3.select("#explanation")
 			    //     .style("visibility", "hidden");
-			  }
+			}
 
 			  // Given a node in a partition layout, return an array of all of its ancestor
 			  // nodes, highest first, but excluding the root.
 			  function getAncestors(node) {
-			    var path = [];
-			    var current = node;
-			    while (current.parent) {
-			      path.unshift(current);
-			      current = current.parent;
-			    }
-			    return path;
+			  	var path = [];
+			  	var current = node;
+			  	while (current.parent) {
+			  		path.unshift(current);
+			  		current = current.parent;
+			  	}
+			  	return path;
 			  }
 
 			  // Generate a string that describes the points of a breadcrumb polygon.
 			  function breadcrumbPoints(d, i) {
-			    var points = [];
-			    points.push("0,0");
-			    points.push(b.w + ",0");
-			    points.push(b.w + b.t + "," + (b.h / 2));
-			    points.push(b.w + "," + b.h);
-			    points.push("0," + b.h);
+			  	var points = [];
+			  	points.push("0,0");
+			  	points.push(b.w + ",0");
+			  	points.push(b.w + b.t + "," + (b.h / 2));
+			  	points.push(b.w + "," + b.h);
+			  	points.push("0," + b.h);
 			    if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
-			      points.push(b.t + "," + (b.h / 2));
-			    }
-			    return points.join(" ");
-			  }
+			    points.push(b.t + "," + (b.h / 2));
+			}
+			return points.join(" ");
+		}
 
 			  // Update the breadcrumb trail to show the current sequence and percentage.
 			  function updateBreadcrumbs(nodeArray, percentageString) {
 
 			    // Data join; key function combines name and depth (= position in sequence).
 			    var g = d3.select("#trail")
-			        .selectAll("g")
-			        .data(nodeArray, function(d) { return d.name + d.depth; });
+			    .selectAll("g")
+			    .data(nodeArray, function(d) { return d.name + d.depth; });
 
 			    // Add breadcrumb and label for entering nodes.
 			    var entering = g.enter().append("svg:g");
 
 			    entering.append("svg:polygon")
-			        .attr("points", breadcrumbPoints)
-			        .style("fill", function(d) { return colors[d.name]; });
+			    .attr("points", breadcrumbPoints)
+			    .style("fill", function(d) { return colors[d.name]; });
 
 			    entering.append("svg:text")
-			        .attr("x", (b.w + b.t) / 2)
-			        .attr("y", b.h / 2)
-			        .attr("dy", "0.35em")
-			        .attr("text-anchor", "middle")
-			        .text(function(d) { return d.name; });
+			    .attr("x", (b.w + b.t) / 2)
+			    .attr("y", b.h / 2)
+			    .attr("dy", "0.35em")
+			    .attr("text-anchor", "middle")
+			    .text(function(d) { return d.name; });
 
 			    // Set position for entering and updating nodes.
 			    g.attr("transform", function(d, i) {
-			      return "translate(" + i * (b.w + b.s) + ", 0)";
+			    	return "translate(" + i * (b.w + b.s) + ", 0)";
 			    });
 
 			    // Remove exiting nodes.
@@ -525,38 +526,38 @@
 
 			    // Now move and update the percentage at the end.
 			    d3.select("#trail").select("#endlabel")
-			        .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
-			        .attr("y", b.h / 2)
-			        .attr("dy", "0.35em")
-			        .attr("text-anchor", "middle")
-			        .text(percentageString);
+			    .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+			    .attr("y", b.h / 2)
+			    .attr("dy", "0.35em")
+			    .attr("text-anchor", "middle")
+			    .text(percentageString);
 
 			    // Make the breadcrumb trail visible, if it's hidden.
 			    d3.select("#trail")
-			        .style("visibility", "");
+			    .style("visibility", "");
 
-			  }
+			}
 		}
 
 		// drop down menu code: http://www.w3schools.com/howto/howto_js_dropdown.asp
 		/* When the user clicks on the button, 
 		toggle between hiding and showing the dropdown content */
 		function dropdownFunc(element_id) {
-		    document.getElementById(element_id).classList.toggle("show");
+			document.getElementById(element_id).classList.toggle("show");
 		}
 
 		// Close the dropdown if the user clicks outside of it
 		window.onclick = function(e) {
-		  if (!e.target.matches('.dropbtn')) {
+			if (!e.target.matches('.dropbtn')) {
 
-		    var dropdowns = document.getElementsByClassName("dropdown-content");
-		    for (var d = 0; d < dropdowns.length; d++) {
-		      var openDropdown = dropdowns[d];
-		      if (openDropdown.classList.contains('show')) {
-		        openDropdown.classList.remove('show');
-		      }
-		    }
-		  }
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				for (var d = 0; d < dropdowns.length; d++) {
+					var openDropdown = dropdowns[d];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
 		}
 
 		// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
@@ -564,129 +565,129 @@
 		var mapWidth = 700, mapHeight = 480, centered;
 
 		var projection = d3.geo.albersUsa()
-		    .scale(900)
-		    .translate([mapWidth / 2, mapHeight / 2]);
+		.scale(900)
+		.translate([mapWidth / 2, mapHeight / 2]);
 
 		var path = d3.geo.path()
-		    .projection(projection);
+		.projection(projection);
 
 		var svg = d3.select("#map").append("svg")
-		    .attr("width", mapWidth)
-		    .attr("height", mapHeight);
+		.attr("width", mapWidth)
+		.attr("height", mapHeight);
 		    // .style("background-color", "#d3d3d3")
 
-		var g = svg.append("g");
+		    var g = svg.append("g");
 
-		var old_click = null;
+		    var old_click = null;
+
+		    var old_circ = null;
 
 		//map from bl.ocks.org/mbostock/raw/4090846/us.json
 		d3.json("us.json", function(error, us) { 
-		  if (error) throw error;
-		  g.append("g")
-		      .attr("id", "states")
-		    .selectAll("path")
-		      .data(topojson.feature(us, us.objects.states).features)
-		    .enter().append("path")
-		      .attr("d", path)
-		      .on("click", function (d) {
-		      	clicked(d);
-		      	if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+			if (error) throw error;
+			g.append("g")
+			.attr("id", "states")
+			.selectAll("path")
+			.data(topojson.feature(us, us.objects.states).features)
+			.enter().append("path")
+			.attr("d", path)
+			.on("click", function (d) {
+				clicked(d);
+				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
 				else d3.select(this).style("fill", "rgb(176,220,79)");	
 
 				old_click = this;
-		      })
-				.on("mouseout", function() {
+			})
+			.on("mouseout", function() {
 					// d3.select(this).style("fill", "rgb(197,195,198)");
 					// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
 					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
 					else d3.select(this).style("fill", "rgb(176,220,79)");	
 				})
-				.on("mouseover", function() {
-					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
-					else d3.select(this).style("fill", "rgb(176,220,79)");	
+			.on("mouseover", function() {
+				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
+				else d3.select(this).style("fill", "rgb(176,220,79)");	
 
-				})
-		      .style("opacity", 0)
-			  .transition()
-			  .duration(1000)
-			  .style("opacity", 1)
-			  .style('fill', function () {
+			})
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1)
+			.style('fill', function () {
 
-			  })
+			})
 			  // .call("mouseover");
 
-		  g.append("path")
-		      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-		      .attr("id", "state-borders")
-		      .attr("d", path)
-		      .style("opacity", 0)
+			  g.append("path")
+			  .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+			  .attr("id", "state-borders")
+			  .attr("d", path)
+			  .style("opacity", 0)
 			  .transition()
 			  .duration(2000)
 			  .style("opacity", 1);
-		});
+			});
 
-		circles = svg.selectAll(".point").data(data);
+circles = svg.selectAll(".point").data(data);
 
-		var loading = true;
-		var largeRadius = true;
+var loading = true;
+var largeRadius = true;
 
-		function clicked(d) {
-			if (old_click != null) {
-				d3.select(old_click).style("fill", "rgb(197,195,198)");
-			}
-			if (!loading) {
-			  var x, y, k;
+function clicked(d) {
+	if (old_click != null) {
+		d3.select(old_click).style("fill", "rgb(197,195,198)");
+	}
+	if (!loading) {
+		var x, y, k;
 
-			  if (d && centered !== d) {
-			    var centroid = path.centroid(d);
-			    x = centroid[0];
-			    y = centroid[1];
-			    k = 3;
-			    centered = d;
-			    largeRadius = true;
-			  } else {
-			    x = mapWidth / 2;
-			    y = mapHeight / 2;
-			    k = 1;
-			    centered = null;
-			    largeRadius = false;
-			  }
-
-			  g.selectAll("path")
-			      .classed("active", centered && function(d) { return d === centered; });
-
-			  g.transition()
-			      .duration(750)
-			      .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			      .style("stroke-width", 1.5 / k + "px");
-
-			  if (largeRadius) {
-			  	circles.transition()
-			  	  .duration(750)
-			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			      .style("stroke-width", 1.5 / k + "px")
-			      .attr("r", 1.3);
-
-			     d3.selectAll(".point")
-			      .classed("largeRadius", false)
-			      .classed("smallRadius", true)
-			  }
-
-			  else {
-			  	circles.transition()
-			  	  .duration(750)
-			  	  .attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			      .style("stroke-width", 1.5 / k + "px")
-			      .attr("r", 4);
-
-			     d3.selectAll(".point")
-			      .classed("largeRadius", true)
-			      .classed("smallRadius", false);
-			  }
-			}
+		if (d && centered !== d) {
+			var centroid = path.centroid(d);
+			x = centroid[0];
+			y = centroid[1];
+			k = 3;
+			centered = d;
+			largeRadius = true;
+		} else {
+			x = mapWidth / 2;
+			y = mapHeight / 2;
+			k = 1;
+			centered = null;
+			largeRadius = false;
 		}
 
-		var old_circ = null;
+		g.selectAll("path")
+		.classed("active", centered && function(d) { return d === centered; });
+
+		g.transition()
+		.duration(750)
+		.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+		.style("stroke-width", 1.5 / k + "px");
+
+		if (largeRadius) {
+			circles.transition()
+			.duration(750)
+			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			.style("stroke-width", 1.5 / k + "px")
+			.attr("r", 1.3);
+
+			d3.selectAll(".point")
+			.classed("largeRadius", false)
+			.classed("smallRadius", true)
+		}
+
+		else {
+			circles.transition()
+			.duration(750)
+			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			.style("stroke-width", 1.5 / k + "px")
+			.attr("r", 4);
+
+			d3.selectAll(".point")
+			.classed("largeRadius", true)
+			.classed("smallRadius", false);
+		}
+	}
+}
 
 		// needed to set timeout so that the points don't load behind the map...
 		function addCoords() {
@@ -694,7 +695,7 @@
 			.attr("class", "point")
 			.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
 			.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
-			.attr("id", function(d) { return d.MapID})
+			.attr("id", function(d) { return d.MapID;})
 			.attr("r", 3)
 			.style("stroke", "rgb(220,220,221)")
 			.style("stroke-width", 0.5)
@@ -717,9 +718,9 @@
 				// d3.select(this)
 				// 	.style("fill", "rgb(92, 168, 50)");
 					// .attr("r", 5);
-				displayCollege(d);
+					displayCollege(d);
 
-				old_circ = this;
+					old_circ = this;
 				//d3.select(this).classed("clickedOn", true);
 			})
 			.style("opacity", 0)
@@ -746,11 +747,11 @@
 
 			// tooltip code from http://bl.ocks.org/biovisualize/1016860
 			var tooltip = d3.select("body")
-							.append("div")
-							.attr("class", "tooltip")
-							.style("position", "absolute")
-							.style("z-index", "10")
-							.style("visibility", "hidden");
+			.append("div")
+			.attr("class", "tooltip")
+			.style("position", "absolute")
+			.style("z-index", "10")
+			.style("visibility", "hidden");
 
 			var formatNumber = d3.format(",d");
 
@@ -771,27 +772,27 @@
 			.range([height-padding, padding]);
 
 			var xAxis = d3.svg.axis().scale(xScale).orient("bottom"),
-				yAxis = d3.svg.axis().scale(yScale).orient("left");
+			yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
 			.call(xAxis)
 			.selectAll("text")
 			.style("opacity", 0)
-						.transition()
-						.duration(1000)
-						.style("opacity", 1)
-						.style("text-anchor","end")
-						.style("font-size","10")
-						.attr("dx","-.8em")
-						.attr("dy",".15em")
-						.attr("transform","rotate(-60)");
+			.transition()
+			.duration(1000)
+			.style("opacity", 1)
+			.style("text-anchor","end")
+			.style("font-size","10")
+			.attr("dx","-.8em")
+			.attr("dy",".15em")
+			.attr("transform","rotate(-60)");
 			svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
 			.call(yAxis)
 			.selectAll("text")
-					.style("opacity", 0)
-					.transition()
-					.duration(1500)
-					.style("opacity", 1);
+			.style("opacity", 0)
+			.transition()
+			.duration(1500)
+			.style("opacity", 1);
 
 			var barwidth = (width-2*padding);
 			if (chartData.length == 2 || chartData.length == 4) barwidth /= 2;
@@ -806,10 +807,10 @@
 				.on("mouseover", function(){return tooltip.style("visibility", "visible").text(d.HoverTitle +":\n "+formatNumber(d.Attr));})
 				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 				.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-					.style("opacity", 0)
-					.transition()
-					.duration(1000)
-					.style("opacity", 1);
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 			});
 
 		}
@@ -818,38 +819,38 @@
 			d3.selectAll("#comparisonCharts svg").remove()
 			// Tuition
 			plotCompare("#comparisonCharts", "Average Tuition", [
-					{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
-					"StyleClass": "bar"}
+				{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
+				"StyleClass": "bar"}
 				]);
 			// Cost of Living
 			plotCompare("#comparisonCharts", "Average Cost of Living", [
-					{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"}
+				{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"}
 				]);
 			// Grant Amount
 			plotCompare("#comparisonCharts", "Average Grant Amount", [
-					{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"}
+				{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"}
 				]);
 			// % Financial Aid
 			plotCompare("#comparisonCharts", "Average % on Financial Aid", [
-					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"}
+				{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"}
 				]);
 			// Student Body
 			plotCompare("#comparisonCharts", "Average Student Body", [
-					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"}
+				{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"}
 				]);
 			// Salary
 			plotCompare("#comparisonCharts",  "Average Salaries", [
-					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
-					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
-					{"Name": currentCollege.DisplayName, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass":"bar"}
+				{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
+				{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
+				{"Name": currentCollege.DisplayName, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass":"bar"}
 				]);
-			}
+		}
 
 		function threeComparisonPlots(selectedCollege) {
 			d3.selectAll("#comparisonCharts svg").remove()
@@ -859,50 +860,50 @@
 			else {
 				//Tuition
 				plotCompare("#comparisonCharts", "Average Tuition", [
-						{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
-						"StyleClass": "bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgTuition, "HoverTitle": "Average Tuition",
-						"StyleClass": "bar"}
+					{"Name": "Average", "Attr": 39254, "HoverTitle": "Average Tuition", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgTuition, "HoverTitle": "Average Tuition",
+					"StyleClass": "bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgTuition, "HoverTitle": "Average Tuition",
+					"StyleClass": "bar"}
 					]);
 				// Cost of Living
 				plotCompare("#comparisonCharts", "Average Cost of Living", [
-						{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living",
-						"StyleClass": "bar"}
+					{"Name": "Average", "Attr": 13389, "HoverTitle": "Average Cost of Living", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living", "StyleClass":"bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgCostLiving, "HoverTitle": "Average Cost of Living",
+					"StyleClass": "bar"}
 					]);
 				// Grant Amount
 				plotCompare("#comparisonCharts", "Average Grant Amount", [
-						{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount",
-						"StyleClass": "bar"}
+					{"Name": "Average", "Attr": 29810, "HoverTitle": "Average Grant Amount", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount", "StyleClass":"bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.AvgGrantAmount, "HoverTitle": "Average Grant Amount",
+					"StyleClass": "bar"}
 					]);
 				// % Financial Aid
 				plotCompare("#comparisonCharts", "Average % on Financial Aid", [
-						{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"},
-						{"Name": selectedCollege.DisplayName,"Attr": parseInt(selectedCollege.AvgOnFinAid.substr(0, selectedCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "bar"}
+					{"Name": "Average", "Attr": 47, "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": parseInt(currentCollege.AvgOnFinAid.substr(0, currentCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass":"bar"},
+					{"Name": selectedCollege.DisplayName,"Attr": parseInt(selectedCollege.AvgOnFinAid.substr(0, selectedCollege.AvgOnFinAid.length - 1)), "HoverTitle": "Average Percentage on Financial Aid", "StyleClass": "bar"}
 					]);
 				// Student Body
 				plotCompare("#comparisonCharts", "Average Student Body", [
-						{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body",
-						"StyleClass": "bar"}
+					{"Name": "Average", "Attr": 12993, "HoverTitle": "Average Total Student Body","StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body", "StyleClass": "bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.TotalStudentBody, "HoverTitle": "Average Total Student Body",
+					"StyleClass": "bar"}
 					]);
 				// Salary
 				plotCompare("#comparisonCharts",  "Average Salaries", [
-						{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
-						{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
-						{"Name": currentCollege.DisplayName, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass": "bar"},
-						{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass":"bar"}
+					{"Name": "Average", "Attr": 102382, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.MidSalary, "HoverTitle": "Average Mid-Career Salary", "StyleClass": "bar"},
+					{"Name": "Average", "Attr": 55620, "HoverTitle": "Average Starting Salary", "StyleClass": "average"},
+					{"Name": currentCollege.DisplayName, "Attr": currentCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass": "bar"},
+					{"Name": selectedCollege.DisplayName, "Attr": selectedCollege.StartingSalary, "HoverTitle": "Average Starting Salary", "StyleClass":"bar"}
 					]);
-				}
 			}
+		}
 
 		
 		// CORRELATION PLOT
@@ -914,95 +915,95 @@
 
     	//  select the element && append an SVG element inside it
     	// inspiration from http://bl.ocks.org/bunkat/2595950
-		var svg = d3.select("#correlationPlot")
-			.append("svg")
-			.attr("height", correlheight)
-			.attr("width", correlwidth);
+    	var svg = d3.select("#correlationPlot")
+    	.append("svg")
+    	.attr("height", correlheight)
+    	.attr("width", correlwidth);
 
-		var colleges = {};
+    	var colleges = {};
 
-		data.forEach(function (obj) {
-			colleges[obj.Name] = [obj.AvgTuition,obj.MidSalary];
-		});
+    	data.forEach(function (obj) {
+    		colleges[obj.Name] = [obj.AvgTuition,obj.MidSalary];
+    	});
 
 		// average tuition
 		var x = d3.scale.linear()
-              .domain([0, d3.max(data, function(d) { return d.AvgTuition; })])
-              .nice()
-              .range([ padding, correlwidth - padding]);
-    
+		.domain([0, d3.max(data, function(d) { return d.AvgTuition; })])
+		.nice()
+		.range([ padding, correlwidth - padding]);
+		
     	// salary
     	var y = d3.scale.linear()
-    	      .domain([d3.min(data, function(d) { return d.MidSalary; }), d3.max(data, function(d) { return d.MidSalary; })])
-    	      .nice()
-    	      .range([correlheight - padding, padding]);
+    	.domain([d3.min(data, function(d) { return d.MidSalary; }), d3.max(data, function(d) { return d.MidSalary; })])
+    	.nice()
+    	.range([correlheight - padding, padding]);
 
 
 		// draw the x axis
-    	var xAxis = d3.svg.axis()
-			.scale(x)
+		var xAxis = d3.svg.axis()
+		.scale(x)
 			// .ticks(10)
 			.orient('bottom');
 
 		// draw the x axis
-    	var yAxis = d3.svg.axis()
-			.scale(y)
+		var yAxis = d3.svg.axis()
+		.scale(y)
 			// .ticks(10)
 			.orient('left');
 
-		svg.append("g")
+			svg.append("g")
 			.attr("transform", "translate("+ 0 + ","+ (correlheight-padding) +")")
 			.attr("class", "axis")
 			.style("font-size", 12)
 			.call(xAxis);
 
-		svg.append("g")
+			svg.append("g")
 			.attr("transform", "translate("+ padding + ","+ 0 +")")
 			.attr("class", "axis")
 			.style("font-size", 12)
 			.call(yAxis);
 
-		var circles2 = svg.append('g').selectAll("circles").data(data);
+			var circles2 = svg.append('g').selectAll("circles").data(data);
 
-		var tooltip = d3.select("body")
-							.append("div")
-							.attr("class", "tooltip")
-							.style("position", "absolute")
-							.style("z-index", "10")
-							.style("visibility", "hidden");
-		
-		circles2.enter().append("circle")
-          		.attr("cx", function (d,i) { return x(d.AvgTuition); } )
-         		.attr("cy", function (d) { return y(d.MidSalary); } )
-          		.attr("r", 6)
-          		.style("stroke", "rgb(70,73,76)")
-				.style("stroke-width", 0.5)
+			var tooltip = d3.select("body")
+			.append("div")
+			.attr("class", "tooltip")
+			.style("position", "absolute")
+			.style("z-index", "10")
+			.style("visibility", "hidden");
+			
+			circles2.enter().append("circle")
+			.attr("cx", function (d,i) { return x(d.AvgTuition); } )
+			.attr("cy", function (d) { return y(d.MidSalary); } )
+			.attr("r", 6)
+			.style("stroke", "rgb(70,73,76)")
+			.style("stroke-width", 0.5)
+			.style("fill", function(d) {
+				return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
+			})
+			.on("mouseover", function(d){
+				return tooltip.style("visibility", "visible").html(d.Name+"\nAverage Tuition: $"+d3.format(",d")(d.AvgTuition)+"\nMid-Career Salary: $"+d3.format(",d")(d.MidSalary));
+			})
+			.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+			.on("click", function (d) {
+
+				d3.select(old_circ)
 				.style("fill", function(d) {
 					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
-				})
-				.on("mouseover", function(d){
-					return tooltip.style("visibility", "visible").html(d.Name+"\nAverage Tuition: $"+d3.format(",d")(d.AvgTuition)+"\nMid-Career Salary: $"+d3.format(",d")(d.MidSalary));
-				})
-				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-				.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-				.on("click", function (d) {
-
-					d3.select(old_circ)
-						.style("fill", function(d) {
-						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
-						})
+				});
 
 
-					d3.select(this)
-						.style("fill", "rgb(92, 168, 50)")
+				d3.select(this)
+				.style("fill", "rgb(92, 168, 50)");
 					// .attr("r", 5);
 					displayCollege(d);
 
 					old_circ = this;
 					//d3.select(this).classed("clickedOn", true);
-			});
-	
+				});
+			
 
-	</script>
-</body>
-</html>
+			</script>
+		</body>
+		</html>
