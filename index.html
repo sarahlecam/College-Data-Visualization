@@ -965,6 +965,8 @@ function clicked(d) {
 
 			var circles2 = svg.append('g').selectAll("circles").data(data);
 
+			var prev = null;
+
 			var tooltip = d3.select("body")
 			.append("div")
 			.attr("class", "tooltip")
@@ -987,21 +989,19 @@ function clicked(d) {
 			.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 			.on("click", function (d) {
-
-				d3.select(old_circ)
+				console.log(d.Name);
+				d3.select(prev)
 				.style("fill", function(d) {
 					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 				});
 
-
 				d3.select(this)
 				.style("fill", "rgb(92, 168, 50)");
-					// .attr("r", 5);
 					displayCollege(d);
 
-					old_circ = this;
-					//d3.select(this).classed("clickedOn", true);
-				});
+				prev = this;
+
+			});
 			
 
 			</script>
