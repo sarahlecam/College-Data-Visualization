@@ -105,8 +105,8 @@
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
 		function displayCollege(obj) {
-			d3.select(old_circ)
-			.style("fill", "rgb(45,58,71)");
+			// d3.select(old_circ)
+			// .style("fill", "rgb(45,58,71)");
 			d3.select("#"+obj.MapID)
 			.style("fill", "rgb(92, 168, 50)");
 			old_circ = "#"+obj.MapID;
@@ -711,8 +711,8 @@ function clicked(d) {
 			})
 			.on("click", function (d) {
 
-				// d3.select(old_circ)
-				// 	.style("fill", "rgb(45,58,71)");
+				d3.select(old_circ)
+					.style("fill", "rgb(45,58,71)");
 
 
 				// d3.select(this)
@@ -769,10 +769,14 @@ function clicked(d) {
 
 			var yScale = d3.scale.linear()
 			.domain([0, 1.5*Math.max.apply(Math, yDomain)])
+			.nice()
 			.range([height-padding, padding]);
 
 			var xAxis = d3.svg.axis().scale(xScale).orient("bottom"),
-			yAxis = d3.svg.axis().scale(yScale).orient("left");
+			yAxis = d3.svg.axis()
+				.scale(yScale)
+				.orient("left")
+				.ticks(8);
 
 			svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
 			.call(xAxis)
@@ -911,7 +915,7 @@ function clicked(d) {
 		// salary on y-axis and cost on x-axis
 		var correlwidth = window.innerWidth*.8; centered;
 		var correlheight = correlwidth*.6; 
-		var padding = 60;
+		var padding = 100;
 
     	//  select the element && append an SVG element inside it
     	// inspiration from http://bl.ocks.org/bunkat/2595950
@@ -931,7 +935,7 @@ function clicked(d) {
 		.domain([0, d3.max(data, function(d) { return d.AvgTuition; })])
 		.nice()
 		.range([ padding, correlwidth - padding]);
-		
+
     	// salary
     	var y = d3.scale.linear()
     	.domain([d3.min(data, function(d) { return d.MidSalary; }), d3.max(data, function(d) { return d.MidSalary; })])
@@ -963,6 +967,18 @@ function clicked(d) {
 			.style("font-size", 12)
 			.call(yAxis);
 
+			// adding y-axis label
+			svg.append("text")
+			.attr("text-anchor", "middle")
+			.attr("transform", "translate("+ (padding/3) +","+(correlheight/2)+")rotate(-90)")
+			.text("Mid-Career Salary");
+
+			// adding x-axis label
+			svg.append("text")
+			.attr("text-anchor", "middle")
+			.attr("transform", "translate("+ (correlwidth/2) +","+(correlheight- 1)+")")
+			.text("Weighted Tuition");
+
 			var circles2 = svg.append('g').selectAll("circles").data(data);
 
 			var tooltip = d3.select("body")
@@ -971,7 +987,7 @@ function clicked(d) {
 			.style("position", "absolute")
 			.style("z-index", "10")
 			.style("visibility", "hidden");
-			
+
 			circles2.enter().append("circle")
 			.attr("cx", function (d,i) { return x(d.AvgTuition); } )
 			.attr("cy", function (d) { return y(d.MidSalary); } )
@@ -1001,8 +1017,8 @@ function clicked(d) {
 
 					old_circ = this;
 					//d3.select(this).classed("clickedOn", true);
-				});
-			
+			});
+
 
 			</script>
 		</body>

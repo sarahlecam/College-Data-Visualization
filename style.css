@@ -108,11 +108,12 @@ h1 {
   padding-left: 10px;
 }
 #infotext {
-	padding-left: 10px;
+	padding-left: 20px;
   margin-right: 15px;
   background-color: rgb(220,220,221);
   border: 2px solid rgb(197,195,198);
   border-radius: 10px;
+  width: 350px;
   color: rgb(70,73,76);
 }
 
@@ -305,6 +306,7 @@ path {
 #comparisonCharts {
   text-align: center;
   display: block;
+
 }
 
 #chart {
