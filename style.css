@@ -300,8 +300,6 @@ path {
 #correlationPlot {
   display: inline-block;
   text-align: center;
-  /*float: center;*/
-  margin-left: 10%;
 }
 
 #comparisonCharts {
