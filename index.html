@@ -372,8 +372,16 @@
 			  // Main function to draw and set up the visualization, once we have the data.
 			  function createVisualization(json) {
 
-			  	d3.select("#percentage").text(currentCollege.DisplayName);
-			  	d3.select("#percentageExplanation").text("Rank: " + currentCollege.Rank);
+			  	d3.select("#percentage").text(currentCollege.DisplayName)
+			  		.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.style("opacity", 1);
+			  	d3.select("#percentageExplanation").text("Rank: " + currentCollege.Rank)
+			  		.style("opacity", 0)
+					.transition()
+					.duration(1000)
+					.style("opacity", 1);
 
 			    // Bounding circle underneath the sunburst, to make it easier to detect
 			    // when the mouse leaves the parent g.
@@ -394,8 +402,11 @@
 			    .attr("d", arc)
 			    .attr("fill-rule", "evenodd")
 			    .style("fill", function(d) { return colors[d.name]; })
-			    .style("opacity", 1)
-			    .on("mouseover", mouseover);
+			    .on("mouseover", mouseover)
+			    .style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 
 			    // Add the mouseleave handler to the bounding circle.
 			    d3.select("#container").on("mouseleave", mouseleave);
@@ -624,10 +635,10 @@
 			.style("opacity", 0)
 			.transition()
 			.duration(1000)
-			.style("opacity", 1)
-			.style('fill', function () {
+			.style("opacity", 1);
+			// .style('fill', function () {
 
-			})
+			// })
 			  // .call("mouseover");
 
 			  g.append("path")
