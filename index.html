@@ -107,11 +107,11 @@
 		function displayCollege(obj) {
 			if (old_circ != null) {
 				d3.select("#"+currentCollege.MapID)
-					.style("fill", "rgb(45,58,71)");
+					.style("fill", "rgb(45,58,71)").attr("r", 4);
 				d3.select("#"+ "c"+currentCollege.MapID)
 					.style("fill", function(d) {
-					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
-				})
+						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
+					})
 					.attr("r", 6);
 			}
 
@@ -723,7 +723,7 @@ function clicked(d) {
 			.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
 			.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
 			.attr("id", function(d) { return d.MapID;})
-			.attr("r", 3)
+			.attr("r", 4)
 			.style("stroke", "rgb(220,220,221)")
 			.style("stroke-width", 0.5)
 			.style("fill", "rgb(45,58,71)")
@@ -747,6 +747,7 @@ function clicked(d) {
 			.duration(1000)
 			.style("opacity", 1);
 			loading = false;
+			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)");
 		};
 		setTimeout(addCoords, 500);
 		displayCollege(currentCollege)
@@ -1042,27 +1043,30 @@ function clicked(d) {
 
 			});
 
+			d3.select("#c"+currentCollege.MapID).style("fill", "rgba(92, 168, 50,1)")
+					.attr("r", 10)
+
 
 			// Also want to add a key to understand what the various colors represent
 	    	var svg2 = d3.select("#correlationPlot")
 	    	.append("svg")
-	    	.attr("height", 30).attr("width", correlwidth-padding);
+	    	.attr("height", 50).attr("width", correlwidth-padding);
 
 	    	svg2.append("text").text("Key: The color of the coordinate represents its US News rank")
 	    	.style("alignment-baseline", "hanging")
 	    	.attr("x", 0).attr("y", 0)
-	    	.style("font-size", 10);
+	    	.style("font-size", 12);
 
 	    	svg2.append("text").text("1")
 			.style("alignment-baseline", "hanging")
-	    	.attr("x", 0).attr("y", 12)
-	    	.style("font-size", 8);
+	    	.attr("x", 0).attr("y", 15)
+	    	.style("font-size", 10);
 
 	    	svg2.append("text").text("47")
 			.style("alignment-baseline", "hanging")
 			.style("text-anchor", "end")
-	    	.attr("x", correlwidth-padding).attr("y", 12)
-	    	.style("font-size", 8);
+	    	.attr("x", correlwidth-padding).attr("y", 15)
+	    	.style("font-size", 10);
 
 	    	// function uniqueRanks() {
 	    	// 	var arr = [];
@@ -1076,8 +1080,8 @@ function clicked(d) {
 	    	var uniqueRanks = [1, 2, 3, 4, 7, 8, 9, 10, 12, 14, 15, 18, 20, 21, 23, 26, 27, 29, 30, 32, 33, 34, 36, 37, 39, 41, 47];
 	    	for (var i = 0; i < 27; i++) {
 	    		svg2.append("rect")
-	    		.attr("x", x_pos).attr("y", 20)
-	    		.attr("width", (correlwidth-padding)/27).attr("height", 27)
+	    		.attr("x", x_pos).attr("y", 25)
+	    		.attr("width", (correlwidth-padding)/27).attr("height", 25)
 	    		.style("fill", "rgba(45,58,71," + (50 - uniqueRanks[i]) / 50 +")");
 
 	    		x_pos+=(correlwidth-padding)/27;
