@@ -1026,8 +1026,39 @@ function clicked(d) {
 				prev = this;
 
 			});
-			
 
+
+			// Also want to add a key to understand what the various colors represent
+	    	var svg2 = d3.select("#correlationPlot")
+	    	.append("svg")
+	    	.attr("height", 30).attr("width", correlwidth-padding);
+
+	    	svg2.append("text").text("Key: The color of the coordinate represents its US News rank")
+	    	.style("alignment-baseline", "hanging")
+	    	.attr("x", 0).attr("y", 0)
+	    	.style("font-size", 10);
+
+	    	svg2.append("text").text("1")
+			.style("alignment-baseline", "hanging")
+	    	.attr("x", 0).attr("y", 12)
+	    	.style("font-size", 8);
+
+	    	svg2.append("text").text("50")
+			.style("alignment-baseline", "hanging")
+			.style("text-anchor", "end")
+	    	.attr("x", correlwidth-padding).attr("y", 12)
+	    	.style("font-size", 8);	    	
+
+	    	var x_pos = 0;
+	    	data.forEach(function(d) {
+	    		svg2.append("rect")
+	    		.attr("x", x_pos).attr("y", 20)
+	    		.attr("width", (correlwidth-padding)/50).attr("height", 10)
+	    		.style("fill", "rgba(45,58,71," + (50 - d.Rank) / 50 +")");
+
+	    		x_pos+=(correlwidth-padding)/50;
+	    	});
+	    				
 			</script>
 		</body>
 		</html>
