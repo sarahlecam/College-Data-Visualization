@@ -913,8 +913,8 @@ function clicked(d) {
 		// CORRELATION PLOT
 
 		// salary on y-axis and cost on x-axis
-		var correlwidth = window.innerWidth*.8; centered;
-		var correlheight = correlwidth*.6; 
+		var correlwidth = window.innerWidth*.9; centered;
+		var correlheight = correlwidth*.65; 
 		var padding = 100;
 
     	//  select the element && append an SVG element inside it
@@ -976,7 +976,7 @@ function clicked(d) {
 			// adding x-axis label
 			svg.append("text")
 			.attr("text-anchor", "middle")
-			.attr("transform", "translate("+ (correlwidth/2) +","+(correlheight- 1)+")")
+			.attr("transform", "translate("+ (correlwidth/2) +","+(correlheight- padding/3)+")")
 			.text("Weighted Tuition");
 
 			var circles2 = svg.append('g').selectAll("circles").data(data);
@@ -993,6 +993,7 @@ function clicked(d) {
 			circles2.enter().append("circle")
 			.attr("cx", function (d,i) { return x(d.AvgTuition); } )
 			.attr("cy", function (d) { return y(d.MidSalary); } )
+			.attr("id", function(d) { return d.MapID;})
 			.attr("r", 6)
 			.style("stroke", "rgb(70,73,76)")
 			.style("stroke-width", 0.5)
@@ -1006,14 +1007,17 @@ function clicked(d) {
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 			.on("click", function (d) {
 				// console.log(d.Name);
+
 				d3.select(prev)
 				.style("fill", function(d) {
 					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 				});
 
+				displayCollege(d);
+
 				d3.select(this)
 				.style("fill", "rgb(92, 168, 50)");
-					displayCollege(d);
+
 
 				prev = this;
 
