@@ -24,6 +24,7 @@
 
 		<nav id="nav">
 			<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
+			<h3>Pick a College</h3>
 			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
 			<div class="dropdown-content" id="myDropdown">
 			</div>
@@ -78,8 +79,8 @@
 				<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
 				<div class="dropdown-content" id="compareDropdown">
 				</div>
-				<div id="comparisonCharts"></div>
 			</div>
+			<div id="comparisonCharts"></div>
 		</section>
 
 		<section>
@@ -143,8 +144,8 @@
 			d3.select("#chartTitle").text("");
 			d3.select("#chartValue").text("");
 			d3.select("#chart svg").remove();
-			d3.select("#percentage").text("");
 			d3.select("#percentageExplanation").text("");
+			d3.select("#percentage").text("");
 			d3.select("#college").text("");
 			d3.select("#collegeLoc").text("");
 			d3.select("#rank").text("");
@@ -759,11 +760,11 @@ function clicked(d) {
 
 		//Start adding comparison charts
 		function plotCompare(element_id, title, chartData) {
-			var height = 500;
+			var height = 400;
 			var width = 325;
 			var padding = 100;
 			var svg = d3.select(element_id).append("svg")
-			.attr("height", height).attr("width", width);
+			.attr("height", height).attr("width", width).style("padding-left", "5%").style("padding-right", "5%");
 
 			// tooltip code from http://bl.ocks.org/biovisualize/1016860
 			var tooltip = d3.select("body")

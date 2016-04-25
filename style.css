@@ -58,6 +58,7 @@ body, html {
   -moz-column-count: 3; /* Firefox */
   column-count: 3;
   margin: 5%;
+  margin-bottom: 20px;
   text-align: justify;
   -webkit-column-gap: 40px;
   -moz-column-gap: 40px; /* Firefox */
@@ -237,6 +238,7 @@ path {
 #comparison {
   margin: 5%;
   padding-top: 20px;
+  width:90%;
   float: left;
   display: block;
   clear: both;
@@ -300,12 +302,13 @@ path {
 #correlationPlot {
   display: inline-block;
   text-align: center;
+  /*margin-left: 5%;*/
 }
 
 #comparisonCharts {
   text-align: center;
-  display: block;
-
+  display: inline-block;
+  margin-left: -5%;
 }
 
 #chart {
