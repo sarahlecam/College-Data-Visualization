@@ -18,14 +18,15 @@
 		</div>
 		<div id="text">
 			<p>
-				<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most pertinent statistics for each of U.S. News' Top 50 colleges and compares these against the averages of the aggregate and of each college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses does not always guarantee higher salary and satisfaction post graduation.
+				<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most relevant statistics for each of US News' Top 50 colleges and compares these against averages of the aggregate and of each other college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses, especially tuition, does not always guarantee higher salary and satisfaction post-graduation.
 			</p>
 		</div>
 
 		<nav id="nav">
 			<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
-			<h3>Pick a College</h3>
-			<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Click to display a list of all colleges</a>
+			<h3>Select a College</h3>
+			<p>View each college's data by selecting a coordinate on the map or from the dropdown list below. </p>
+			<a id = "button_text" href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Select a college from list</a>
 			<div class="dropdown-content" id="myDropdown">
 			</div>
 		</nav>
@@ -38,8 +39,8 @@
 
 			<div id="info">
 				<div id="radiobuttons">
-					<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Chart Data
-					<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Text Data
+					<input type="radio" name="infotype" value="ringchart" onclick="chartCollegeData()" checked>View Data Visually
+					<input type="radio" name="infotype" value="textdata" onclick="textCollegeData()">View Data as Text
 				</div>
 
 				<br>
@@ -76,7 +77,7 @@
 			<div id="comparison">
 				<h3>Compare Colleges</h3>
 				<p>Compare selected college to the average of the top fifty colleges in the nation.</p>
-				<a href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
+				<a id = "dropdown_id" href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
 				<div class="dropdown-content" id="compareDropdown">
 				</div>
 			</div>
@@ -103,6 +104,7 @@
 		data[i].MapID = "school" + i;
 	}
 
+		// button_text.innerHTML = "Click to display a list of all colleges";
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
 		function displayCollege(obj) {
@@ -130,6 +132,7 @@
 				chartCollegeData();
 			} else textCollegeData();
 			if (largeRadius) clicked(null);
+			button_text.innerHTML = currentCollege.Name;
 		}
 
 		// first set up links in dropdown
@@ -301,12 +304,6 @@
 			d3.select("#startingsalary").text("");
 			d3.select("#midsalary").text("");
 
-			// d3.select("#chartValue").text("Rank: " + currentCollege.Rank)
-			// 	.style("opacity", 0)
-			// 	.transition()
-			// 	.duration(1000)
-			// 	.style("opacity", 1);
-
 			d3.select("#college").text(currentCollege.Name)
 			.style("opacity", 0)
 			.transition()
@@ -333,23 +330,24 @@
 
 			  // Mapping of step names to colors.
 			  var colors = {
-			  	"Expenses": "#465a6d",
+			  	//"Expenses": "#465a6d",
 			  	"Total Tuition": "#a2b3c3",
 			  	"Out of State Tuition": "#a2b3c3",
 			  	"In State Tuition": "#a2b3c3",
-			  	"Weighted Tuition": "#a2b3c3",
-			  	"Cost of Living": "#63809c",
-			  	"Avg Grant Money": "#63809c",
-			  	"Avg Students that Receive Financial Aid Packages": "#e0e6eb",
-			  	"Total Student Population": "#e0e6eb",
-			  	"Avg Number on Financial Aid": "#e0e6eb",
-			  	"Avg Number not on Financial Aid": "#e0e6eb",
+			  	"Average Tuition": "#a2b3c3",
+			  	"Cost of Living": "#50677c",
+			  	"Average Grant Amount Given": "#63809c",
+			  	//"Average Financial Aid Given": "#e0e6eb",
+			  	//"Total Student Population": "#e0e6eb",
+			  	"Average Number of Students on Financial Aid": "#a8d93f",
 			  	"Total Student Body": "#c5e67f",
 			  	"Out of State Students": "#c5e67f",
 			  	"In State Students": "#c5e67f",
-			  	"Avg Career Salaries": "#e2f2bf",
-			  	"Avg Starting Salary": "#e2f2bf",
-			  	"Avg Mid-Career Salary": "#e2f2bf"
+			  	//"Average Career Salaries": "#e2f2bf",
+			  	"Average Starting Salary": "#e0e6eb",
+			  	//"#e2f2bf",
+			  	"Average Mid-Career Salary": "#e0e6eb"
+			  	//"#e2f2bf"
 			  };
 
 			  // Total size of all segments; we set this later, after loading the data.
@@ -422,38 +420,18 @@
 
 			  // Fade all but the current sequence, and show it in the breadcrumb trail.
 			  function mouseover(d) {
-
-			    // var percentage = (100 * d.value / totalSize).toPrecision(3);
-			    // var percentageString = percentage + "%";
-			    // if (percentage < 0.1) {
-			    //   percentageString = "< 0.1%";
-			    // }
 			    var percentageString = "";
 			    if (d.displayNumber) {
-			    	percentageString = d3.format(",d")(d.size);
+			    	if (d.name == "Total Student Body" || d.name == "Average Number of Students on Financial Aid") {
+			    		percentageString = d3.format(",d")(d.size);
+			    	}
+			    	else percentageString = "$"+d3.format(",d")(d.size);
 			    	d3.select("#percentage").text(percentageString);
 			    }
 			    else d3.select("#percentage").text("");
 
-			    // d3.select("#percentage")
-			    //     .text(percentageString);
-
 			    d3.select("#percentageExplanation")
 			    .text(d.name);
-
-			    // d3.select("#explanation")
-			    //     .style("visibility", "");
-
-			    // var percentageString = "", myString = "";
-
-			    // if (d.displayNumber) {
-			    //   percentageString = d3.format(",d")(d.size);
-			    //   myString = ": "+percentageString;
-			    //   d3.select("#percentage").text(percentageString);
-			    // }
-
-			    // d3.select("#percentage").text(d.name+myString)
-			    //     .style("visibility", "");
 
 			    var sequenceArray = getAncestors(d);
 			    updateBreadcrumbs(sequenceArray, percentageString);
@@ -476,10 +454,6 @@
 			  	d3.select("#percentage").text(currentCollege.DisplayName);
 			  	d3.select("#percentageExplanation").text("Rank: " + currentCollege.Rank);
 
-			    // Hide the breadcrumb trail
-			    // d3.select("#trail")
-			    //     .style("visibility", "hidden");
-
 			    // Deactivate all segments during transition.
 			    d3.selectAll("#chart path").on("mouseover", null);
 
@@ -491,9 +465,6 @@
 			    .each("end", function() {
 			    	d3.select(this).on("mouseover", mouseover);
 			    });
-
-			    // d3.select("#explanation")
-			    //     .style("visibility", "hidden");
 			}
 
 			  // Given a node in a partition layout, return an array of all of its ancestor
@@ -751,7 +722,9 @@ function clicked(d) {
 			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)");
 		};
 		setTimeout(addCoords, 500);
-		displayCollege(currentCollege)
+		displayCollege(currentCollege);
+		d3.select("#button_text").text("Select a college from list");
+		d3.select("#dropdown_id").text("Select a college to compare");
 
 		var comparedropdownDiv = document.getElementById("compareDropdown");
 		data.forEach(function (obj) {
@@ -841,6 +814,7 @@ function clicked(d) {
 		}
 
 		function twoComparisonPlots() {
+			d3.select("#dropdown_id").text("Select a college to compare");
 			d3.selectAll("#comparisonCharts svg").remove()
 			// Tuition
 			plotCompare("#comparisonCharts", "Average Tuition", [
@@ -878,6 +852,7 @@ function clicked(d) {
 		}
 
 		function threeComparisonPlots(selectedCollege) {
+			d3.select("#dropdown_id").text(selectedCollege.Name);
 			d3.selectAll("#comparisonCharts svg").remove()
 			if (JSON.stringify(selectedCollege) === JSON.stringify(currentCollege)) {
 				return twoComparisonPlots();
@@ -1027,18 +1002,11 @@ function clicked(d) {
 			.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 			.on("click", function (d) {
-				// console.log(d.Name);
-
-
 				d3.select(this)
 					.style("fill", "rgba(92, 168, 50,1)")
 					.attr("r", 10);
 
 				displayCollege(d);
-
-				// d3.select(this)
-				// .style("fill", "rgb(92, 168, 50)");
-
 
 				prev = this;
 
@@ -1046,7 +1014,6 @@ function clicked(d) {
 
 			d3.select("#c"+currentCollege.MapID).style("fill", "rgba(92, 168, 50,1)")
 					.attr("r", 10)
-
 
 			// Also want to add a key to understand what the various colors represent
 	    	var svg2 = d3.select("#correlationPlot")
@@ -1076,7 +1043,7 @@ function clicked(d) {
 	    	// 	}
 	    	// 	return arr;
 	    	// }
-	    	// so i ran the above function and found there to be 27 unique ranks
+	    	// ran the above function and found there to be 27 unique ranks
 	    	var x_pos = 0;
 	    	var uniqueRanks = [1, 2, 3, 4, 7, 8, 9, 10, 12, 14, 15, 18, 20, 21, 23, 26, 27, 29, 30, 32, 33, 34, 36, 37, 39, 41, 47];
 	    	for (var i = 0; i < 27; i++) {
@@ -1088,6 +1055,6 @@ function clicked(d) {
 	    		x_pos+=(correlwidth-padding)/27;
 	    	}
 	    				
-			</script>
-		</body>
-		</html>
+	</script>
+</body>
+</html>
