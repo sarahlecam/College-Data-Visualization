@@ -874,7 +874,6 @@
 
 	var comparedropdownDiv = document.getElementById("compareDropdown");
 
-
 	data.forEach(function (obj) {
 		comparedropdownDiv.innerHTML += "<a href='#' onClick='threeComparisonPlots("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
 	});
@@ -883,19 +882,21 @@
 
 	//Start adding comparison charts
 	function plotCompare(element_id, title, chartData) {
-		var height = 400;
-		var width = 325;
+		var height = 450;
+		var width = 350;
 		var padding = 100;
+
 		var svg = d3.select(element_id).append("svg")
-		.attr("height", height).attr("width", width).style("padding-left", "5%").style("padding-right", "5%");
+			.attr("height", height)
+			.attr("width", width);
 
 		// tooltip code from http://bl.ocks.org/biovisualize/1016860
 		var tooltip = d3.select("body")
-		.append("div")
-		.attr("class", "tooltip")
-		.style("position", "absolute")
-		.style("z-index", "10")
-		.style("visibility", "hidden");
+			.append("div")
+			.attr("class", "tooltip")
+			.style("position", "absolute")
+			.style("z-index", "10")
+			.style("visibility", "hidden");
 
 		var formatNumber = d3.format(",d");
 
@@ -908,57 +909,58 @@
 		chartData.forEach(function(d){yDomain.push(d.Attr)});
 
 		var xScale = d3.scale.ordinal()
-		.domain(xDomain)
-		.rangeRoundBands([padding, width-padding]);
+			.domain(xDomain)
+			.rangeRoundBands([padding, width-padding]);
 
 		var yScale = d3.scale.linear()
-		.domain([0, 1.5*Math.max.apply(Math, yDomain)])
-		.nice()
-		.range([height-padding, padding]);
+			.domain([0, 1.5*Math.max.apply(Math, yDomain)])
+			.nice()
+			.range([height-padding, padding]);
 
 		var xAxis = d3.svg.axis().scale(xScale).orient("bottom"),
 		yAxis = d3.svg.axis()
 			.scale(yScale)
-			.orient("left")
-			.ticks(8);
+			.orient("left");
 
 		svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
-		.call(xAxis)
-		.selectAll("text")
-		.style("opacity", 0)
-		.transition()
-		.duration(2000)
-		.style("opacity", 1)
-		.style("text-anchor","end")
-		.style("font-size","10")
-		.attr("dx","-.8em")
-		.attr("dy",".15em")
-		.attr("transform","rotate(-60)");
+			.call(xAxis)
+			.selectAll("text")
+			.style("opacity", 0)
+			.transition()
+			.duration(2000)
+			.style("opacity", 1)
+			.style("text-anchor","end")
+			.style("font-size","10")
+			.attr("dx","-.8em")
+			.attr("dy",".15em")
+			.attr("transform","rotate(-60)");
+
 		svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
-		.call(yAxis)
-		.selectAll("text")
-		.style("opacity", 0)
-		.transition()
-		.duration(1500)
-		.style("opacity", 1);
+			.call(yAxis)
+			.selectAll("text")
+			.style("opacity", 0)
+			.transition()
+			.duration(1500)
+			.style("opacity", 1);
 
 		var barwidth = (width-2*padding);
+
 		if (chartData.length == 2 || chartData.length == 4) barwidth /= 2;
 		else if (chartData.length == 3 || chartData.length == 6) barwidth /= 3;
 
 		chartData.forEach(function(d) {
 			svg.append("rect").attr("class", d.StyleClass)
-			.attr("x", xScale(d.Name))
-			.attr("y", yScale(d.Attr))
-			.attr("width", barwidth)
-			.attr("height", height - padding - yScale(d.Attr))
-			.on("mouseover", function(){return tooltip.style("visibility", "visible").text(d.HoverTitle +":\n "+formatNumber(d.Attr));})
-			.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-			.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
+				.attr("x", xScale(d.Name))
+				.attr("y", yScale(d.Attr))
+				.attr("width", barwidth)
+				.attr("height", height - padding - yScale(d.Attr))
+				.on("mouseover", function(){return tooltip.style("visibility", "visible").text(d.HoverTitle +":\n "+formatNumber(d.Attr));})
+				.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+				.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+				.style("opacity", 0)
+				.transition()
+				.duration(1000)
+				.style("opacity", 1);
 		});
 
 	}
@@ -1099,52 +1101,53 @@
 
 	// draw the x axis
 	var xAxis = d3.svg.axis()
-	.scale(x)
-		// .ticks(10)
+		.scale(x)
+		.ticks(10)
 		.orient('bottom');
 
 	// draw the x axis
 	var yAxis = d3.svg.axis()
 		.scale(y)
-		// .ticks(10)
+		.ticks(8)
 		.orient('left');
 
-		svg.append("g")
+	svg.append("g")
 		.attr("transform", "translate("+ 0 + ","+ (correlheight-padding) +")")
 		.attr("class", "axis")
 		.style("font-size", 12)
 		.call(xAxis);
 
-		svg.append("g")
+	svg.append("g")
 		.attr("transform", "translate("+ padding + ","+ 0 +")")
 		.attr("class", "axis")
 		.style("font-size", 12)
 		.call(yAxis);
 
-		// adding y-axis label
-		svg.append("text")
+	// adding y-axis label
+	svg.append("text")
 		.attr("text-anchor", "middle")
-		.attr("transform", "translate("+ (padding/3) +","+(correlheight/2)+")rotate(-90)")
+		.attr("transform", "translate("+ (padding/4) +","+(correlheight/2)+")rotate(-90)")
 		.text("Mid-Career Salary");
 
-		// adding x-axis label
-		svg.append("text")
+	// adding x-axis label
+	svg.append("text")
 		.attr("text-anchor", "middle")
 		.attr("transform", "translate("+ (correlwidth/2) +","+(correlheight- padding/3)+")")
 		.text("Average Tuition");
 
-		var circles2 = svg.append('g').selectAll("circles").data(data);
+	var circles2 = svg.append('g').selectAll("circles")
+		.data(data);
 
-		var prev = null;
+	var prev = null;
 
-		var tooltip = d3.select("body")
+	var tooltip = d3.select("body")
 		.append("div")
 		.attr("class", "tooltip")
 		.style("position", "absolute")
 		.style("z-index", "10")
 		.style("visibility", "hidden");
 
-		circles2.enter().append("circle")
+	circles2.enter().append("circle")
 		.attr("cx", function (d,i) { return x(d.AvgTuition); } )
 		.attr("cy", function (d) { return y(d.MidSalary); } )
 		.attr("id", function(d) { return "c" + d.MapID;})
@@ -1152,7 +1155,7 @@
 		.style("stroke", "rgb(70,73,76)")
 		.style("stroke-width", 0.5)
 		.style("fill", function(d) {
-				return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
+			return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 		})
 		.on("mouseover", function(d){
 			return tooltip.style("visibility", "visible").html(d.Name+"\nAverage Tuition: $"+d3.format(",d")(d.AvgTuition)+"\nMid-Career Salary: $"+d3.format(",d")(d.MidSalary));
@@ -1167,52 +1170,62 @@
 			displayCollege(d);
 
 			prev = this;
-
 		});
 
-		d3.select("#c"+currentCollege.MapID).style("fill", "rgba(92, 168, 50,1)")
-				.attr("r", 10)
-				.moveToFront();
+	// set color of default
+	d3.select("#c"+currentCollege.MapID)
+		.style("fill", "rgba(92, 168, 50,1)")
+		.attr("r", 10)
+		.moveToFront();
 
-		// Also want to add a key to understand what the various colors represent
-    	var svg2 = d3.select("#correlationPlot")
-    	.append("svg")
-    	.attr("height", 50).attr("width", correlwidth-padding);
+	// Also want to add a key to understand what the various colors represent
+	var svg2 = d3.select("#correlationPlot")
+		.append("svg")
+		.attr("height", 50).attr("width", correlwidth-padding);
 
-    	svg2.append("text").text("Key: The color of the coordinate represents its US News rank")
-    	.style("alignment-baseline", "hanging")
-    	.attr("x", 0).attr("y", 0)
-    	.style("font-size", 12);
-
-    	svg2.append("text").text("1")
+	svg2.append("text")
+		.text("Key: The color of the coordinate represents its US News rank")
 		.style("alignment-baseline", "hanging")
-    	.attr("x", 0).attr("y", 15)
-    	.style("font-size", 10);
+		.attr("x", 0).attr("y", 0)
+		.style("font-size", 13);
 
-    	svg2.append("text").text("47")
+	svg2.append("text")
+		.text("1")
+		.style("alignment-baseline", "hanging")
+		.attr("x", 0).attr("y", 15)
+		.style("font-size", 12);
+
+	svg2.append("text").text("47")
 		.style("alignment-baseline", "hanging")
 		.style("text-anchor", "end")
-    	.attr("x", correlwidth-padding).attr("y", 15)
-    	.style("font-size", 10);
+		.attr("x", correlwidth-padding).attr("y", 15)
+		.style("font-size", 12);
 
-    	// function uniqueRanks() {
-    	// 	var arr = [];
-    	// 	for (var i = 1; i < 50; i++) {
-    	// 		if (data[i].Rank != data[i-1].Rank) arr.push(data[i].Rank);
-    	// 	}
-    	// 	return arr;
-    	// }
-    	// ran the above function and found there to be 27 unique ranks
-    	var x_pos = 0;
-    	var uniqueRanks = [1, 2, 3, 4, 7, 8, 9, 10, 12, 14, 15, 18, 20, 21, 23, 26, 27, 29, 30, 32, 33, 34, 36, 37, 39, 41, 47];
-    	for (var i = 0; i < 27; i++) {
-    		svg2.append("rect")
-    		.attr("x", x_pos).attr("y", 25)
-    		.attr("width", (correlwidth-padding)/27).attr("height", 25)
-    		.style("fill", "rgba(45,58,71," + (50 - uniqueRanks[i]) / 50 +")");
+	// function uniqueRanks() {
+	// 	var arr = [];
+	// 	for (var i = 1; i < 50; i++) {
+	// 		if (data[i].Rank != data[i-1].Rank) arr.push(data[i].Rank);
+	// 	}
+	// 	return arr;
+	// }
 
-    	x_pos+=(correlwidth-padding)/27;
-    }
+	// ran the above function and found there to be 27 unique ranks
+
+	var x_pos = 0;
+
+	var uniqueRanks = [1, 2, 3, 4, 7, 8, 9, 10, 12, 14, 15, 18, 20, 21, 23, 26, 27, 29, 30, 32, 33, 34, 36, 37, 39, 41, 47];
+
+	for (var i = 0; i < 27; i++) {
+		svg2.append("rect")
+			.attr("x", x_pos).attr("y", 25)
+			.attr("width", (correlwidth-padding)/27).attr("height", 25)
+			.style("fill", "rgba(45,58,71," + (50 - uniqueRanks[i]) / 50 +")");
+
+		x_pos+=(correlwidth-padding)/27;
+	}
+
+
+
 	    				
 	</script>
 </body>

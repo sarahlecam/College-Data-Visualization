@@ -314,7 +314,7 @@ path {
 #comparisonCharts {
   text-align: center;
   display: inline-block;
-  margin-left: -5%;
+  /*margin-left: -5%;*/
 }
 
 #chart {
