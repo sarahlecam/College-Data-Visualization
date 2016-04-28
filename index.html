@@ -217,135 +217,142 @@
 	// MAP
 
 	// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
+
 	// set up map
 	var mapWidth = 700, mapHeight = 480, centered;
 
+	// getting geo data
 	var projection = d3.geo.albersUsa()
-	.scale(900)
-	.translate([mapWidth / 2, mapHeight / 2]);
+		.scale(900)
+		.translate([mapWidth / 2, mapHeight / 2]);
 
 	var path = d3.geo.path()
-	.projection(projection);
+		.projection(projection);
 
 	var svg = d3.select("#map").append("svg")
-	.attr("width", mapWidth)
-	.attr("height", mapHeight);
-	    // .style("background-color", "#d3d3d3")
+		.attr("width", mapWidth)
+		.attr("height", mapHeight);
 
-	    var g = svg.append("g");
+    var g = svg.append("g");
 
-	    var old_click = null;
-
-	    var old_circ = null;
+    var old_click = null;
 
 	//map from bl.ocks.org/mbostock/raw/4090846/us.json
 	d3.json("us.json", function(error, us) { 
 		if (error) throw error;
-		g.append("g")
-		.attr("id", "states")
-		.selectAll("path")
-		.data(topojson.feature(us, us.objects.states).features)
-		.enter().append("path")
-		.attr("d", path)
-		.on("click", function (d) {
-			clicked(d);
-			if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
-			else d3.select(this).style("fill", "rgb(176,220,79)");	
 
-			old_click = this;
-		})
-		.on("mouseout", function() {
-				// d3.select(this).style("fill", "rgb(197,195,198)");
-				// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
+		// adding states
+		g.append("g")
+			.attr("id", "states")
+			.selectAll("path")
+			.data(topojson.feature(us, us.objects.states).features)
+			.enter().append("path")
+			.attr("d", path)
+			.on("click", function (d) {
+				clicked(d);
+
+				// set color of state when it's clicked on or not
+				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+				else d3.select(this).style("fill", "rgb(176,220,79)");	
+
+				old_click = this;
+			})
+			.on("mouseout", function() {
+				// updating coloring
 				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
 				else d3.select(this).style("fill", "rgb(176,220,79)");	
 			})
-		.on("mouseover", function() {
-			if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
-			else d3.select(this).style("fill", "rgb(176,220,79)");	
+			.on("mouseover", function() {
+				// highlight the selected state when hovering above it
+				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
+				else d3.select(this).style("fill", "rgb(176,220,79)");	
 
-		})
-		.style("opacity", 0)
-		.transition()
-		.duration(1000)
-		.style("opacity", 1);
-		// .style('fill', function () {
-
-		// })
-		  // .call("mouseover");
-
-		  g.append("path")
-		  .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-		  .attr("id", "state-borders")
-		  .attr("d", path)
-		  .style("opacity", 0)
-		  .transition()
-		  .duration(1000)
-		  .style("opacity", 1);
-		});
-
-circles = svg.selectAll(".point").data(data);
-
-var loading = true;
-var largeRadius = true;
-
-function clicked(d) {
-	if (old_click != null) {
-		d3.select(old_click).style("fill", "rgb(197,195,198)");
-	}
-	if (!loading) {
-		var x, y, k;
-
-		if (d && centered !== d) {
-			var centroid = path.centroid(d);
-			x = centroid[0];
-			y = centroid[1];
-			k = 3;
-			centered = d;
-			largeRadius = true;
-		} else {
-			x = mapWidth / 2;
-			y = mapHeight / 2;
-			k = 1;
-			centered = null;
-			largeRadius = false;
-		}
-
-		g.selectAll("path")
-		.classed("active", centered && function(d) { return d === centered; });
-
-		g.transition()
-		.duration(750)
-		.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-		.style("stroke-width", 1.5 / k + "px");
-
-		if (largeRadius) {
-			circles.transition()
-			.duration(750)
-			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			.style("stroke-width", 1.5 / k + "px")
-			.attr("r", 1.3);
-
-			d3.selectAll(".point")
-			.classed("largeRadius", false)
-			.classed("smallRadius", true);
-		}
-
-		else {
-
-			circles
+			})
+			// transition in the map
+			.style("opacity", 0)
 			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+
+		// appending borders
+		g.append("path")
+			.datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+			.attr("id", "state-borders")
+			.attr("d", path)
+			// transition
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+	});
+
+
+	// ZOOM-IN EFFECT
+
+	// selecting all of the colege data points
+	circles = svg.selectAll(".point").data(data);
+
+	var loading = false;
+	var largeRadius = false;
+
+	function clicked(d) {
+		if (old_click != null) {
+			d3.select(old_click).style("fill", "rgb(197,195,198)");
+		}
+		if (!loading) {
+			var x, y, k;
+
+			if (d && centered !== d) {
+				var centroid = path.centroid(d);
+				x = centroid[0];
+				y = centroid[1];
+				k = 3;
+				centered = d;
+				largeRadius = true;
+			} else {
+				x = mapWidth / 2;
+				y = mapHeight / 2;
+				k = 1;
+				centered = null;
+				largeRadius = false;
+			}
+
+			g.selectAll("path")
+			.classed("active", centered && function(d) { return d === centered; });
+
+			g.transition()
 			.duration(750)
 			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			.style("stroke-width", 1.5 / k + "px")
-			.attr("r", 4);
+			.style("stroke-width", 1.5 / k + "px");
 
-			d3.selectAll(".point")
-			.classed("largeRadius", true)
-			.classed("smallRadius", false);
+			if (largeRadius) {
+				circles.transition()
+				.duration(750)
+				.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+				.style("stroke-width", 1.5 / k + "px")
+				.attr("r", 1.3);
+
+				d3.selectAll(".point")
+				.classed("largeRadius", false)
+				.classed("smallRadius", true);
+			}
+
+			else {
+
+				circles
+				.transition()
+				.duration(750)
+				.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+				.style("stroke-width", 1.5 / k + "px")
+				.attr("r", 4);
+
+				d3.selectAll(".point")
+				.classed("largeRadius", true)
+				.classed("smallRadius", false);
+			}
 		}
 	}
-}
+		var old_circ = null;
 
 		// needed to set timeout so that the points don't load behind the map...
 		function addCoords() {
