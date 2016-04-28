@@ -107,6 +107,7 @@
 		// button_text.innerHTML = "Click to display a list of all colleges";
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
+		// inspired by http://www.unknownerror.org/opensource/mbostock/d3/q/stackoverflow/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
 		d3.selection.prototype.moveToFront = function() {
   				return this.each(function(){
    					 this.parentNode.appendChild(this);
@@ -116,7 +117,7 @@
 		function displayCollege(obj) {
 			if (old_circ != null) {
 				d3.select("#"+currentCollege.MapID)
-					.style("fill", "rgb(45,58,71)").attr("r", 4);
+					.style("fill", "rgb(45,58,71)");
 				d3.select("#"+ "c"+currentCollege.MapID)
 					.style("fill", function(d) {
 						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
@@ -133,11 +134,10 @@
 				.attr("r", 10)
 				.moveToFront();
 			d3.select("#"+obj.MapID)
-				.style("fill", "rgb(92, 168, 50)")
-				.moveToFront();
+				.moveToFront()
+				.style("fill", "rgb(92, 168, 50)");
 
-			old_circ = "#"+obj.MapID;
-			currentCollege = obj;
+		
 			d3.selectAll("#comparisonCharts svg").remove()
 			twoComparisonPlots();
 			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
@@ -145,6 +145,9 @@
 			} else textCollegeData();
 			if (largeRadius) clicked(null);
 			button_text.innerHTML = currentCollege.Name;
+
+			old_circ = "#"+obj.MapID;
+			currentCollege = obj;
 		}
 
 		// first set up links in dropdown
@@ -417,7 +420,7 @@
 			    .attr("d", arc)
 			    .attr("fill-rule", "evenodd")
 			    .style("fill", function(d) { return colors[d.name]; })
-			    .on("mouseover", mouseover)
+			    .on("mouseenter", mouseover)
 			    .style("opacity", 0)
 				.transition()
 				.duration(1000)
@@ -635,7 +638,7 @@
 			  .attr("d", path)
 			  .style("opacity", 0)
 			  .transition()
-			  .duration(2000)
+			  .duration(1000)
 			  .style("opacity", 1);
 			});
 
@@ -687,7 +690,9 @@ function clicked(d) {
 		}
 
 		else {
-			circles.transition()
+
+			circles
+			.transition()
 			.duration(750)
 			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 			.style("stroke-width", 1.5 / k + "px")
@@ -723,6 +728,7 @@ function clicked(d) {
 			})
 			.on("click", function (d) {
 				displayCollege(d);
+
 				old_circ = this;
 				//d3.select(this).classed("clickedOn", true);
 			})
@@ -734,7 +740,7 @@ function clicked(d) {
 			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)")
 				.moveToFront();
 		};
-		setTimeout(addCoords, 500);
+		setTimeout(addCoords, 300);
 		displayCollege(currentCollege);
 		d3.select("#button_text").text("Select a college from list");
 		d3.select("#dropdown_id").text("Select a college to compare");
