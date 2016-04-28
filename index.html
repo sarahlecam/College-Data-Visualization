@@ -18,12 +18,18 @@
 		</div>
 		<div id="text">
 			<p>
-				<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. <br><br><b>The data.</b> Our visualization shows the most relevant statistics for each of US News' Top 50 colleges and compares these against averages of the aggregate and of each other college.<br><br><b>The conclusion.</b> The following visualizations show that higher expenses, especially tuition, do not always guarantee higher salary and satisfaction post-graduation.
+				<b>The story.</b> In recent years, the cost of college of college has skyrocketed, leaving many qualified candidates unable to afford high tuition fees and the opportunity cost of forgoing employment. 
+				<br><br>
+
+				<b>The data.</b> Our visualization shows the most relevant statistics for each of US News' Top 50 colleges and compares these against averages of the aggregate and of each other college.
+				<br><br>
+
+				<b>The conclusion.</b> The following visualizations show that higher expenses, especially tuition, do not always guarantee higher salary and satisfaction post-graduation.
+
 			</p>
 		</div>
 
 		<nav id="nav">
-			<!-- <span id="projectTitle">INFO/CS3300 - Project 2</span> -->
 			<h3>Select a College</h3>
 			<p>View each college's data by selecting a coordinate on the map or from the dropdown list below. </p>
 			<a id = "button_text" href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('myDropdown')">Select a college from list</a>
@@ -59,29 +65,29 @@
 					<p id = "costliving"></p>
 					<p id = "startingsalary"></p>
 					<p id = "midsalary"></p>
-
 					<p id="chartTitle"></p>
 					<p id="chartValue"></p>
 					<div id="chart">
 						<div id="explanation">
-							<!-- <div id="explanation" style="visibility: hidden;"> -->
 							<span id="percentage"></span><br/>
 							<!-- of visits begin with this sequence of pages -->
 							<span id="percentageExplanation"></span>
 						</div>
 					</div>
 				</div>
-
 			</div>
 
+		</section>
+
+		<section>
 			<div id="comparison">
 				<h3>Compare Colleges</h3>
 				<p>Compare selected college to the average of the top fifty colleges in the nation.</p>
 				<a id = "dropdown_id" href="javascript:void(0)" class="dropbtn" onclick="dropdownFunc('compareDropdown')">Select a college to compare</a>
 				<div class="dropdown-content" id="compareDropdown">
 				</div>
+				<div id="comparisonCharts"></div>
 			</div>
-			<div id="comparisonCharts"></div>
 		</section>
 
 		<section>
@@ -90,16 +96,21 @@
 			</div>
 		</section>
 
-
-		<div id="footer">
-			<h2>INFO/CS 3300</h2>
-			<h3>Project 2</h3>
-			<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
-		</div>
+		<section>
+			<div id="footer">
+				<h2>INFO/CS 3300</h2>
+				<h3>Project 2</h3>
+				<h4>Ariel Gleitman&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Hanna Ramsden&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Sarah Le Cam</h4>
+			</div>
+		</section>
 	</div>
 
-	<script>
 
+
+
+
+	<script>
+	
 	for (var i = 0; i < 50; i++) {
 		data[i].MapID = "school" + i;
 	}
