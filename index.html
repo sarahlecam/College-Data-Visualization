@@ -107,65 +107,292 @@
 
 
 
-
-
 	<script>
-	
+
+
+	// DATA SETTUP
+
+	// setting map id for identifying data points on visualizations
 	for (var i = 0; i < 50; i++) {
 		data[i].MapID = "school" + i;
 	}
 
-		// button_text.innerHTML = "Select a college from list";
-		var currentCollege = data[14]; // default is, you guessed it, Cornell!
+	var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
-		// inspired by http://www.unknownerror.org/opensource/mbostock/d3/q/stackoverflow/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
-		d3.selection.prototype.moveToFront = function() {
-  				return this.each(function(){
-   					 this.parentNode.appendChild(this);
- 				 });
-		};
 
-		function displayCollege(obj) {
-			if (old_circ != null) {
-				d3.select("#"+currentCollege.MapID)
-					.style("fill", "rgb(45,58,71)");
-				d3.select("#"+ "c"+currentCollege.MapID)
-					.style("fill", function(d) {
-						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
-					})
-					.attr("r", 6);
+	// MOVE TO FRONT
+
+	// moves data point to front in visualization
+	// inspired by http://www.unknownerror.org/opensource/mbostock/d3/q/stackoverflow/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
+	d3.selection.prototype.moveToFront = function() {
+		return this.each(function(){
+			 this.parentNode.appendChild(this);
+		 });
+	};
+
+
+	// DROPDOWN MENU
+
+	// first set up links in dropdown menu
+	var dropdownDiv = document.getElementById("myDropdown");
+	data.forEach(function (obj) {
+		dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+	});
+
+	// drop down menu code: http://www.w3schools.com/howto/howto_js_dropdown.asp
+	/* When the user clicks on the button, 
+	toggle between hiding and showing the dropdown content */
+	function dropdownFunc(element_id) {
+		document.getElementById(element_id).classList.toggle("show");
+	}
+
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(e) {
+		if (!e.target.matches('.dropbtn')) {
+
+			var dropdowns = document.getElementsByClassName("dropdown-content");
+			for (var d = 0; d < dropdowns.length; d++) {
+				var openDropdown = dropdowns[d];
+				if (openDropdown.classList.contains('show')) {
+					openDropdown.classList.remove('show');
+				}
 			}
+		}
+	}
 
 
+	// DISPLAYING COLLEGE
 
+	function displayCollege(obj) {
 
-			d3.select("#"+"c" + obj.MapID)
-				.style("fill", "rgba(92, 168, 50,1)")
-				.attr("r", 10)
-				.moveToFront();
-			d3.select("#"+obj.MapID)
-				.moveToFront()
-				.style("fill", "rgb(92, 168, 50)");
+		// if college is already selected
+		if (old_circ != null) {
+			// change color back to dark blue on map
+			d3.select("#"+currentCollege.MapID)
+				.style("fill", "rgb(45,58,71)");
 
-			
-			old_circ = "#"+obj.MapID;
-			currentCollege = obj;
-			
-			d3.selectAll("#comparisonCharts svg").remove()
-			twoComparisonPlots();
-			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
-				chartCollegeData();
-			} else textCollegeData();
-			if (largeRadius) clicked(null);
-			button_text.innerHTML = currentCollege.Name;
-
+			// change color back to shade and size in correlation graph
+			d3.select("#"+ "c"+currentCollege.MapID)
+				.style("fill", function(d) {
+					return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
+				})
+				.attr("r", 6);
 		}
 
-		// first set up links in dropdown
-		var dropdownDiv = document.getElementById("myDropdown");
-		data.forEach(function (obj) {
-			dropdownDiv.innerHTML += "<a href='#' onClick='displayCollege("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+		// change color of current college on map and move to front to better see the circle
+		d3.select("#"+obj.MapID)
+			.moveToFront()
+			.style("fill", "rgb(92, 168, 50)");
+
+		// change color, move to front and increase size in correlation map
+		d3.select("#"+"c" + obj.MapID)
+			.style("fill", "rgba(92, 168, 50,1)")
+			.attr("r", 10)
+			.moveToFront();
+
+		// set old circle to new object div id
+		old_circ = "#"+obj.MapID;
+		// set current college to object
+		currentCollege = obj;
+
+		// zooming out when college is selected
+		if (largeRadius) clicked(null);
+
+		// display college name in drop down 
+		button_text.innerHTML = currentCollege.Name;
+
+		// displaying data in side info card
+		if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
+			chartCollegeData();
+		} else textCollegeData();
+		
+		// remove previous charts
+		d3.selectAll("#comparisonCharts svg").remove()
+		// add new charts for current college
+		twoComparisonPlots();
+
+	}
+
+
+	// MAP
+
+	// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
+	// set up map
+	var mapWidth = 700, mapHeight = 480, centered;
+
+	var projection = d3.geo.albersUsa()
+	.scale(900)
+	.translate([mapWidth / 2, mapHeight / 2]);
+
+	var path = d3.geo.path()
+	.projection(projection);
+
+	var svg = d3.select("#map").append("svg")
+	.attr("width", mapWidth)
+	.attr("height", mapHeight);
+	    // .style("background-color", "#d3d3d3")
+
+	    var g = svg.append("g");
+
+	    var old_click = null;
+
+	    var old_circ = null;
+
+	//map from bl.ocks.org/mbostock/raw/4090846/us.json
+	d3.json("us.json", function(error, us) { 
+		if (error) throw error;
+		g.append("g")
+		.attr("id", "states")
+		.selectAll("path")
+		.data(topojson.feature(us, us.objects.states).features)
+		.enter().append("path")
+		.attr("d", path)
+		.on("click", function (d) {
+			clicked(d);
+			if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+			else d3.select(this).style("fill", "rgb(176,220,79)");	
+
+			old_click = this;
+		})
+		.on("mouseout", function() {
+				// d3.select(this).style("fill", "rgb(197,195,198)");
+				// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
+				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
+				else d3.select(this).style("fill", "rgb(176,220,79)");	
+			})
+		.on("mouseover", function() {
+			if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
+			else d3.select(this).style("fill", "rgb(176,220,79)");	
+
+		})
+		.style("opacity", 0)
+		.transition()
+		.duration(1000)
+		.style("opacity", 1);
+		// .style('fill', function () {
+
+		// })
+		  // .call("mouseover");
+
+		  g.append("path")
+		  .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+		  .attr("id", "state-borders")
+		  .attr("d", path)
+		  .style("opacity", 0)
+		  .transition()
+		  .duration(1000)
+		  .style("opacity", 1);
 		});
+
+circles = svg.selectAll(".point").data(data);
+
+var loading = true;
+var largeRadius = true;
+
+function clicked(d) {
+	if (old_click != null) {
+		d3.select(old_click).style("fill", "rgb(197,195,198)");
+	}
+	if (!loading) {
+		var x, y, k;
+
+		if (d && centered !== d) {
+			var centroid = path.centroid(d);
+			x = centroid[0];
+			y = centroid[1];
+			k = 3;
+			centered = d;
+			largeRadius = true;
+		} else {
+			x = mapWidth / 2;
+			y = mapHeight / 2;
+			k = 1;
+			centered = null;
+			largeRadius = false;
+		}
+
+		g.selectAll("path")
+		.classed("active", centered && function(d) { return d === centered; });
+
+		g.transition()
+		.duration(750)
+		.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+		.style("stroke-width", 1.5 / k + "px");
+
+		if (largeRadius) {
+			circles.transition()
+			.duration(750)
+			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			.style("stroke-width", 1.5 / k + "px")
+			.attr("r", 1.3);
+
+			d3.selectAll(".point")
+			.classed("largeRadius", false)
+			.classed("smallRadius", true);
+		}
+
+		else {
+
+			circles
+			.transition()
+			.duration(750)
+			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+			.style("stroke-width", 1.5 / k + "px")
+			.attr("r", 4);
+
+			d3.selectAll(".point")
+			.classed("largeRadius", true)
+			.classed("smallRadius", false);
+		}
+	}
+}
+
+		// needed to set timeout so that the points don't load behind the map...
+		function addCoords() {
+			circles.enter().append("circle")
+			.attr("class", "point")
+			.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
+			.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
+			.attr("id", function(d) { return d.MapID;})
+			.attr("r", 4)
+			.style("stroke", "rgb(220,220,221)")
+			.style("stroke-width", 1.5)
+			.style("fill", "rgb(45,58,71)")
+			.classed("largeRadius", true) // https://groups.google.com/forum/#!topic/d3-js/NcvfRGo_TMc
+			.on("mouseover", function (d) {
+				d3.select("#collegeName").text(d.Name);
+				d3.select("#location").text(d.City);
+				this.parentElement.appendChild(this);
+			})
+			.on("mouseout", function (d) {
+				d3.select("#collegeName").text("Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.")
+				d3.select("#location").text(".");
+			})
+			.on("click", function (d) {
+				displayCollege(d);
+
+				old_circ = this;
+				//d3.select(this).classed("clickedOn", true);
+			})
+			.style("opacity", 0)
+			.transition()
+			.duration(1000)
+			.style("opacity", 1);
+			loading = false;
+			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)")
+				.moveToFront();
+		};
+		setTimeout(addCoords, 500);
+		displayCollege(currentCollege);
+		d3.select("#button_text").text("Select a college from list");
+		d3.select("#dropdown_id").text("Select a college to compare");
+
+		var comparedropdownDiv = document.getElementById("compareDropdown");
+		data.forEach(function (obj) {
+			comparedropdownDiv.innerHTML += "<a href='#' onClick='threeComparisonPlots("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
+		});
+
+	// DISPLAY INFO
 
 		// function to show cornell text data
 		function textCollegeData() {
@@ -564,202 +791,6 @@
 			}
 		}
 
-		// drop down menu code: http://www.w3schools.com/howto/howto_js_dropdown.asp
-		/* When the user clicks on the button, 
-		toggle between hiding and showing the dropdown content */
-		function dropdownFunc(element_id) {
-			document.getElementById(element_id).classList.toggle("show");
-		}
-
-		// Close the dropdown if the user clicks outside of it
-		window.onclick = function(e) {
-			if (!e.target.matches('.dropbtn')) {
-
-				var dropdowns = document.getElementsByClassName("dropdown-content");
-				for (var d = 0; d < dropdowns.length; d++) {
-					var openDropdown = dropdowns[d];
-					if (openDropdown.classList.contains('show')) {
-						openDropdown.classList.remove('show');
-					}
-				}
-			}
-		}
-
-		// zoom map from http://bl.ocks.org/mbostock/2206590 and http://stackoverflow.com/questions/28823152/d3-js-map-zoom-behaviors-in-canvas-and-svg
-		// set up map
-		var mapWidth = 700, mapHeight = 480, centered;
-
-		var projection = d3.geo.albersUsa()
-		.scale(900)
-		.translate([mapWidth / 2, mapHeight / 2]);
-
-		var path = d3.geo.path()
-		.projection(projection);
-
-		var svg = d3.select("#map").append("svg")
-		.attr("width", mapWidth)
-		.attr("height", mapHeight);
-		    // .style("background-color", "#d3d3d3")
-
-		    var g = svg.append("g");
-
-		    var old_click = null;
-
-		    var old_circ = null;
-
-		//map from bl.ocks.org/mbostock/raw/4090846/us.json
-		d3.json("us.json", function(error, us) { 
-			if (error) throw error;
-			g.append("g")
-			.attr("id", "states")
-			.selectAll("path")
-			.data(topojson.feature(us, us.objects.states).features)
-			.enter().append("path")
-			.attr("d", path)
-			.on("click", function (d) {
-				clicked(d);
-				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
-				else d3.select(this).style("fill", "rgb(176,220,79)");	
-
-				old_click = this;
-			})
-			.on("mouseout", function() {
-					// d3.select(this).style("fill", "rgb(197,195,198)");
-					// if we want to have it so that the states that we're currently clicked on have the dark green instead of only having the state change color if we are hovering over it, uncomment the lines below and comment the line above.
-					if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "rgb(197,195,198)");
-					else d3.select(this).style("fill", "rgb(176,220,79)");	
-				})
-			.on("mouseover", function() {
-				if (!d3.select(this).classed("active"))	d3.select(this).style("fill", "#e2f2bf");
-				else d3.select(this).style("fill", "rgb(176,220,79)");	
-
-			})
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-			// .style('fill', function () {
-
-			// })
-			  // .call("mouseover");
-
-			  g.append("path")
-			  .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-			  .attr("id", "state-borders")
-			  .attr("d", path)
-			  .style("opacity", 0)
-			  .transition()
-			  .duration(1000)
-			  .style("opacity", 1);
-			});
-
-circles = svg.selectAll(".point").data(data);
-
-var loading = true;
-var largeRadius = true;
-
-function clicked(d) {
-	if (old_click != null) {
-		d3.select(old_click).style("fill", "rgb(197,195,198)");
-	}
-	if (!loading) {
-		var x, y, k;
-
-		if (d && centered !== d) {
-			var centroid = path.centroid(d);
-			x = centroid[0];
-			y = centroid[1];
-			k = 3;
-			centered = d;
-			largeRadius = true;
-		} else {
-			x = mapWidth / 2;
-			y = mapHeight / 2;
-			k = 1;
-			centered = null;
-			largeRadius = false;
-		}
-
-		g.selectAll("path")
-		.classed("active", centered && function(d) { return d === centered; });
-
-		g.transition()
-		.duration(750)
-		.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-		.style("stroke-width", 1.5 / k + "px");
-
-		if (largeRadius) {
-			circles.transition()
-			.duration(750)
-			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			.style("stroke-width", 1.5 / k + "px")
-			.attr("r", 1.3);
-
-			d3.selectAll(".point")
-			.classed("largeRadius", false)
-			.classed("smallRadius", true);
-		}
-
-		else {
-
-			circles
-			.transition()
-			.duration(750)
-			.attr("transform", "translate(" + mapWidth / 2 + "," + mapHeight / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-			.style("stroke-width", 1.5 / k + "px")
-			.attr("r", 4);
-
-			d3.selectAll(".point")
-			.classed("largeRadius", true)
-			.classed("smallRadius", false);
-		}
-	}
-}
-
-		// needed to set timeout so that the points don't load behind the map...
-		function addCoords() {
-			circles.enter().append("circle")
-			.attr("class", "point")
-			.attr("cx", function(d) { return projection([d.Longitude, d.Latitude])[0]; })
-			.attr("cy", function(d) { return projection([d.Longitude, d.Latitude])[1]; })
-			.attr("id", function(d) { return d.MapID;})
-			.attr("r", 4)
-			.style("stroke", "rgb(220,220,221)")
-			.style("stroke-width", 1.5)
-			.style("fill", "rgb(45,58,71)")
-			.classed("largeRadius", true) // https://groups.google.com/forum/#!topic/d3-js/NcvfRGo_TMc
-			.on("mouseover", function (d) {
-				d3.select("#collegeName").text(d.Name);
-				d3.select("#location").text(d.City);
-				this.parentElement.appendChild(this);
-			})
-			.on("mouseout", function (d) {
-				d3.select("#collegeName").text("Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.")
-				d3.select("#location").text(".");
-			})
-			.on("click", function (d) {
-				displayCollege(d);
-
-				old_circ = this;
-				//d3.select(this).classed("clickedOn", true);
-			})
-			.style("opacity", 0)
-			.transition()
-			.duration(1000)
-			.style("opacity", 1);
-			loading = false;
-			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)")
-				.moveToFront();
-		};
-		setTimeout(addCoords, 500);
-		displayCollege(currentCollege);
-		d3.select("#button_text").text("Select a college from list");
-		d3.select("#dropdown_id").text("Select a college to compare");
-
-		var comparedropdownDiv = document.getElementById("compareDropdown");
-		data.forEach(function (obj) {
-			comparedropdownDiv.innerHTML += "<a href='#' onClick='threeComparisonPlots("+JSON.stringify(obj)+")'>"+obj.Name+"</a>";
-		});
 
 		//Start adding comparison charts
 		function plotCompare(element_id, title, chartData) {
