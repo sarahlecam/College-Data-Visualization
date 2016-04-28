@@ -107,6 +107,12 @@
 		// button_text.innerHTML = "Click to display a list of all colleges";
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
+		d3.selection.prototype.moveToFront = function() {
+  				return this.each(function(){
+   					 this.parentNode.appendChild(this);
+ 				 });
+		};
+
 		function displayCollege(obj) {
 			if (old_circ != null) {
 				d3.select("#"+currentCollege.MapID)
@@ -116,14 +122,20 @@
 						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 					})
 					.attr("r", 6);
+
 			}
+
+
 
 
 			d3.select("#"+"c" + obj.MapID)
 				.style("fill", "rgba(92, 168, 50,1)")
-				.attr("r", 10);
+				.attr("r", 10)
+				.moveToFront();
 			d3.select("#"+obj.MapID)
-				.style("fill", "rgb(92, 168, 50)");
+				.style("fill", "rgb(92, 168, 50)")
+				.moveToFront();
+
 			old_circ = "#"+obj.MapID;
 			currentCollege = obj;
 			d3.selectAll("#comparisonCharts svg").remove()
@@ -671,7 +683,7 @@ function clicked(d) {
 
 			d3.selectAll(".point")
 			.classed("largeRadius", false)
-			.classed("smallRadius", true)
+			.classed("smallRadius", true);
 		}
 
 		else {
@@ -703,15 +715,15 @@ function clicked(d) {
 			.on("mouseover", function (d) {
 				d3.select("#collegeName").text(d.Name);
 				d3.select("#location").text(d.City);
+				this.parentElement.appendChild(this);
 			})
 			.on("mouseout", function (d) {
 				d3.select("#collegeName").text("Click on a state to zoom in or out on it and on any coordinate to learn more about the college in that city.")
 				d3.select("#location").text(".");
 			})
 			.on("click", function (d) {
-
-					displayCollege(d);
-					old_circ = this;
+				displayCollege(d);
+				old_circ = this;
 				//d3.select(this).classed("clickedOn", true);
 			})
 			.style("opacity", 0)
@@ -719,7 +731,8 @@ function clicked(d) {
 			.duration(1000)
 			.style("opacity", 1);
 			loading = false;
-			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)");
+			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)")
+				.moveToFront();
 		};
 		setTimeout(addCoords, 500);
 		displayCollege(currentCollege);
@@ -1014,6 +1027,7 @@ function clicked(d) {
 
 			d3.select("#c"+currentCollege.MapID).style("fill", "rgba(92, 168, 50,1)")
 					.attr("r", 10)
+					.moveToFront();
 
 			// Also want to add a key to understand what the various colors represent
 	    	var svg2 = d3.select("#correlationPlot")
