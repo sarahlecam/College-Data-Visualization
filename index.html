@@ -104,7 +104,7 @@
 		data[i].MapID = "school" + i;
 	}
 
-		// button_text.innerHTML = "Click to display a list of all colleges";
+		// button_text.innerHTML = "Select a college from list";
 		var currentCollege = data[14]; // default is, you guessed it, Cornell!
 
 		// inspired by http://www.unknownerror.org/opensource/mbostock/d3/q/stackoverflow/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
@@ -123,7 +123,6 @@
 						return "rgba(45,58,71," + (50 - d.Rank) / 50 +")";
 					})
 					.attr("r", 6);
-
 			}
 
 
@@ -137,7 +136,10 @@
 				.moveToFront()
 				.style("fill", "rgb(92, 168, 50)");
 
-		
+			
+			old_circ = "#"+obj.MapID;
+			currentCollege = obj;
+			
 			d3.selectAll("#comparisonCharts svg").remove()
 			twoComparisonPlots();
 			if (d3.select('input[name="infotype"]:checked').node().value == "ringchart") {
@@ -146,8 +148,6 @@
 			if (largeRadius) clicked(null);
 			button_text.innerHTML = currentCollege.Name;
 
-			old_circ = "#"+obj.MapID;
-			currentCollege = obj;
 		}
 
 		// first set up links in dropdown
@@ -740,7 +740,7 @@ function clicked(d) {
 			d3.select("#"+currentCollege.MapID).style("fill", "rgb(92, 168, 50)")
 				.moveToFront();
 		};
-		setTimeout(addCoords, 300);
+		setTimeout(addCoords, 500);
 		displayCollege(currentCollege);
 		d3.select("#button_text").text("Select a college from list");
 		d3.select("#dropdown_id").text("Select a college to compare");
@@ -796,7 +796,7 @@ function clicked(d) {
 			.selectAll("text")
 			.style("opacity", 0)
 			.transition()
-			.duration(1000)
+			.duration(2000)
 			.style("opacity", 1)
 			.style("text-anchor","end")
 			.style("font-size","10")
