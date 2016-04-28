@@ -740,7 +740,9 @@
 	    	var percentageString = "";
 	    	if (d.displayNumber) {
 	    		if (d.name == "Total Student Body" || d.name == "Average Number of Students on Financial Aid" || d.name == "In State Students" || d.name == "Out of State Students") {
-	    				percentageString = d3.format(",d")(d.size);
+	    				if (d.name == "Average Number of Students on Financial Aid") {
+	    					percentageString = d3.format(",04d")(((d.size) /(currentCollege.TotalStudentBody)*100).toFixed(0)) + "%";
+	    				} else percentageString = d3.format(",d")(d.size);
 	    		} else percentageString = "$"+d3.format(",d")(d.size);
 	    	
 	    		d3.select("#percentage").text(percentageString);
